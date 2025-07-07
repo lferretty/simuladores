@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descuento de cheques</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='black' viewBox='0 0 16 16'><path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z'/></svg>">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+
+        <div id="fondo-fijo"></div>
+
+    <header>
+
+        <div class="title-container">
+            <img id="logoAVFE" src="imagenes/logoAVFE.jpg" alt="">
+            <h1>SIMULADOR <span> Descuento de Cheques </span></h1>
+        </div>
+
+        <section id="carga" class="centrar">
+            <div id="inputsContainer" class="centrar celeste">
+                <label for="monto">Monto $: <input type="number" id="monto"> </label>
+                <label for="fecha">Fecha: <input type="date" id="fecha"> </label>
+                <button id="btnAgregar" class="botones"> ➕ <span class="ocultoEnCelu">Simular</span> </button>
+            </div>
+        </section>
+
+    </header>
+
+    <div id="alertas" class="centrar"></div>
+    <main>
+
+        <div class="big-container">
+            <section id="detalle" class="centrar">
+                <table id="tablaInstrumentos" class="centrar">
+                    <thead>
+                        <tr>
+                            <th class="ocultoEnCelu ocultarNroItem">#</th>
+                            <th>Monto</th>
+                            <th>Fecha</th>
+                            <th class="ocultoEnCelu">Plazo</th>
+                            <th>Tasa</th>
+                            <th>CFTa</th>
+                            <th class="ocultoEnCelu">Interés</th>
+                            <th class="ocultoEnCelu">Gastos</th>
+                            <th class="ocultoEnCelu">Com SGR</th>
+                            <th>Neto</th>
+                            <th style="border: none; background-color: transparent;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="grilla" class="centrar">
+                    </tbody>
+                    <tfoot class="ocultoEnCelu oculto">
+                        <tr>
+                            <td style="border-bottom: none; background-color: transparent;border-left: none;"> </td>
+                            <td id="totalMonto"><strong>$ 0</strong></td>
+                            <td style="border-bottom: none; background-color: transparent;" colspan="4" id="tdColspan">
+                            </td>
+                            <td id="totalDescuento"></td>
+                            <td id="totalGastos"></td>
+                            <td id="totalComSGR"></td>
+                            <td id="totalNeto"><strong>$ 0</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </section>
+
+            <section id="resumenOperacion" class="centrar"> </section>
+
+            <div class="printerContainer">
+                <button id="btnImprimir" class="botones centrar" title="Imprimir" onclick="window.print()"> 🖨️ Imprimir
+                </button>
+                <button id="btnExportarExcel" class="botones centrar" title="Genera un archivo .xlsx">
+                    <img src="imagenes/excel-icon.png" alt="" width="16px"> Exportar a Excel
+                </button>
+            </div>
+
+
+            <div class="nota">
+                <p>El neto incluye gastos de Alyc, Caja de Valores, SGR e impuestos. CFTa es TNA más gastos. <br>
+                    Simulador con fines comerciales, no implica obligación contractual.</p>
+            </div>
+        </div>
+
+        
+         <div class="volver-container ">
+                <a href="index.html" class="botones volver" title="Volver al menu" ></a>
+            </div>
+    </main>
+
+    <script>
+        const inputMonto = document.querySelector("#monto");
+        const inputFecha = document.querySelector("#fecha");
+        const btnAgregar = document.querySelector("#btnAgregar");
+        const detalle = document.querySelector("#detalle");
+        const grilla = document.querySelector("#grilla");
+        const totalMonto = document.querySelector("#totalMonto");
+        const totalNeto = document.querySelector("#totalNeto");
+        const totalDescuento = document.querySelector("#totalDescuento");
+        const totalGastos = document.querySelector("#totalGastos");
+        const totalComSGR = document.querySelector("#totalComSGR");
+        const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
+        const alertas = document.querySelector("#alertas");
+        const notas = document.querySelector(".nota");
+        const resumenOperacion = document.querySelector("#resumenOperacion");
+        const oculto = document.querySelector(".oculto");
+        const ocultarNroItem = document.querySelector(".ocultarNroItem")
+        const btnImprimir = document.querySelector("#btnImprimir");
+        const btnExportarExcel = document.querySelector("#btnExportarExcel");
+        const bigContainer = document.querySelector(".big-container");
+
+        const montoMin = 10000;
+        const montoMax = 1000000000;
+        const plazoMin = 15;
+        const plazoMax = 360;
+        const comAlyc = 1; //>  comisión (TNA) que cobra el alyc 
+        const comCVyOtros = 0.09; //>  % de gastos de Caja de Valores  
+        const comSGR = 3.25; //>  comisión (TNA) que cobra la SGR
+        const cheques = []; //> array donde se van guardando los cheques
+        const TASAS = {    //>  objeto con las tasas, según el plazo
+            30: 35,
+            60: 35,
+            90: 36,
+            120: 37,
+            150: 37,
+            180: 37,
+            210: 38,
+            240: 38,
+            270: 39,
+            300: 39,
+            330: 40,
+            360: 40
+        };
+
+        let idCheque = 0;
+
+
+        bigContainer.style.opacity = "0";
+        bigContainer.style.visibility = "hidden"
+
+        function cargarCheque() {
+
+            const monto = parseInt(inputMonto.value);
+
+            const fecha = new Date(inputFecha.value + 'T00:00:00').toLocaleDateString("es-AR", { day: '2-digit', month: '2-digit', year: '2-digit' });
+
+            const plazo = Math.ceil(((new Date(inputFecha.value)) - (new Date())) / (1000 * 60 * 60 * 24));
+
+            const tasa = obtenerTasa(plazo);
+
+            const descuentoAlyc = Math.round(comAlyc * plazo * monto * 1.21 / 36000) * -1;
+
+            const descuentoSGR = Math.round(comSGR * plazo * monto / 36500) * -1;
+
+            const otrosGastos = Math.round(monto * comCVyOtros / 100) * -1;
+
+            const descuentoTNA = Math.round(monto - monto / (1 + tasa * (plazo + 2) / 36500)) * -1;
+
+            const neto = Math.round(monto + descuentoTNA + descuentoAlyc + descuentoSGR + otrosGastos);
+
+            const gastosCVyAlyc = Math.round(descuentoAlyc + otrosGastos);
+
+            const cft = monto / neto - 1;
+
+            const cfta = Math.round(cft / plazo * 36500);
+
+            if (isNaN(plazo) && isNaN(monto)) {
+                alertas.textContent = "Ingrese monto y plazo"
+            } else if (plazo < plazoMin || plazo > plazoMax || isNaN(plazo)) {
+                alertas.textContent = `El plazo debe estar entre ${plazoMin} y ${plazoMax} días`;
+            } else if (!monto || monto < montoMin || monto > montoMax) {
+                alertas.textContent = `El monto debe estar comprendido entre $ ${montoMin.toLocaleString("es-AR")} y $ ${montoMax.toLocaleString("es-AR")}`;
+            } else {
+                alertas.textContent = "";
+                cheques.push({
+                    idCheque: idCheque++, monto, fecha, plazo, tasa, cfta, descuentoTNA, gastosCVyAlyc, descuentoSGR, neto
+                });
+
+            }
+
+        }
+
+
+        function obtenerTasa(plazo) {
+            const plazosDisponibles = Object.keys(TASAS).map(Number);
+            const plazoMasCercano = plazosDisponibles.reduce((prev, curr) => Math.abs(curr - plazo) < Math.abs(prev - plazo) ? curr : prev);
+            /// Objet.keys toma las claves del objeto TASAS y .map(Number) las mapea a tipo numero (porque las keys son strings)
+            /// reduce() recorre el array y compara cada valor (curr) con el más cercano encontrado hasta ahora (prev).
+            /// Math.abs(curr - plazo) calcula qué tan lejos está curr de plazo.
+            /// Si curr está más cerca de plazo que prev, se actualiza prev.
+            /// Al final, plazoMasCercano tendrá el valor más próximo en plazosDisponibles.
+            return TASAS[plazoMasCercano];
+        }
+
+
+        function mostrarTabla() {
+
+            bigContainer.style.opacity = "0";
+            bigContainer.style.visibility = "visible";
+
+            let sumaMontos = 0;
+            let sumaDescuentoTNA = 0;
+            let sumaDescuentoAlyc = 0;
+            let sumaDescuentoSGR = 0;
+            let sumaOtrosGastos = 0;
+            let sumaNetos = 0;
+            let sumaGastosCVyAlyc = 0;
+
+            if (cheques.length !== 0) {
+
+                tablaInstrumentos.style.opacity = "1";
+                resumenOperacion.style.opacity = "1";
+                notas.style.opacity = "1";
+                grilla.innerHTML = "";
+                btnImprimir.style.opacity = "1";
+                btnExportarExcel.style.opacity = "1";
+                bigContainer.style.opacity = "1";
+
+                cheques.forEach((cheque) => {
+                    let fila = document.createElement("tr");
+                    fila.innerHTML = `
+                    <td class="ocultoEnCelu ocultarNroItem">${cheques.indexOf(cheque) + 1}</td>
+                    <td>${cheque.monto.toLocaleString("es-AR")}</td>
+                    <td>${cheque.fecha}</td>
+                    <td class="ocultoEnCelu">${cheque.plazo}</td>
+                    <td>${cheque.tasa}%</td>
+                    <td >${cheque.cfta}%</td>
+                    <td class="ocultoEnCelu">${cheque.descuentoTNA.toLocaleString("es-AR")} </td>
+                    <td class="ocultoEnCelu">${cheque.gastosCVyAlyc.toLocaleString("es-AR")} </td>
+                    <td class="ocultoEnCelu">${cheque.descuentoSGR.toLocaleString("es-AR")} </td>
+                    <td> ${cheque.neto.toLocaleString("es-AR")}</td>
+                    <td style="border: none; background-color: transparent;">
+                        <button  id="btnBorrar" class="botones" onclick="borrar(${cheque.idCheque})" title="Elimina este cheque"> <span class="ocultoEnCelu" > </span>  </button>
+                        </td>`
+
+
+                    grilla.appendChild(fila);
+
+                    sumaMontos += cheque.monto;
+                    sumaDescuentoTNA += cheque.descuentoTNA;
+                    sumaDescuentoAlyc += cheque.descuentoAlyc;
+                    sumaOtrosGastos += cheque.gastosCVyAlyc;
+                    sumaDescuentoSGR += cheque.descuentoSGR;
+                    sumaNetos += cheque.neto;
+                    sumaGastosCVyAlyc += cheque.gastosCVyAlyc;
+
+
+                });
+
+                if (cheques.length > 1) {
+                    let filaFinal = document.createElement('tr');
+                    grilla.appendChild(filaFinal);
+                    filaFinal.innerHTML = `
+                    <td style="border: none; background: transparent" colspan = "5"></td>
+                    <td style="border: none; background: transparent" colspan = "5" class="ocultoEnCelu"></td>
+                    <td style="border: none; background: transparent"> 
+                        <button id="btnLimpiar" class="botones" title="Borra toda la tabla" onclick="limpiar()"></button> 
+                    </td> 
+
+                    `
+                }
+
+                const plazoPromedio = () => {
+                    let sumaPlazos = 0;
+                    cheques.forEach((cheque) => sumaPlazos += cheque.plazo);
+                    return sumaPlazos / cheques.length;
+                }
+
+
+                resumenOperacion.innerHTML = `
+          
+                 <table class="resumenTabla centrar">
+                <tr>
+                    <td class="resParrafo blacky">Monto total operado:</td>
+                    <td class="resParrafo blacky ">$ ${sumaMontos.toLocaleString("es-AR")}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Cantidad de cheques:</td>
+                    <td class="resParrafo">${cheques.length}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Plazo promedio:</td>
+                    <td class="resParrafo">${Math.round(plazoPromedio())} días</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Intereses descontados:</td>
+                    <td class="resParrafo">$ ${Math.round(sumaDescuentoTNA).toLocaleString("es-AR")}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Gastos de mercado:</td>
+                    <td class="resParrafo">$ ${Math.round(sumaOtrosGastos).toLocaleString("es-AR")}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Comisión SGR:</td>
+                    <td class="resParrafo">$ ${Math.round(sumaDescuentoSGR).toLocaleString("es-AR")}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo">Total descontado:</td>
+                    <td class="resParrafo">$ ${(sumaDescuentoTNA + sumaOtrosGastos + sumaDescuentoSGR).toLocaleString("es-AR")}</td>
+                </tr>
+                <tr>
+                    <td class="resParrafo blacky borderTop txt-azul">Neto liquidado:</td>
+                    <td class="resParrafo blacky borderTop txt-azul">$ ${sumaNetos.toLocaleString("es-AR")}</td>
+                </tr>
+            </table>
+                    `;
+            }
+
+        }
+
+
+        function borrar(idCheque) {
+            const index = cheques.findIndex(c => c.idCheque === idCheque);
+            /// el método .findIndex devuelve el índice de un array. Contiene una función flecha que va comparando el id de esta función versus el id que recibió la función borrar(). 
+            /// La función flecha c => c.id === id es un callback de findIndex(), porque se pasa como argumento y se ejecuta dentro de findIndex() para evaluar cada elemento del array.  
+            if (index !== -1) {   /// comprueba que el índice no sea -1, es decir, comprueba que exista
+                cheques.splice(index, 1);   /// el método .splice elimina un elemento de un array, en el índice indicado y la cantidad indicada (1)
+                mostrarTabla();   /// llama a la función para refrescar la tabla
+            }
+
+            alertas.textContent = "";
+        }
+
+
+
+        btnAgregar.addEventListener("click", () => {
+            cargarCheque();
+            mostrarTabla();
+            detalle.style.display = "flex";
+        });
+
+
+        function limpiar() {
+            cheques.length = 0;
+            mostrarTabla();
+            detalle.style.display = "none";
+            alertas.textContent = "";
+            bigContainer.style.visibility = "hidden";
+        };
+
+
+
+
+        /////////////////////////////////// código para exportar  a excel ////////////////////////
+
+
+        document.getElementById("btnExportarExcel").addEventListener("click", function () {
+            const tabla = document.getElementById("tablaInstrumentos");
+            const filas = Array.from(tabla.querySelectorAll("tbody tr"));
+
+            const headers = ["#", "Monto", "Fecha", "Plazo", "Tasa (%)", "CFTa (%)", "Interés", "Gastos", "Com SGR", "Neto"];
+            const data = [headers];
+            const sumas = new Array(headers.length).fill(0);
+
+            let contador = 1;
+            let totalPlazo = 0;
+            let filasValidas = 0;
+
+            filas.forEach(fila => {
+                const celdas = fila.querySelectorAll("td");
+                if (celdas.length < 10 || !celdas[1].textContent.trim()) return;
+
+                const filaData = [];
+
+                try {
+                    const monto = parseInt(celdas[1].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+                    const fecha = celdas[2].textContent.trim();
+                    const plazo = parseInt(celdas[3].textContent) || 0;
+                    const tasa = parseFloat(celdas[4].textContent.replace(",", ".").replace("%", "")) || 0;
+                    const cfta = parseFloat(celdas[5].textContent.replace(",", ".").replace("%", "")) || 0;
+                    const interes = parseInt(celdas[6].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+                    const gastos = parseInt(celdas[7].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+                    const sgr = parseInt(celdas[8].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+                    const neto = parseInt(celdas[9].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+
+                    filaData.push(contador++);
+                    filaData.push(monto);
+                    filaData.push(fecha);
+                    filaData.push(plazo);
+                    filaData.push(tasa);
+                    filaData.push(cfta);
+                    filaData.push(interes);
+                    filaData.push(gastos);
+                    filaData.push(sgr);
+                    filaData.push(neto);
+
+                    sumas[1] += monto;
+                    totalPlazo += plazo;
+                    sumas[6] += interes;
+                    sumas[7] += gastos;
+                    sumas[8] += sgr;
+                    sumas[9] += neto;
+
+                    filasValidas++;
+
+                    data.push(filaData);
+                } catch (err) {
+                    console.error("Error al procesar fila:", err);
+                }
+            });
+
+
+            const filaTotales = ["Totales:"];
+
+            for (let i = 1; i < headers.length; i++) {
+                if (i === 2 || i === 4 || i === 5) {
+                    filaTotales.push(""); // Fecha, tasa y cfta no se suman
+                } else if (i === 3) {
+                    const promedio = filasValidas > 0 ? Math.round(totalPlazo / filasValidas) : 0;
+                    filaTotales.push(promedio);
+                } else {
+                    filaTotales.push(sumas[i] || "");
+                }
+            }
+            data.push(filaTotales);
+
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Simulación");
+
+            XLSX.writeFile(wb, "simulacion_cheques.xlsx");
+        });
+
+
+    </script>
+</body>
+
+</html>

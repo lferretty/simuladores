@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Préstamos</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        font-size: clamp(16px, 2vw, 20px);
+    }
+
+    h1 {
+        font-size: clamp(18px, 2vw, 20px);
+    }
+
+    h1,
+    h3 {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+
+    #carga{
+        display: flex;
+        justify-content: center;
+    }
+
+    #carga-container {
+       width: 300px;
+        display: flex;
+        flex-direction: column;
+        margin:  auto;
+       padding: 10px 30px 30px;
+       background-color: rgb(97, 123, 161);
+    }
+
+    label {
+        margin: 10px 0 2px;
+        color: white;
+    }
+
+    input,
+    button,
+    select {
+        height: 35px;
+        border: none;
+       
+    }
+
+    label, input, option{
+        text-align: center;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+
+    #divError{
+        color: rgb(227, 253, 56);
+        text-align: center;
+        height: 20px;
+        line-height: 50px;
+        font-size: 20px;
+    }
+
+
+    #tabla-container {
+        transition: 1s;
+        opacity: 0;
+    }
+
+
+    table,
+    th, td {
+        border-collapse: collapse;
+        border: 1px dotted black;
+        text-align: center;
+       
+        margin: 50px auto;
+    }
+
+    th,
+    td,tfoot {
+      /*   min-width: 40px; */
+        font-size: clamp(12px, 2vw, 18px);
+        padding:8px 10px;
+    }
+
+    th,
+    tfoot {
+        font-weight: 600;
+        background-color: rgb(231, 248, 253);
+    }
+</style>
+
+<body>
+
+    <header>
+
+        <h1>Simulador Préstamo - Sistema Francés</h1>
+        <h3></h3>
+
+    </header>
+
+    <main>
+
+        <section id="carga">
+
+         <div class="" id="carga-container">
+            <label for="monto">Monto </label>
+            <input type="number" id="monto">
+
+            <label for="plazo">Plazo (meses)</label>
+            <input type="number" id="plazo">
+
+            <label for="tasa">Tasa (TNA) </label>
+            <input type="number" id="tasa" required>
+
+            <label for="tipo">Tipo de amortización </label>
+            <select name="tipo" id="tipo">
+                <option value=""></option>
+                <option value="mensual">Mensual</option>
+                <option value="semestral">Semestral</option>
+                <option value="bimestral">Bimestral</option>
+                <option value="trimestral">Trimestral</option>
+                <option value="cuatrimestral">Cuatrimestral</option>
+                <option value="anual">Anual</option>
+            </select>
+
+            <br>
+            <button id="btn-simular">Simular</button>
+            <div id="divError"></div>
+         </div>
+        </section>
+
+        <section id="tabla-container">
+            <table>
+                <thead>
+                    <th>Cuota</th>
+                    <th>Monto</th>
+                    <th>Capital</th>
+                    <th>Interés</th>
+                    <th>Saldo <br> Capital</th>
+                </thead>
+                <tbody id="tabla"> </tbody>
+                <tfoot id="totales"> </tfoot>
+            </table>
+        </section>
+    </main>
+
+
+
+    <script>
+
+        const tabla = document.getElementById("tabla");
+        const tablaContainer = document.getElementById("tabla-container");
+        const tfoot = document.getElementById("totales");
+        const btnSimular = document.getElementById("btn-simular");
+        const inputMonto = document.getElementById("monto");
+        const inputPlazo = document.getElementById("plazo");
+        const inputTasa = document.getElementById("tasa");
+        const error = document.getElementById("divError");
+
+        const sistema = { frances: "F", aleman: "A", bullet: "B" }
+        const tipo = { mensual: 12, semestral: 2, bimestral: 6, trimestral: 4, cuatrimestral: 3, anual: 1 };
+
+
+        let interes;
+        let calculoCuota;
+
+
+        const fechaHoy = new Date();
+
+
+
+        let monto = inputMonto.addEventListener("change", () => monto = Math.abs(inputMonto.value));
+
+        let plazo = inputPlazo.addEventListener("change", () => plazo = inputPlazo.value);
+
+        let tna = inputTasa.addEventListener("change", () => tna = inputTasa.value);
+
+
+        const tabla_de_cuotas = [];
+
+        btnSimular.addEventListener("click", () => {
+
+            tabla_de_cuotas.length = 0;
+            tabla.innerHTML = "";
+            tfoot.innerHTML = "";
+
+            if (tna > 0) {
+                interes = (tna / 100) / tipo.mensual; /// el interés en el período elegido
+                calculoCuota = monto * interes / (1 - Math.pow((1 + interes), -plazo));  // fórmula del sistema francés
+            } else {
+                interes = 0;
+                calculoCuota = monto / plazo;
+            }
+
+            if (!monto || !plazo || !tna) {
+                error.textContent = "ingrese todos los datos";
+            } else {
+
+                tablaContainer.style.opacity = "1"
+                error.textContent = "";
+
+                let saldoCapital = monto; ///el saldo default es el préstamo, luego se irá actualizando hasta llegar a 0
+                let sumaCapital = 0;
+                let sumaInteres = 0;
+                let sumaTotal = 0;
+
+
+                for (let i = 0; i < plazo; i++) {
+
+                    const interesCuota = saldoCapital * interes;
+                    const capitalCuota = calculoCuota - interesCuota;
+                    saldoCapital -= capitalCuota;
+
+                    //> Crea un objeto, con el detalle de la cuota calculada:
+                    const cuota = {
+                        nro: i + 1,
+                        capital: capitalCuota,
+                        interes: interesCuota,
+                        total: calculoCuota,
+                        saldoCapital: Math.abs(saldoCapital)
+                    }
+
+                    //> Guarda el objeto en el array (la tabla de cuotas):
+                    tabla_de_cuotas.push(cuota);
+
+                    //> Crea la fila con el detalle de cuota, en la tabla
+                    const fila = document.createElement("tr");
+                    tabla.appendChild(fila);
+                    fila.innerHTML = `
+                                <td> ${cuota.nro} </td>
+                                <td> ${Math.round(cuota.total).toLocaleString("es-AR")} </td>
+                                <td> ${Math.round(cuota.capital).toLocaleString("es-AR")} </td>
+                                <td> ${Math.round(cuota.interes).toLocaleString("es-AR")} </td>
+                                <td> ${Math.abs(Math.round(saldoCapital)).toLocaleString("es-AR")} </td>
+                                `
+
+                    sumaCapital += cuota.capital;
+                    sumaInteres += cuota.interes;
+                    sumaTotal += cuota.total;
+
+
+
+                }
+
+                //> Crea la fila de totales:
+                const totales = document.createElement("tr");
+                tfoot.append(totales);
+                totales.innerHTML = ` 
+                            <td> Total </td>
+                            <td> ${Math.round(sumaTotal).toLocaleString("es-AR")} </td>                             
+                            <td> ${Math.round(sumaCapital).toLocaleString("es-AR")} </td>
+                            <td> ${Math.round(sumaInteres).toLocaleString("es-AR")} </td>
+                `
+
+            }
+        })
+
+
+    </script>
+
+
+</body>
+
+</html>
