@@ -171,6 +171,8 @@
 
             const cfta = Math.round(cft / plazo * 36500);
 
+             alertas.style.visibility = "visible ";
+
             if (isNaN(plazo) && isNaN(monto)) {
                 alertas.textContent = "Ingrese monto y plazo"
             } else if (plazo < plazoMin || plazo > plazoMax || isNaN(plazo)) {
@@ -178,7 +180,8 @@
             } else if (!monto || monto < montoMin || monto > montoMax) {
                 alertas.textContent = `El monto debe estar comprendido entre $ ${montoMin.toLocaleString("es-AR")} y $ ${montoMax.toLocaleString("es-AR")}`;
             } else {
-                alertas.textContent = "";
+               // alertas.textContent = "";
+                alertas.style.visibility = "hidden";
                 cheques.push({
                     idCheque: idCheque++, monto, fecha, plazo, tasa, cfta, descuentoTNA, gastosCVyAlyc, descuentoSGR, neto
                 });
@@ -325,7 +328,8 @@
                 mostrarTabla();   /// llama a la función para refrescar la tabla
             }
 
-            alertas.textContent = "";
+            alertas.style.visibility = "hidden";
+            //alertas.textContent = "";
         }
 
 
@@ -341,8 +345,10 @@
             cheques.length = 0;
             mostrarTabla();
             detalle.style.display = "none";
-            alertas.textContent = "";
+     /*        alertas.textContent = ""; */
             bigContainer.style.visibility = "hidden";
+            
+            alertas.style.visibility = "hidden";
         };
 
 
