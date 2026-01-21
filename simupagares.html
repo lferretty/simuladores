@@ -136,19 +136,29 @@
         const spinner = document.querySelector("#spinner");
 
         const montoMin = 5000;
-        const montoMax = 300000;
-        const plazoMin = 90;
-        const plazoMax = 365;
+        const montoMax = 1000000;
+        const plazoMin = 30;
+        const plazoMax = 1095;
         const comAlyc = 1; //>  comisión (TNA) que cobra el alyc 
         const comCVyOtros = 0.09; //>  % de gastos de Caja de Valores  
         const comSGR = 2; //>  comisión (TNA) que cobra la SGR
         const pagares = []; //> array donde se van guardando los pagares
+
+         /*****************  TASAS *******************/ 
+         /*****************  TASAS *******************/ 
+         /*****************  TASAS *******************/ 
+         /*****************  TASAS *******************/ 
+         /*****************  TASAS *******************/ 
+        
         const TASAS = {    //>  objeto con las tasas según el plazo
             30: 8,
-            180: 10,
-            360: 12,
+            180: 8,
+            270: 9,
+            360: 10,
             540: 15,
             720: 15,
+            900: 15,
+            1080: 15
         };
 
 
