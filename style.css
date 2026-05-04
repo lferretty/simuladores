@@ -92,7 +92,7 @@ header {
     justify-content: center;
     margin: auto;
     gap: 20px;
-    background-image: url(imagenes/banner.jpg);
+    background-image: url(imagenes/banner.png);
     background-repeat: no-repeat;
     background-position: top center;
     background-size: contain;
@@ -113,7 +113,7 @@ header {
 
 h1 {
     font-size: clamp(14px, 3vw, 24px);
-    color: lightblue;
+    color: rgb(191, 237, 179);
     text-align: center;
 }
 
