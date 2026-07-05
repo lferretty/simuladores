@@ -102,8 +102,9 @@ header {
 
 .title-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+  
 }
 
 #logoAVFE {
@@ -117,7 +118,7 @@ h1 {
     text-align: center;
 }
 
-h1 span {
+h1 span, h4{
     display: block;
     color: white;
 }
@@ -446,6 +447,7 @@ input {
         top: 15px;
     }
 
+   
 
 }
 
@@ -473,7 +475,6 @@ input {
  /*    #btnImprimir {
         display: none !important;
     } */
-
 
 
     .detalle {
@@ -568,7 +569,10 @@ input {
         background-color: white;
     }
 
-
+ h4 {
+        font-size: 12px;
+        font-weight: 100;
+    }
 
 
 
