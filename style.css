@@ -4,7 +4,7 @@
     --fondo: rgb(251, 252, 255);
     --btnFondo: rgb(255, 255, 255);
     --btnBorde: rgb(130, 130, 130) 1px solid;
-    --txt: rgb(67, 68, 80
+    --txt: rgb(67, 68, 80);
 }
 
 ::selection {
@@ -470,7 +470,7 @@ input {
 
     #logoAVFE {
         min-width: 50px;
-    display:none;
+
     }
 
     #tipoCambio {
