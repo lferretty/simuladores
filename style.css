@@ -3,7 +3,7 @@
 :root {
     --fondo: rgb(251, 252, 255);
     --btnFondo: rgb(255, 255, 255);
-    --btnBorde: rgb(248, 248, 248) 1px dotted;
+    --btnBorde: rgb(130, 130, 130) 1px solid;
     --txt: rgb(67, 68, 80);
 }
 
@@ -16,13 +16,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Helvetica, sans-serif; 
+
     color: var(--txt);
     background-color: rgba(240, 248, 255, 0);
 }
 
 html {
-    background-color: black;
+    background-color: rgb(203, 225, 218);
 }
 
 
@@ -44,7 +45,7 @@ body {
     z-index: -1;
     width: 100vw;
     height: 100vh;
-    background: url(imagenes/fondo-holding.jpg) center top / cover no-repeat;
+   /* background: url(imagenes/fondo-holding.jpg) center top / cover no-repeat; */
 }
 
 
@@ -92,10 +93,11 @@ header {
     justify-content: center;
     margin: auto;
     gap: 20px;
-    background-image: url(imagenes/banner.png);
-    background-repeat: no-repeat;
+/*     background-image: url(imagenes/banner.png); */    
+background-repeat: no-repeat;
     background-position: top center;
     background-size: contain;
+    background-color: rgb(48, 76, 68);
 }
 
 
@@ -173,15 +175,15 @@ width: 90vw;
 
 
 #inputsContainer {
-    max-width: 520px;
+    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     align-items: center;
     border: var(--btnBorde);
-    border-radius: 10px;
-    padding: 0 5px;
+/*     border-radius: 50px; */
+    padding: 0 10px;
     background-color: transparent;
 
 }
@@ -209,10 +211,11 @@ input {
     background-color: var(--btnFondo);
     cursor: pointer;
     height: 35px;
-    padding: 0 10px;
+    padding: 0 20px;
     user-select: none;
-    border-radius: 5px;
-    border: var(--btnBorde);
+    border-radius:0px;
+    border: none;
+   /*  border: var(--btnBorde); */
   
 }
 
@@ -229,8 +232,14 @@ input {
 }
 
 
+
 #btnBorrar::after {
     content: '❌ Quitar';
+}
+
+#btnLimpiar {
+
+    padding: 0 16px;
 }
 
 #btnLimpiar::after {
@@ -357,6 +366,8 @@ input {
     margin: 7px 0;
 }
 
+
+
 .blacky {
     font-weight: 600;
 }
@@ -374,7 +385,7 @@ input {
 
 #btnImprimir, #btnExportarExcel{
       max-width: 150px;
-      border-radius: 5px;
+     padding: 0 10px;
       margin: auto;
 }
 
@@ -382,9 +393,8 @@ input {
     margin-top: 10px;
 }
 
-#btnLimpiar {
-    padding: 6px;
-}
+#btnImprimir span { font-size: 20px;}
+
 
 
 .volver-container {
@@ -422,7 +432,7 @@ input {
     }
 
     #btnLimpiar {
-        width: 40px;
+        width: 60px;
     }
 
     #btnLimpiar::after {
@@ -489,12 +499,12 @@ input {
 
 @media screen and (max-width: 450px) {
 
-    * {
+  /*   * {
         font-family: "Archivo Narrow", 'Arial Narrow', Tahoma, Geneva, Verdana, sans-serif;
 
-    }
+    } */
 
-
+/* 
     header {
 
         top: 0;
@@ -507,7 +517,7 @@ input {
 
         box-shadow: 0px 1px 8px rgba(128, 128, 128, 0.13);
 
-    }
+    } */
 
 
     #dolar-section-alternativo #noFuePosible {
@@ -528,6 +538,7 @@ input {
         flex-direction: column;
         margin-bottom: 10px;
         padding: 10px;
+      /*   border-radius: 0 0 25px 25px ; */
 
     }
 
@@ -555,12 +566,24 @@ input {
     #btnAgregar {
         width: 200px;
         margin-top: 15px;
-
+        font-size: 18px;
+        font-weight: 600;
     }
 
     #btnAgregar::after {
         content: "SIMULAR";
     }
+
+    #btnBorrar{
+     
+        padding: 10px;
+    }
+
+    #btnLimpiar {
+    width: 40px;
+    padding: 0;
+}
+
 
 
 
@@ -570,9 +593,18 @@ input {
     }
 
  h4 {
-        font-size: 12px;
-        font-weight: 100;
+        font-size: 20px;
+        font-weight: 400;
+
     }
+
+    h1 {
+    font-size: clamp(20px, 3vw, 24px);
+    color: rgb(191, 237, 179);
+    text-align: center;
+}
+
+
 
 
 
@@ -603,7 +635,7 @@ input {
     #tablaInstrumentos th,
     #tablaInstrumentos td {
         padding: 0 3px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
 
@@ -611,6 +643,18 @@ input {
     .resumenTabla{
         scale: 0.9;
     }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    #btnBorrar,   #btnLimpiar  {
+            margin: 3px 0;
+    }
+    #btnLimpiar {
+    width: 37px;
+
+}
 }
 
 /*//////  ESTILOS PARA IMPRESIÓN  //////*/

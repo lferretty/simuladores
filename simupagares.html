@@ -27,16 +27,16 @@
     <div id="fondo-fijo"></div>
 
     <header>
-        <div class="title-container">
+           <div class="title-container">
             <img id="logoAVFE" src="imagenes/logoAVFE.jpg" alt="">
-            <h1>SIMULADOR <span> Descuento de Pagarés Dollar Linked </span></h1>
-             <h4> Segmento Avalado </h4>
+            <h1>Simulador | Descuento de Pagarés </h1>
+              <h4> Avalado por SGR </h4>
         </div>
         <section id="carga" class="centrar">
             <div id="inputsContainer" class="centrar verde">
                 <label for="monto">Monto USD: <input type="number" id="monto"> </label>
                 <label for="fecha">Fecha: <input type="date" id="fecha"> </label>
-                <button id="btnAgregar" class="botones" title="Click para calcular el descuento"> ➕ <span
+                <button id="btnAgregar" class="botones" title="Click para calcular el descuento"> <span
                         class="ocultoEnCelu">Simular</span> </button>
             </div>
         </section>
@@ -181,7 +181,7 @@
         function mostrarTipoCambio(valor, fuente) {
             const tipoCambioParaMostrar = valor.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             tipoCambio = valor;
-            document.getElementById("tipoDeCambio").textContent = `Dólar (${fuente}): $${tipoCambioParaMostrar}`;
+            document.getElementById("tipoDeCambio").textContent = `Tipo de cambio: $${tipoCambioParaMostrar} `;
             spinner.style.display = "none";
         }
 
@@ -205,7 +205,7 @@
                 const dolar = lista.find(item => item.codigoMoneda === "REF");  //crea la cotización
 
                 if (dolar && typeof dolar.tipoCotizacion === "number") {   //comprueba que la cotización sea numérica
-                    mostrarTipoCambio(dolar.tipoCotizacion, "mayorista: Com. BCRA A 3500");
+                    mostrarTipoCambio(dolar.tipoCotizacion, "BCRA");
                 } else {
                     await fallbackTipoCambio(yaIntentamosConAyer); //llama a la función de fallback para intentar con la fecha anterior
                 }
@@ -238,7 +238,7 @@
                 const valor = datos?.venta;
 
                 if (typeof valor === "number") {
-                    mostrarTipoCambio(valor, "mayorista: dolarapi.com");
+                    mostrarTipoCambio(valor, "dolarapi.com");
                     spanNoFuePosible.style.visibility = "hidden";
                 } else {
                     pedirTCmanual();  // no se obtuvo nada desde dolarapi, entoncs pedimos el tc manualmente
