@@ -470,7 +470,7 @@ input {
 
     #logoAVFE {
         min-width: 50px;
-
+    display:none;
     }
 
     #tipoCambio {
