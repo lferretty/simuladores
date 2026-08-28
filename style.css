@@ -642,6 +642,9 @@ input {
     }
 
 
+#panelTasasMAV, .panel-tasas-header,  #fechaTasasMAV, .tabla-tasas-mav *{
+    font-size: 16px;   
+
 }
 
 /*///////// VIEWPORTS MUY CHICOS (CELULARES VIEJOS) ///////*/
@@ -841,12 +844,15 @@ input {
 
 /* ABIERTO */
 
+
+
 #fechaTasasMAV{
     color: rgb(170, 12, 12);
 }
 
-.panel-tasas.abierto {
 
+.panel-tasas.abierto {
+    
     opacity: 1;
     visibility: visible;
 
@@ -1093,4 +1099,4 @@ input {
         width: fit-content;
         max-width: calc(100% - 20px);
     }
-}
+}}
