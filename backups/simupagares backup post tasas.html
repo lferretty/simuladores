@@ -19,6 +19,218 @@
 
   gtag('config', 'G-ZGT3LC99K6');
 </script>
+
+    <style>
+        /* =========================================================
+           PANEL TASAS MAV - PAGARÉS
+           ========================================================= */
+
+        .tasas-mav-toggle {
+            position: fixed;
+            top: 28px;
+            left: 5px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 56px;
+            padding: 0 12px 0 5px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            background: transparent;
+            color: #b7c8bf;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .tasas-mav-toggle:hover {
+            background: rgba(255,255,255,.04);
+        }
+
+        .tasas-mav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            background: #e3e8e5;
+            color: #1d4038;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .tasas-mav-panel {
+            position: fixed;
+            top: 78px;
+            left: 6px;
+            z-index: 1000;
+            width: 430px;
+            max-width: calc(100vw - 12px);
+            max-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 2px solid #222;
+            box-shadow: 8px 8px 0 rgba(0,0,0,.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-18px);
+            transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+        }
+
+        .tasas-mav-panel.abierto {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .tasas-mav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .tasas-mav-header h2 {
+            margin: 0 0 5px;
+            color: #163d35;
+            font-size: 21px;
+            line-height: 1.2;
+        }
+
+        .tasas-mav-header p {
+            margin: 0;
+            color: #777;
+            font-size: 15px;
+        }
+
+        .tasas-mav-cerrar {
+            border: 0;
+            background: transparent;
+            color: #666;
+            font-size: 32px;
+            line-height: 28px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .tasas-mav-cerrar:hover {
+            color: #222;
+        }
+
+        .tasas-mav-contenido {
+            overflow-y: auto;
+            padding: 16px 20px 8px;
+            flex: 1;
+            min-height: 80px;
+        }
+
+        .tasas-mav-loading {
+            padding: 35px 10px;
+            text-align: center;
+            color: #777;
+            font-size: 15px;
+        }
+
+        .tasas-mav-error {
+            padding: 28px 10px;
+            color: #c33;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .tasas-mav-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+
+        .tasas-mav-table th {
+            padding: 11px 10px;
+            background: #1d4a40;
+            color: #fff;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .tasas-mav-table th:last-child,
+        .tasas-mav-table td:last-child {
+            text-align: right;
+        }
+
+        .tasas-mav-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+
+        .tasas-mav-table tr:hover td {
+            background: #f4f7f6;
+        }
+
+        .tasas-mav-footer {
+            flex-shrink: 0;
+            padding: 10px 20px;
+            border-top: 1px solid #ddd;
+            text-align: right;
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .tasas-mav-toggle {
+                top: 16px;
+                left: 4px;
+                height: 48px;
+                padding: 0 11px 0 5px;
+                gap: 9px;
+                font-size: 18px;
+            }
+
+            .tasas-mav-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+
+            .tasas-mav-panel {
+                top: 62px;
+                left: 4px;
+                width: calc(100vw - 8px);
+                max-height: calc(100vh - 72px);
+            }
+
+            .tasas-mav-header {
+                padding: 16px 16px 12px;
+            }
+
+            .tasas-mav-header h2 {
+                font-size: 19px;
+            }
+
+            .tasas-mav-contenido {
+                padding: 12px 14px 6px;
+            }
+
+            .tasas-mav-table {
+                font-size: 15px;
+            }
+
+            .tasas-mav-table th,
+            .tasas-mav-table td {
+                padding: 8px 9px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -26,43 +238,57 @@
     <div id="fondo-fijo"></div>
 
     <header>
-
-        <div class="header-container">
-
-            <div class="title-container">
-                <a href="https://holdingareco.com/" target="_blank">
-                    <img id="logoAVFE" src="imagenes/logoAVFE.png" alt="">
-                </a>
-                <h1>Simulador | Descuento de Pagarés Dollar Linked </h1>
-                <h4>Avalados por SGR</h4>
-            </div>
-
-            <section id="carga" class="centrar">
-                <div id="inputsContainer" class="centrar verde inputs-como-cheques">
-                    <label for="monto">Monto USD: <input type="number" id="monto"></label>
-                    <label for="fecha">Fecha: <input type="date" id="fecha"></label>
-                    <button id="btnAgregar" class="botones" title="Click para calcular el descuento">
-                        <span class="ocultoEnCelu">Simular</span>
-                    </button>
-                </div>
-            </section>
-
+           <div class="title-container">
+            <a href="https://holdingareco.com/" target="_blank"> <img id="logoAVFE" src="imagenes/logoAVFE.png" alt=""></a>
+            <h1>Simulador | Descuento de Pagarés </h1>
+              <h4> Avalado por SGR </h4>
         </div>
-
+        <section id="carga" class="centrar">
+            <div id="inputsContainer" class="centrar verde">
+                <label for="monto">Monto USD: <input type="number" id="monto"> </label>
+                <label for="fecha">Fecha: <input type="date" id="fecha"> </label>
+                <button id="btnAgregar" class="botones" title="Click para calcular el descuento"> <span
+                        class="ocultoEnCelu">Simular</span> </button>
+            </div>
+        </section>  
     </header>
 
-        <div class="tasas">
-            <button id="btnTasasMAV" class="btn-ver-tasas" type="button" aria-expanded="false" aria-controls="panelTasasMAV">
-                <span class="icono-ojo">▼</span><span id="texto-ver-tasas">Tasas</span>
+    <!-- =========================================================
+         PANEL DE TASAS MAV - PAGARÉS
+         ========================================================= -->
+    <button id="btnTasasMAV" class="tasas-mav-toggle" type="button"
+        aria-expanded="false" aria-controls="panelTasasMAV">
+        <span class="tasas-mav-icon">▼</span>
+        <span id="texto-ver-tasas">Tasas</span>
+    </button>
+
+    <aside id="panelTasasMAV" class="tasas-mav-panel" aria-hidden="true">
+
+        <div class="tasas-mav-header">
+            <div>
+                <h2>Tasas MAV · Pagarés avalados</h2>
+                <p id="fechaTasasMAV">Buscando última rueda...</p>
+            </div>
+
+            <button id="cerrarTasasMAV" type="button"
+                class="tasas-mav-cerrar" aria-label="Cerrar">
+                ×
             </button>
-            <div id="panelTasasMAV" class="panel-tasas" aria-hidden="true">
-                <div class="panel-tasas-header"><div><strong>Tasas promedio</strong><strong id="panel-tasas-subtitulo">Pagarés avalados</strong><span id="fechaTasasMAV">Buscando última rueda...</span></div><button id="cerrarTasasMAV" class="btn-cerrar-tasas" type="button" aria-label="Cerrar">×</button></div>
-                <div id="contenidoTasasMAV" class="contenido-tasas-mav"><div class="tasas-loading">Cargando tasas...</div></div>
-                <div class="fuente-tasas">Fuente: MAV · Información Pública</div>
+        </div>
+
+        <div id="contenidoTasasMAV" class="tasas-mav-contenido">
+            <div class="tasas-mav-loading">
+                Cargando tasas...
             </div>
         </div>
 
-<div id="alertas" class="centrar"></div>
+        <div class="tasas-mav-footer">
+            Fuente: MAV · Información Pública
+        </div>
+
+    </aside>
+
+    <div id="alertas" class="centrar"></div>
 
     <section id="dolar-section">
         <div id="tipoDeCambio" class=" centrar"></div>
@@ -122,7 +348,7 @@
         </div>
 
         <div class="volver-container ">
-            <a href="simucheques.html" class="botones volver" title="Ir al simulador de cheques">Cheques</a>
+            <a href="index.html" class="botones volver" title="Volver al menu"></a>
         </div>
     </main>
 
@@ -724,7 +950,7 @@
         function generarTablaTasasPagares(resultados) {
 
             let html = `
-                <table class="tabla-tasas-mav">
+                <table class="tasas-mav-table">
                     <thead>
                         <tr>
                             <th>Plazo</th>
@@ -804,7 +1030,7 @@
             try {
 
                 contenidoTasasMAV.innerHTML = `
-                    <div class="tasas-loading">
+                    <div class="tasas-mav-loading">
                         Cargando tasas...
                     </div>
                 `;
@@ -891,7 +1117,7 @@
 
 
                 contenidoTasasMAV.innerHTML = `
-                    <div class="tasas-error">
+                    <div class="tasas-mav-error">
                         No se pudieron obtener las tasas
                         de pagarés de la última rueda MAV.
                         <br><br>

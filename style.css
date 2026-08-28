@@ -8,15 +8,15 @@
 }
 
 ::selection {
-  background: #5e97bc;
-  color: rgb(255, 255, 255);
+    background: #5e97bc;
+    color: rgb(255, 255, 255);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Helvetica, sans-serif; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Helvetica, sans-serif;
 
     color: var(--txt);
     background-color: rgba(240, 248, 255, 0);
@@ -54,7 +54,7 @@ body {
     position: relative;
     background: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(5px);
-/*     border: 1px solid rgba(255, 255, 255, 0.2); */
+    /*     border: 1px solid rgba(255, 255, 255, 0.2); */
     padding: 20px;
     color: rgb(8, 8, 8);
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
@@ -78,31 +78,34 @@ body {
 
 header {
     padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    gap: 20px;
-/*     background-image: url(imagenes/banner.png); */    
-background-repeat: no-repeat;
+    /*    display: flex; */
+    /*  flex-direction: column; */
+    /*  align-items: center;
+    justify-content: center; */
+    /*     margin: auto; */
+    /*     gap: 20px; */
+    /*     background-image: url(imagenes/banner.png); */
+    background-repeat: no-repeat;
     background-position: top center;
     background-size: contain;
     background-color: rgb(34, 55, 49);
     box-shadow: rgba(0, 0, 0, 0.524) 0px 10px 20px;
 }
 
-
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .title-container {
     display: flex;
-    
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     justify-content: space-between;
-    gap: 5px;
-  
-  
+    gap: 4px;
+
+
 }
 
 #logoAVFE {
@@ -110,13 +113,29 @@ background-repeat: no-repeat;
     display: block;
 }
 
+#inputsContainer {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    border: var(--btnBorde);
+    padding: 0 10px;
+    margin: 10px;
+    background-color: transparent;
+
+}
+
+
 h1 {
     font-size: clamp(14px, 3vw, 24px);
     color: rgb(200, 220, 175);
     text-align: center;
 }
 
-h1 span, h4{
+h1 span,
+h4 {
     display: block;
     color: white;
 }
@@ -142,7 +161,7 @@ h1 span, h4{
 }
 
 #tipoDeCambioManual-container {
-width: 90vw;
+    width: 90vw;
     max-width: 350px;
     margin: auto;
     background-color: rgb(40, 107, 151);
@@ -163,7 +182,7 @@ width: 90vw;
     display: block;
     text-align: center;
     color: rgb(206, 250, 31);
-  background-color: rgba(0, 0, 0, 0.724);
+    background-color: rgba(0, 0, 0, 0.724);
     font-size: small;
     font-weight: 600;
     line-height: 50px;
@@ -171,20 +190,6 @@ width: 90vw;
 }
 
 
-#inputsContainer {
-    max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-    border: var(--btnBorde);
-/*     border-radius: 50px; */
-    padding: 0 10px;
-    margin-bottom: 10px;
-    background-color: transparent;
-
-}
 
 
 label,
@@ -211,17 +216,17 @@ input {
     height: 35px;
     padding: 0 20px;
     user-select: none;
-    border-radius:0px;
+    border-radius: 0px;
     border: none;
-   /*  border: var(--btnBorde); */
-  
+    /*  border: var(--btnBorde); */
+
 }
 
 .botones:hover {
-   /*  background-color: rgb(210, 248, 161); */
+    /*  background-color: rgb(210, 248, 161); */
     transition: .2s;
     scale: 1.02;
-    
+
 }
 
 .botones:active {
@@ -382,17 +387,20 @@ input {
     transition: .1s;
 }
 
-#btnImprimir, #btnExportarExcel{
-      max-width: 150px;
-     padding: 0 10px;
-      margin: auto;
+#btnImprimir,
+#btnExportarExcel {
+    max-width: 150px;
+    padding: 0 10px;
+    margin: auto;
 }
 
 #btnExportarExcel {
     margin-top: 10px;
 }
 
-#btnImprimir span { font-size: 20px;}
+#btnImprimir span {
+    font-size: 20px;
+}
 
 
 
@@ -413,7 +421,7 @@ input {
 }
 
 .volver::after {
-    content: "INICIO";
+    content: "";
 }
 
 
@@ -456,7 +464,7 @@ input {
         top: 15px;
     }
 
-   
+
 
 }
 
@@ -481,7 +489,7 @@ input {
         display: none;
     }
 
- /*    #btnImprimir {
+    /*    #btnImprimir {
         display: none !important;
     } */
 
@@ -498,13 +506,13 @@ input {
 
 @media screen and (max-width: 450px) {
 
-   *{
+    * {
         font-family: "Archivo Narrow", 'Arial Narrow', Tahoma, Geneva, Verdana, sans-serif;
 
-    } 
+    }
 
-   
-/* 
+
+    /* 
     header {
 
         top: 0;
@@ -518,6 +526,8 @@ input {
         box-shadow: 0px 1px 8px rgba(128, 128, 128, 0.13);
 
     } */
+
+
 
 
     #dolar-section-alternativo #noFuePosible {
@@ -537,11 +547,14 @@ input {
         width: 200px;
     }
 
+
+ 
+
     #inputsContainer {
         flex-direction: column;
         margin-bottom: 10px;
         padding: 10px;
-      /*   border-radius: 0 0 25px 25px ; */
+        /*   border-radius: 0 0 25px 25px ; */
 
     }
 
@@ -577,15 +590,15 @@ input {
         content: "SIMULAR";
     }
 
-    #btnBorrar{
-     
+    #btnBorrar {
+
         padding: 10px;
     }
 
     #btnLimpiar {
-    width: 40px;
-    padding: 0;
-}
+        width: 40px;
+        padding: 0;
+    }
 
 
 
@@ -595,17 +608,18 @@ input {
         background-color: white;
     }
 
- h4 {
+    h4 {
         font-size: 20px;
         font-weight: 400;
 
     }
 
     h1 {
-    font-size: clamp(20px, 3vw, 24px);
-    color: rgb(191, 237, 179);
-    text-align: center;
-}
+        font-size: clamp(18px, 3vw, 24px);
+        color: rgb(191, 237, 179);
+        max-width: 250px;
+      
+    }
 
 
 
@@ -642,8 +656,8 @@ input {
     }
 
 
-    
-    .resumenTabla{
+
+    .resumenTabla {
         scale: 0.9;
     }
 
@@ -651,13 +665,15 @@ input {
         font-size: 18px;
     }
 
-    #btnBorrar,   #btnLimpiar  {
-            margin: 3px 0;
-    }
+    #btnBorrar,
     #btnLimpiar {
-    width: 37px;
+        margin: 3px 0;
+    }
 
-}
+    #btnLimpiar {
+        width: 37px;
+
+    }
 }
 
 /*//////  ESTILOS PARA IMPRESIÓN  //////*/
@@ -724,5 +740,357 @@ input {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+
+
+/* =========================================================
+   TASAS MAV
+   ========================================================= */
+
+#texto-ver-tasas {
+    color: rgb(167, 209, 167);
+}
+
+
+.tasas {
+    position: absolute;
+    top: 25px;
+    left: 40px;
+    z-index: 1000;
+}
+
+
+
+/* BOTÓN */
+
+.btn-ver-tasas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 6px 10px;
+
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.btn-ver-tasas:hover {
+    opacity: 0.8;
+}
+
+
+/* ICONO */
+
+.icono-ojo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    background: white;
+    color: #1f4037;
+
+    border: 2px solid white;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.panel-tasas {
+
+    position: absolute;
+
+    top: 52px;
+    left: 0;
+
+    width: 280px;
+
+    background: white;
+
+    border: 2px solid #1f1f1f;
+
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.20);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(-20px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+}
+
+
+/* ABIERTO */
+
+#fechaTasasMAV{
+    color: rgb(170, 12, 12);
+}
+
+.panel-tasas.abierto {
+
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateX(0);
+}
+
+
+#panel-tasas-subtitulo {
+    color: rgb(90, 90, 90);
+    font-style: italic;
+}
+
+/* =========================================================
+   HEADER DEL PANEL
+   ========================================================= */
+
+.panel-tasas-header {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 15px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.panel-tasas-header>div {
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.panel-tasas-header strong {
+
+    font-size: 16px;
+
+    color: #1f4037;
+}
+
+.panel-tasas-header span {
+
+    font-size: 12px;
+
+    color: #777;
+}
+
+
+/* CERRAR */
+
+.btn-cerrar-tasas {
+
+    border: none;
+    background: transparent;
+
+    font-size: 27px;
+    line-height: 1;
+
+    color: #666;
+
+    cursor: pointer;
+}
+
+.btn-cerrar-tasas:hover {
+    color: #000;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.contenido-tasas-mav {
+
+    padding: 12px 15px 15px;
+}
+
+
+.titulo-instrumento-mav {
+
+    margin-bottom: 8px;
+
+    color: #1f4037;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.tabla-tasas-mav {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+
+.tabla-tasas-mav th {
+
+    padding: 7px 9px;
+
+    background: #1f4037;
+    color: white;
+
+    font-weight: 600;
+
+    text-align: left;
+}
+
+
+.tabla-tasas-mav th:last-child,
+.tabla-tasas-mav td:last-child {
+
+    text-align: right;
+}
+
+
+.tabla-tasas-mav td {
+
+    padding: 7px 9px;
+
+    border-bottom: 1px solid #e4e4e4;
+
+    color: #333;
+}
+
+
+.tabla-tasas-mav tbody tr:hover {
+
+    background: #f3f6f4;
+}
+
+
+/* =========================================================
+   ESTADOS
+   ========================================================= */
+
+.tasas-loading {
+
+    padding: 20px 5px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.tasas-error {
+
+    padding: 15px 5px;
+
+    color: #a33;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FUENTE
+   ========================================================= */
+
+.fuente-tasas {
+
+    padding: 8px 15px;
+
+    border-top: 1px solid #e5e5e5;
+
+    color: #777;
+
+    font-size: 10px;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .tasas {
+
+        top: 12px;
+        left: 10px;
+    }
+
+    .btn-ver-tasas {
+
+        font-size: 15px;
+    }
+
+    .icono-ojo {
+
+        width: 30px;
+        height: 30px;
+
+        font-size: 17px;
+    }
+
+    .panel-tasas {
+
+        top: 48px;
+        left: 0;
+
+        width: calc(100vw - 20px);
+
+        max-width: 360px;
+
+        max-height: 70vh;
+
+        overflow-y: auto;
+    }
+
+    .panel-tasas-header strong {
+        font-size: 15px;
+    }
+
+    .tabla-tasas-mav {
+        font-size: 12px;
+    }
+
+    .tabla-tasas-mav th,
+    .tabla-tasas-mav td {
+        padding: 6px;
+    }
+}
+
+/* AJUSTE PAGARES = CHEQUES */
+#inputsContainer.inputs-como-cheques {
+    width: fit-content;
+    max-width: calc(100% - 20px);
+}
+
+@media screen and (max-width:450px) {
+    #inputsContainer.inputs-como-cheques {
+        width: fit-content;
+        max-width: calc(100% - 20px);
     }
 }
