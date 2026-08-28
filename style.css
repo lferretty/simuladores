@@ -642,8 +642,11 @@ input {
     }
 
 
-#panelTasasMAV, .panel-tasas-header,  #fechaTasasMAV, .tabla-tasas-mav *{
-    font-size: 16px;   
+    
+.panel-tasas-header {
+font-weight: 900;
+font-size: 100px;
+}
 
 }
 
@@ -1099,4 +1102,4 @@ input {
         width: fit-content;
         max-width: calc(100% - 20px);
     }
-}}
+}
