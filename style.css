@@ -206,6 +206,14 @@ input {
   content: "🗑️ Limpiar";
 }
 
+#btnSimAuto {
+  width: auto;
+  padding: 0 14px;
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+}
+
 
 /* =========================================================
    ALERTAS
@@ -393,7 +401,7 @@ input {
    BOTÓN PAGARÉS
    ========================================================= */
 
-.volver-container {
+/* .volver-container {
   position: fixed;
   bottom: 20px;
 
@@ -402,15 +410,16 @@ input {
 
   width: 100svw;
 }
-
+ */
 .volver {
-  position: relative;
-  right: 50px;
-
-  padding-top: 5px;
+  position: fixed;
+  padding: 3px;
+  right: 2%;
+bottom: 2%;
+  /* padding-top: 5px; */
 text-align: center;
-  font-weight: 600;
-  text-decoration: none;
+/*   font-weight: 600;
+ */  text-decoration: none;
 }
 
 .volver::after {
@@ -885,6 +894,7 @@ text-align: center;
   #btnAgregar::after {
     content: "SIMULAR";
   }
+  
 
   #btnBorrar,
   #btnLimpiar {
@@ -892,7 +902,7 @@ text-align: center;
     height: 40px;
   }
 
-  .resumenTabla td {
+    .resumenTabla td {
     padding: 5px 2px;
     background-color: white;
   }
@@ -927,7 +937,7 @@ text-align: center;
     background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .volver {
+  .volver, #btnSimAuto {
     box-shadow: 1px 1px 5px grey;
   }
 

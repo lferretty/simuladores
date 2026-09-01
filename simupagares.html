@@ -23,6 +23,10 @@
 
 <body>
 
+    <button id="btnSimAuto" class="botones" type="button">
+        Simulación Rápida
+    </button>
+
     <div id="fondo-fijo"></div>
 
     <header>
@@ -131,6 +135,7 @@
         const inputMonto = document.querySelector("#monto");
         const inputFecha = document.querySelector("#fecha");
         const btnAgregar = document.querySelector("#btnAgregar");
+        const btnSimAuto = document.querySelector("#btnSimAuto");
         const detalle = document.querySelector("#detalle");
         const grilla = document.querySelector("#grilla");
         const totalMonto = document.querySelector("#totalMonto");
@@ -976,12 +981,36 @@
         cargarTasasMAV();
 
 
-        function cargarPagare() {
+        function fechaISO(fecha) {
+            const año = fecha.getFullYear();
+            const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+            const dia = String(fecha.getDate()).padStart(2, "0");
 
-            const monto = parseInt(inputMonto.value);
+            return `${año}-${mes}-${dia}`;
+        }
+
+        function calcularPlazo(fechaSeleccionada) {
+            const [año, mes, dia] = fechaSeleccionada.split("-").map(Number);
+            const vencimiento = new Date(año, mes - 1, dia);
+            const hoy = new Date();
+
+            vencimiento.setHours(0, 0, 0, 0);
+            hoy.setHours(0, 0, 0, 0);
+
+            return Math.round(
+                (vencimiento - hoy) / (1000 * 60 * 60 * 24)
+            );
+        }
+
+        function cargarPagare(
+            fechaSeleccionada = inputFecha.value,
+            montoSeleccionado = parseInt(inputMonto.value)
+        ) {
+
+            const monto = montoSeleccionado;
 
             const fecha = new Date(
-                inputFecha.value + 'T00:00:00'
+                fechaSeleccionada + 'T00:00:00'
             ).toLocaleDateString(
                 "es-AR",
                 {
@@ -991,13 +1020,7 @@
                 }
             );
 
-            const plazo = Math.ceil(
-                (
-                    new Date(inputFecha.value) -
-                    new Date()
-                ) /
-                (1000 * 60 * 60 * 24)
-            );
+            const plazo = calcularPlazo(fechaSeleccionada);
 
             alertas.style.visibility = "visible";
 
@@ -1361,6 +1384,50 @@
 
         btnAgregar.addEventListener("click", () => {
             cargarPagare();
+            mostrarTabla();
+            detalle.style.display = "flex";
+        });
+
+        btnSimAuto.addEventListener("click", () => {
+            const montoSimulacionRapida = 100000;
+            const plazosSimulacionRapida = [90, 180, 240, 270, 360];
+            const fechaActual = new Date();
+
+            if (!tipoCambio || tipoCambio < 1) {
+                alertas.textContent = "Debe ingresar un TC mayor a 0";
+                alertas.style.visibility = "visible";
+                return;
+            }
+
+            if (!tasasMAVDisponibles) {
+                alertas.textContent =
+                    "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+                alertas.style.visibility = "visible";
+                return;
+            }
+
+            const fechas = plazosSimulacionRapida.map((plazo) => {
+                const fechaPagare = new Date(fechaActual);
+                fechaPagare.setDate(fechaPagare.getDate() + plazo);
+                return fechaISO(fechaPagare);
+            });
+
+            for (const fechaPagare of fechas) {
+                const plazo = calcularPlazo(fechaPagare);
+
+                if (obtenerTasa(plazo) === null) {
+                    alertas.textContent =
+                        "No hay tasas MAV disponibles para todos los plazos de la simulación rápida.";
+                    alertas.style.visibility = "visible";
+                    return;
+                }
+            }
+
+            pagares.length = 0;
+            idPagare = 0;
+            fechas.forEach((fechaPagare) =>
+                cargarPagare(fechaPagare, montoSimulacionRapida)
+            );
             mostrarTabla();
             detalle.style.display = "flex";
         });

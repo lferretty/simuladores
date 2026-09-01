@@ -1,509 +1,442 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador - cheques</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='black' viewBox='0 0 16 16'><path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z'/></svg>">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='black' viewBox='0 0 16 16'><path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z'/></svg>"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-        data-cf-beacon='{"token": "6089f4e055784b91bdda1540c03bffaa"}'></script><!-- End Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "6089f4e055784b91bdda1540c03bffaa"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPRM2QHRDG"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PPRM2QHRDG"
+    ></script>
     <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-PPRM2QHRDG');
+      gtag("config", "G-PPRM2QHRDG");
     </script>
-</head>
+  </head>
 
-<body>
+  <body>
 
-    <div id="fondo-fijo"></div>
-
-
-    <header>
-
-        <div class="tasas">
-
-            <button id="btnVerTasas" class="btn-ver-tasas" type="button">
-                <span class="icono-ojo">▼</span>
-                <span id="texto-ver-tasas">Tasas</span>
+          <button id="btnSimAuto" class="botones" type="button">
+             <span></span> Simulación Rápida
             </button>
+            
+    <div id="fondo-fijo"></div>
+  
+    <header>
+      <div class="tasas">
+        <button id="btnVerTasas" class="btn-ver-tasas" type="button">
+          <span class="icono-ojo">▼</span>
+          <span id="texto-ver-tasas">Tasas</span>
+        </button>
 
-            <div id="panelTasas" class="panel-tasas">
-
-                <div class="panel-tasas-header">
-
-                    <div>
-                        <strong>Tasas promedio</strong>
-                        <strong id="panel-tasas-subtitulo">Cheques avalados </strong>
-                        <span id="fechaTasasMAV">
-                            Buscando última rueda...
-                        </span>
-                    </div>
-
-                    <button id="btnCerrarTasas" class="btn-cerrar-tasas" type="button">
-                        ×
-                    </button>
-
-                </div>
-
-                <div id="contenidoTasasMAV" class="contenido-tasas-mav">
-
-                    <div class="tasas-loading">
-                        Cargando tasas...
-                    </div>
-
-                </div>
-
-                <div class="fuente-tasas">
-                    Fuente: MAV · Información Pública
-                </div>
-
+        <div id="panelTasas" class="panel-tasas">
+          <div class="panel-tasas-header">
+            <div>
+              <strong>Tasas promedio</strong>
+              <strong id="panel-tasas-subtitulo">Cheques avalados </strong>
+              <span id="fechaTasasMAV"> Buscando última rueda... </span>
             </div>
 
+            <button id="btnCerrarTasas" class="btn-cerrar-tasas" type="button">
+              ×
+            </button>
+          </div>
+
+          <div id="contenidoTasasMAV" class="contenido-tasas-mav">
+            <div class="tasas-loading">Cargando tasas...</div>
+          </div>
+
+          <div class="fuente-tasas">Fuente: MAV · Información Pública</div>
         </div>
+      </div>
 
+   
 
-        <div class="header-container">
-
-            <div class="title-container">
-             <!--    <a href="https://holdingareco.com/" target="_blank"> <img id="logoAVFE" src="imagenes/logoAVFE.png"
+      <div class="header-container">
+        <div class="title-container">
+          <!--    <a href="https://holdingareco.com/" target="_blank"> <img id="logoAVFE" src="imagenes/logoAVFE.png"
                         alt=""></a> -->
-                <h2>Simulador </h2>
-                <h1>Descuento de Cheques </h1>
-                <h4> Avalados por SGR </h4>
-            </div>
-
-            <section id="carga" class="centrar">
-                <div id="inputsContainer" class="centrar celeste">
-                    <label for="monto">Monto $: <input type="number" id="monto"> </label>
-                    <label for="fecha">Fecha: <input type="date" id="fecha"> </label>
-                    <button id="btnAgregar" class="botones"> ✚ <span class="ocultoEnCelu"> Simular</span> </button>
-                </div>
-            </section>
-
+          <h2>Simulador</h2>
+          <h1>Descuento de Cheques</h1>
+          <h4>Avalados por SGR</h4>
         </div>
+
+        <section id="carga" class="centrar">
+          <div id="inputsContainer" class="centrar celeste">
+            <label for="monto"
+              >Monto $: <input type="number" id="monto" />
+            </label>
+            <label for="fecha">Fecha: <input type="date" id="fecha" /> </label>
+            <button id="btnAgregar" class="botones">
+              ✚ <span class="ocultoEnCelu"> Simular</span>
+            </button>
+          </div>
+        </section>
+      </div>
     </header>
 
     <div id="alertas" class="centrar"></div>
     <main>
+      <div class="big-container">
+        <section id="detalle" class="centrar">
+          <table id="tablaInstrumentos" class="centrar">
+            <thead>
+              <tr>
+                <th class="ocultoEnCelu ocultarNroItem">#</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th class="ocultoEnCelu">Plazo</th>
+                <th>Tasa</th>
+                <th>CFTa</th>
+                <th class="ocultoEnCelu">Interés</th>
+                <th class="ocultoEnCelu">Gastos</th>
+                <th class="ocultoEnCelu">Com SGR</th>
+                <th>Neto</th>
+                <th style="border: none; background-color: transparent"></th>
+              </tr>
+            </thead>
+            <tbody id="grilla" class="centrar"></tbody>
+            <tfoot class="ocultoEnCelu oculto">
+              <tr>
+                <td
+                  style="
+                    border-bottom: none;
+                    background-color: transparent;
+                    border-left: none;
+                  "
+                ></td>
+                <td id="totalMonto"><strong>$ 0</strong></td>
+                <td
+                  style="border-bottom: none; background-color: transparent"
+                  colspan="4"
+                  id="tdColspan"
+                ></td>
+                <td id="totalDescuento"></td>
+                <td id="totalGastos"></td>
+                <td id="totalComSGR"></td>
+                <td id="totalNeto"><strong>$ 0</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
 
-        <div class="big-container">
-            <section id="detalle" class="centrar">
-                <table id="tablaInstrumentos" class="centrar">
-                    <thead>
-                        <tr>
-                            <th class="ocultoEnCelu ocultarNroItem">#</th>
-                            <th>Monto</th>
-                            <th>Fecha</th>
-                            <th class="ocultoEnCelu">Plazo</th>
-                            <th>Tasa</th>
-                            <th>CFTa</th>
-                            <th class="ocultoEnCelu">Interés</th>
-                            <th class="ocultoEnCelu">Gastos</th>
-                            <th class="ocultoEnCelu">Com SGR</th>
-                            <th>Neto</th>
-                            <th style="border: none; background-color: transparent;"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="grilla" class="centrar">
-                    </tbody>
-                    <tfoot class="ocultoEnCelu oculto">
-                        <tr>
-                            <td style="border-bottom: none; background-color: transparent;border-left: none;"> </td>
-                            <td id="totalMonto"><strong>$ 0</strong></td>
-                            <td style="border-bottom: none; background-color: transparent;" colspan="4" id="tdColspan">
-                            </td>
-                            <td id="totalDescuento"></td>
-                            <td id="totalGastos"></td>
-                            <td id="totalComSGR"></td>
-                            <td id="totalNeto"><strong>$ 0</strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
-
-            </section>
-
-            <section id="resumenOperacion" class="centrar"> </section>
-
-            <div class="printerContainer">
-                <button id="btnImprimir" class="botones centrar" title="Imprimir" onclick="window.print()">
-                    <span>🖨️</span> 
-                </button>
-                <button id="btnExportarExcel" class="botones centrar" title="Genera un archivo .xlsx">
-                    <img src="imagenes/excel-icon.png" alt="" width="20px"> 
-                </button>
-            </div>
+        <section id="resumenOperacion" class="centrar"></section>
 
 
-            <div class="nota">
-                <p>El neto incluye gastos de Alyc, Caja de Valores, SGR e impuestos. CFTa es TNA más gastos. <br>
-                    Simulador con fines comerciales, no implica obligación contractual.</p>
-            </div>
+     
+        <div class="printerContainer">
+
+        
+          <button
+            id="btnImprimir"
+            class="botones centrar"
+            title="Imprimir"
+            onclick="window.print()"
+          >
+            <span>🖨️</span>
+          </button>
+          <button
+            id="btnExportarExcel"
+            class="botones centrar"
+            title="Genera un archivo .xlsx"
+          >
+            <img src="imagenes/excel-icon.png" alt="" width="20px" />
+          </button>
         </div>
 
-
-        <div class="volver-container ">
-            <a href="simupagares.html" class="botones volver" title="Ir a simulador de pagarés">Pagarés</a>
+        <div class="nota">
+          <p>
+            El neto incluye gastos de Alyc, Caja de Valores, SGR e impuestos.
+            CFTa es TNA más gastos. <br />
+            Simulador con fines comerciales, no implica obligación contractual.
+          </p>
         </div>
+      </div>
+
+      <div class="volver-container">
+        <a
+          href="simupagares.html"
+          class="botones volver"
+          title="Ir a simulador de pagarés"
+          >Pagarés</a
+        >
+      </div>
     </main>
 
     <script>
-        const inputMonto = document.querySelector("#monto");
-        const inputFecha = document.querySelector("#fecha");
-        const btnAgregar = document.querySelector("#btnAgregar");
-        const detalle = document.querySelector("#detalle");
-        const grilla = document.querySelector("#grilla");
-        const totalMonto = document.querySelector("#totalMonto");
-        const totalNeto = document.querySelector("#totalNeto");
-        const totalDescuento = document.querySelector("#totalDescuento");
-        const totalGastos = document.querySelector("#totalGastos");
-        const totalComSGR = document.querySelector("#totalComSGR");
-        const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
-        const alertas = document.querySelector("#alertas");
-        const notas = document.querySelector(".nota");
-        const resumenOperacion = document.querySelector("#resumenOperacion");
-        const oculto = document.querySelector(".oculto");
-        const ocultarNroItem = document.querySelector(".ocultarNroItem")
-        const btnImprimir = document.querySelector("#btnImprimir");
-        const btnExportarExcel = document.querySelector("#btnExportarExcel");
-        const bigContainer = document.querySelector(".big-container");
+      const inputMonto = document.querySelector("#monto");
+      const inputFecha = document.querySelector("#fecha");
+      const btnAgregar = document.querySelector("#btnAgregar");
+      const btnSimAuto = document.querySelector("#btnSimAuto");
+      const detalle = document.querySelector("#detalle");
+      const grilla = document.querySelector("#grilla");
+      const totalMonto = document.querySelector("#totalMonto");
+      const totalNeto = document.querySelector("#totalNeto");
+      const totalDescuento = document.querySelector("#totalDescuento");
+      const totalGastos = document.querySelector("#totalGastos");
+      const totalComSGR = document.querySelector("#totalComSGR");
+      const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
+      const alertas = document.querySelector("#alertas");
+      const notas = document.querySelector(".nota");
+      const resumenOperacion = document.querySelector("#resumenOperacion");
+      const oculto = document.querySelector(".oculto");
+      const ocultarNroItem = document.querySelector(".ocultarNroItem");
+      const btnImprimir = document.querySelector("#btnImprimir");
+      const btnExportarExcel = document.querySelector("#btnExportarExcel");
+      const bigContainer = document.querySelector(".big-container");
 
-        const montoMin = 10000;
-        const montoMax = 1000000000;
-        const plazoMin = 15;
-        const plazoMax = 360;
-        const comAlyc = 1; //>  comisión (TNA) que cobra el alyc 
-        const comCVyOtros = 0.09; //>  % de gastos de Caja de Valores  
-        const comSGR = 4; //>  comisión (TNA) que cobra la SGR
-        const cheques = []; //> array donde se van guardando los cheques
+      const montoMin = 10000;
+      const montoMax = 1000000000;
+      const plazoMin = 15;
+      const plazoMax = 360;
+      const comAlyc = 1; //>  comisión (TNA) que cobra el alyc
+      const comCVyOtros = 0.09; //>  % de gastos de Caja de Valores
+      const comSGR = 4; //>  comisión (TNA) que cobra la SGR
+      const cheques = []; //> array donde se van guardando los cheques
 
+      /**************************************************************************************/
+      /**************************************************************************************/
+      /**************************************************************************************/
+      /********************************   T   A   S   A   S   *******************************/
+      /**************************************************************************************/
+      /**************************************************************************************/
+      /**************************************************************************************/
 
+      let tasasMAVPorRango = [];
+      let tasasMAVDisponibles = false;
 
-        /**************************************************************************************/
-        /**************************************************************************************/
-        /**************************************************************************************/
-        /********************************   T   A   S   A   S   *******************************/
-        /**************************************************************************************/
-        /**************************************************************************************/
-        /**************************************************************************************/
+      let idCheque = 0;
 
+      bigContainer.style.opacity = "0";
+      bigContainer.style.visibility = "hidden";
 
-        let tasasMAVPorRango = [];
-        let tasasMAVDisponibles = false;
+      function calcularPlazo(fechaSeleccionada) {
+        const [año, mes, dia] = fechaSeleccionada.split("-").map(Number);
+        const vencimiento = new Date(año, mes - 1, dia);
+        const hoy = new Date();
 
-        let idCheque = 0;
+        vencimiento.setHours(0, 0, 0, 0);
+        hoy.setHours(0, 0, 0, 0);
 
+        return Math.round(
+          (vencimiento - hoy) / (1000 * 60 * 60 * 24),
+        );
+      }
 
+      function cargarCheque(
+        fechaSeleccionada = inputFecha.value,
+        montoSeleccionado = parseInt(inputMonto.value),
+      ) {
+        const monto = montoSeleccionado;
+
+        const fecha = new Date(
+          fechaSeleccionada + "T00:00:00",
+        ).toLocaleDateString("es-AR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+        });
+
+        const plazo = calcularPlazo(fechaSeleccionada);
+
+        alertas.style.visibility = "visible";
+
+        /*
+         * =====================================================
+         * VALIDACIONES
+         * =====================================================
+         */
+
+        if (isNaN(plazo) && isNaN(monto)) {
+          alertas.textContent = "Ingrese monto y plazo";
+
+          return;
+        }
+
+        if (plazo < plazoMin || plazo > plazoMax || isNaN(plazo)) {
+          alertas.textContent = `El plazo debe estar entre ${plazoMin} y ${plazoMax} días`;
+
+          return;
+        }
+
+        if (!monto || monto < montoMin || monto > montoMax) {
+          alertas.textContent = `El monto debe estar comprendido entre $ ${montoMin.toLocaleString("es-AR")} y $ ${montoMax.toLocaleString("es-AR")}`;
+
+          return;
+        }
+
+        /*
+         * =====================================================
+         * VERIFICAR TASAS MAV
+         * =====================================================
+         */
+
+        if (!tasasMAVDisponibles) {
+          alertas.textContent =
+            "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+
+          return;
+        }
+
+        /*
+         * =====================================================
+         * OBTENER TASA
+         * =====================================================
+         */
+
+        const tasa = obtenerTasa(plazo);
+
+        if (tasa === null) {
+          alertas.textContent =
+            "No hay una tasa MAV disponible para este plazo.";
+
+          return;
+        }
+
+        /*
+         * =====================================================
+         * CÁLCULO DEL CHEQUE
+         * =====================================================
+         */
+
+        const descuentoAlyc =
+          Math.round((comAlyc * plazo * monto * 1.21) / 36000) * -1;
+
+        const descuentoSGR = Math.round((comSGR * plazo * monto) / 36500) * -1;
+
+        const otrosGastos = Math.round((monto * comCVyOtros) / 100) * -1;
+
+        const descuentoTNA =
+          Math.round(monto - monto / (1 + (tasa * (plazo + 2)) / 36500)) * -1;
+
+        const neto = Math.round(
+          monto + descuentoTNA + descuentoAlyc + descuentoSGR + otrosGastos,
+        );
+
+        const gastosCVyAlyc = Math.round(descuentoAlyc + otrosGastos);
+
+        const cft = monto / neto - 1;
+
+        const cfta = Math.round((cft / plazo) * 36500);
+
+        /*
+         * =====================================================
+         * GUARDAR CHEQUE
+         * =====================================================
+         */
+
+        alertas.style.visibility = "hidden";
+
+        cheques.push({
+          idCheque: idCheque++,
+
+          monto,
+
+          fecha,
+
+          plazo,
+
+          tasa,
+
+          cfta,
+
+          descuentoTNA,
+
+          gastosCVyAlyc,
+
+          descuentoSGR,
+
+          neto,
+        });
+      }
+
+      function obtenerTasa(plazo) {
+        /*
+         * Buscamos el rango exacto al que pertenece
+         * el plazo del cheque.
+         */
+
+        const rango = RANGOS_MAV.find(
+          (rango) => plazo >= rango.desde && plazo <= rango.hasta,
+        );
+
+        if (!rango) {
+          return null;
+        }
+
+        /*
+         * La segregación ya completó los rangos sin
+         * operaciones tomando la tasa del rango
+         * disponible más cercano.
+         *
+         * Por eso, acá usamos directamente la tasa
+         * resultante de ese rango.
+         */
+
+        const dato = tasasMAVPorRango.find(
+          (item) => item.rango === rango.nombre,
+        );
+
+        if (!dato || dato.tna === null) {
+          return null;
+        }
+
+        /*
+         * El simulador utiliza la misma tasa que se
+         * muestra en la tabla:
+         *
+         * 25,33 → 26
+         * 26,50 → 27
+         * 28,24 → 29
+         */
+
+        return Math.ceil(dato.tna);
+      }
+
+      function mostrarTabla() {
         bigContainer.style.opacity = "0";
-        bigContainer.style.visibility = "hidden"
-
-        function cargarCheque() {
-
-            const monto =
-                parseInt(inputMonto.value);
-
-
-            const fecha =
-                new Date(
-                    inputFecha.value + 'T00:00:00'
-                ).toLocaleDateString(
-                    "es-AR",
-                    {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: '2-digit'
-                    }
-                );
-
-
-            const plazo =
-                Math.ceil(
-                    (
-                        new Date(inputFecha.value) -
-                        new Date()
-                    ) /
-                    (1000 * 60 * 60 * 24)
-                );
-
-
-            alertas.style.visibility = "visible";
-
-
-            /*
-             * =====================================================
-             * VALIDACIONES
-             * =====================================================
-             */
-
-            if (isNaN(plazo) && isNaN(monto)) {
-
-                alertas.textContent =
-                    "Ingrese monto y plazo";
-
-                return;
-            }
-
-
-            if (
-                plazo < plazoMin ||
-                plazo > plazoMax ||
-                isNaN(plazo)
-            ) {
-
-                alertas.textContent =
-                    `El plazo debe estar entre ${plazoMin} y ${plazoMax} días`;
-
-                return;
-            }
-
-
-            if (
-                !monto ||
-                monto < montoMin ||
-                monto > montoMax
-            ) {
-
-                alertas.textContent =
-                    `El monto debe estar comprendido entre $ ${montoMin.toLocaleString("es-AR")} y $ ${montoMax.toLocaleString("es-AR")}`;
-
-                return;
-            }
-
-
-            /*
-             * =====================================================
-             * VERIFICAR TASAS MAV
-             * =====================================================
-             */
-
-            if (!tasasMAVDisponibles) {
-
-                alertas.textContent =
-                    "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
-
-                return;
-            }
-
-
-            /*
-             * =====================================================
-             * OBTENER TASA
-             * =====================================================
-             */
-
-            const tasa =
-                obtenerTasa(plazo);
-
-
-            if (tasa === null) {
-
-                alertas.textContent =
-                    "No hay una tasa MAV disponible para este plazo.";
-
-                return;
-            }
-
-
-            /*
-             * =====================================================
-             * CÁLCULO DEL CHEQUE
-             * =====================================================
-             */
-
-            const descuentoAlyc =
-                Math.round(
-                    comAlyc *
-                    plazo *
-                    monto *
-                    1.21 /
-                    36000
-                ) * -1;
-
-
-            const descuentoSGR =
-                Math.round(
-                    comSGR *
-                    plazo *
-                    monto /
-                    36500
-                ) * -1;
-
-
-            const otrosGastos =
-                Math.round(
-                    monto *
-                    comCVyOtros /
-                    100
-                ) * -1;
-
-
-            const descuentoTNA =
-                Math.round(
-                    monto -
-                    monto /
-                    (
-                        1 +
-                        tasa *
-                        (plazo + 2) /
-                        36500
-                    )
-                ) * -1;
-
-
-            const neto =
-                Math.round(
-                    monto +
-                    descuentoTNA +
-                    descuentoAlyc +
-                    descuentoSGR +
-                    otrosGastos
-                );
-
-
-            const gastosCVyAlyc =
-                Math.round(
-                    descuentoAlyc +
-                    otrosGastos
-                );
-
-
-            const cft =
-                monto / neto - 1;
-
-
-            const cfta =
-                Math.round(
-                    cft /
-                    plazo *
-                    36500
-                );
-
-
-            /*
-             * =====================================================
-             * GUARDAR CHEQUE
-             * =====================================================
-             */
-
-            alertas.style.visibility = "hidden";
-
-
-            cheques.push({
-
-                idCheque: idCheque++,
-
-                monto,
-
-                fecha,
-
-                plazo,
-
-                tasa,
-
-                cfta,
-
-                descuentoTNA,
-
-                gastosCVyAlyc,
-
-                descuentoSGR,
-
-                neto
-
-            });
-
-        }
-
-
-        function obtenerTasa(plazo) {
-
-            /*
-             * Buscamos el rango exacto al que pertenece
-             * el plazo del cheque.
-             */
-
-            const rango =
-                RANGOS_MAV.find(rango =>
-                    plazo >= rango.desde &&
-                    plazo <= rango.hasta
-                );
-
-
-            if (!rango) {
-                return null;
-            }
-
-
-            /*
-             * La segregación ya completó los rangos sin
-             * operaciones tomando la tasa del rango
-             * disponible más cercano.
-             *
-             * Por eso, acá usamos directamente la tasa
-             * resultante de ese rango.
-             */
-
-            const dato =
-                tasasMAVPorRango.find(item =>
-                    item.rango === rango.nombre
-                );
-
-
-            if (!dato || dato.tna === null) {
-                return null;
-            }
-
-
-            /*
-             * El simulador utiliza la misma tasa que se
-             * muestra en la tabla:
-             *
-             * 25,33 → 26
-             * 26,50 → 27
-             * 28,24 → 29
-             */
-
-            return Math.ceil(dato.tna);
-        }
-
-
-        function mostrarTabla() {
-
-            bigContainer.style.opacity = "0";
-            bigContainer.style.visibility = "visible";
-
-            let sumaMontos = 0;
-            let sumaDescuentoTNA = 0;
-            let sumaDescuentoAlyc = 0;
-            let sumaDescuentoSGR = 0;
-            let sumaOtrosGastos = 0;
-            let sumaNetos = 0;
-            let sumaGastosCVyAlyc = 0;
-
-            if (cheques.length !== 0) {
-
-                tablaInstrumentos.style.opacity = "1";
-                resumenOperacion.style.opacity = "1";
-                notas.style.opacity = "1";
-                grilla.innerHTML = "";
-                btnImprimir.style.opacity = "1";
-                btnExportarExcel.style.opacity = "1";
-                bigContainer.style.opacity = "1";
-
-                cheques.forEach((cheque) => {
-                    let fila = document.createElement("tr");
-                    fila.innerHTML = `
+        bigContainer.style.visibility = "visible";
+
+        let sumaMontos = 0;
+        let sumaDescuentoTNA = 0;
+        let sumaDescuentoAlyc = 0;
+        let sumaDescuentoSGR = 0;
+        let sumaOtrosGastos = 0;
+        let sumaNetos = 0;
+        let sumaGastosCVyAlyc = 0;
+
+        if (cheques.length !== 0) {
+          tablaInstrumentos.style.opacity = "1";
+          resumenOperacion.style.opacity = "1";
+          notas.style.opacity = "1";
+          grilla.innerHTML = "";
+          btnImprimir.style.opacity = "1";
+          btnExportarExcel.style.opacity = "1";
+          bigContainer.style.opacity = "1";
+
+          cheques.forEach((cheque) => {
+            let fila = document.createElement("tr");
+            fila.innerHTML = `
                     <td class="ocultoEnCelu ocultarNroItem">${cheques.indexOf(cheque) + 1}</td>
                     <td>${cheque.monto.toLocaleString("es-AR")}</td>
                     <td>${cheque.fecha}</td>
@@ -516,43 +449,39 @@
                     <td> ${cheque.neto.toLocaleString("es-AR")}</td>
                     <td style="border: none; background-color: transparent;">
                         <button  id="btnBorrar" class="botones" onclick="borrar(${cheque.idCheque})" title="Elimina este cheque"> <span class="ocultoEnCelu" > </span>  </button>
-                        </td>`
+                        </td>`;
 
+            grilla.appendChild(fila);
 
-                    grilla.appendChild(fila);
+            sumaMontos += cheque.monto;
+            sumaDescuentoTNA += cheque.descuentoTNA;
+            sumaDescuentoAlyc += cheque.gastosCVyAlyc;
+            sumaOtrosGastos += cheque.gastosCVyAlyc;
+            sumaDescuentoSGR += cheque.descuentoSGR;
+            sumaNetos += cheque.neto;
+            sumaGastosCVyAlyc += cheque.gastosCVyAlyc;
+          });
 
-                    sumaMontos += cheque.monto;
-                    sumaDescuentoTNA += cheque.descuentoTNA;
-                    sumaDescuentoAlyc += cheque.gastosCVyAlyc;
-                    sumaOtrosGastos += cheque.gastosCVyAlyc;
-                    sumaDescuentoSGR += cheque.descuentoSGR;
-                    sumaNetos += cheque.neto;
-                    sumaGastosCVyAlyc += cheque.gastosCVyAlyc;
-
-
-                });
-
-                if (cheques.length > 1) {
-                    let filaFinal = document.createElement('tr');
-                    grilla.appendChild(filaFinal);
-                    filaFinal.innerHTML = `
+          if (cheques.length > 1) {
+            let filaFinal = document.createElement("tr");
+            grilla.appendChild(filaFinal);
+            filaFinal.innerHTML = `
                     <td style="border: none; background: transparent" colspan = "5"></td>
                     <td style="border: none; background: transparent" colspan = "5" class="ocultoEnCelu"></td>
                     <td style="border: none; background: transparent"> 
                         <button id="btnLimpiar" class="botones" title="Borra toda la tabla" onclick="limpiar()"></button> 
                     </td> 
 
-                    `
-                }
+                    `;
+          }
 
-                const plazoPromedio = () => {
-                    let sumaPlazos = 0;
-                    cheques.forEach((cheque) => sumaPlazos += cheque.plazo);
-                    return sumaPlazos / cheques.length;
-                }
+          const plazoPromedio = () => {
+            let sumaPlazos = 0;
+            cheques.forEach((cheque) => (sumaPlazos += cheque.plazo));
+            return sumaPlazos / cheques.length;
+          };
 
-
-                resumenOperacion.innerHTML = `
+          resumenOperacion.innerHTML = `
           
                  <table class="resumenTabla centrar">
                 <tr>
@@ -589,592 +518,557 @@
                 </tr>
             </table>
                     `;
-            }
+        }
+      }
 
+      function borrar(idCheque) {
+        const index = cheques.findIndex((c) => c.idCheque === idCheque);
+        /// el método .findIndex devuelve el índice de un array. Contiene una función flecha que va comparando el id de esta función versus el id que recibió la función borrar().
+        /// La función flecha c => c.id === id es un callback de findIndex(), porque se pasa como argumento y se ejecuta dentro de findIndex() para evaluar cada elemento del array.
+        if (index !== -1) {
+          /// comprueba que el índice no sea -1, es decir, comprueba que exista
+          cheques.splice(index, 1); /// el método .splice elimina un elemento de un array, en el índice indicado y la cantidad indicada (1)
+          mostrarTabla(); /// llama a la función para refrescar la tabla
         }
 
+        alertas.style.visibility = "hidden";
+        //alertas.textContent = "";
+      }
 
-        function borrar(idCheque) {
-            const index = cheques.findIndex(c => c.idCheque === idCheque);
-            /// el método .findIndex devuelve el índice de un array. Contiene una función flecha que va comparando el id de esta función versus el id que recibió la función borrar(). 
-            /// La función flecha c => c.id === id es un callback de findIndex(), porque se pasa como argumento y se ejecuta dentro de findIndex() para evaluar cada elemento del array.  
-            if (index !== -1) {   /// comprueba que el índice no sea -1, es decir, comprueba que exista
-                cheques.splice(index, 1);   /// el método .splice elimina un elemento de un array, en el índice indicado y la cantidad indicada (1)
-                mostrarTabla();   /// llama a la función para refrescar la tabla
-            }
+      btnAgregar.addEventListener("click", () => {
+        cargarCheque();
+        mostrarTabla();
+        detalle.style.display = "flex";
+      });
 
-            alertas.style.visibility = "hidden";
-            //alertas.textContent = "";
+      btnSimAuto.addEventListener("click", () => {
+        const montoSimulacionRapida = 1000000;
+        const fechaActual = new Date();
+
+        if (!tasasMAVDisponibles) {
+          alertas.textContent =
+            "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+          alertas.style.visibility = "visible";
+          return;
         }
 
-
-
-        btnAgregar.addEventListener("click", () => {
-            cargarCheque();
-            mostrarTabla();
-            detalle.style.display = "flex";
+        const fechas = Array.from({ length: 12 }, (_, indice) => {
+          const fechaCheque = new Date(fechaActual);
+          fechaCheque.setDate(fechaCheque.getDate() + (indice + 1) * 30);
+          return fechaISO(fechaCheque);
         });
 
+        for (const fechaCheque of fechas) {
+          const plazo = calcularPlazo(fechaCheque);
 
-        function limpiar() {
-            cheques.length = 0;
-            mostrarTabla();
-            detalle.style.display = "none";
-            /*        alertas.textContent = ""; */
-            bigContainer.style.visibility = "hidden";
+          if (
+            plazo < plazoMin ||
+            plazo > plazoMax ||
+            obtenerTasa(plazo) === null
+          ) {
+            alertas.textContent =
+              "No hay tasas MAV disponibles para todos los plazos de la simulación rápida.";
+            alertas.style.visibility = "visible";
+            return;
+          }
+        }
 
-            alertas.style.visibility = "hidden";
-        };
+        cheques.length = 0;
+        idCheque = 0;
+        fechas.forEach((fechaCheque) =>
+          cargarCheque(fechaCheque, montoSimulacionRapida),
+        );
+        mostrarTabla();
+        detalle.style.display = "flex";
+      });
 
+      function limpiar() {
+        cheques.length = 0;
+        mostrarTabla();
+        detalle.style.display = "none";
+        /*        alertas.textContent = ""; */
+        bigContainer.style.visibility = "hidden";
 
+        alertas.style.visibility = "hidden";
+      }
 
+      /////////////////////////////////// código para exportar  a excel ////////////////////////
 
-        /////////////////////////////////// código para exportar  a excel ////////////////////////
+      document
+        .getElementById("btnExportarExcel")
+        .addEventListener("click", function () {
+          const tabla = document.getElementById("tablaInstrumentos");
+          const filas = Array.from(tabla.querySelectorAll("tbody tr"));
 
+          const headers = [
+            "#",
+            "Monto",
+            "Fecha",
+            "Plazo",
+            "Tasa (%)",
+            "CFTa (%)",
+            "Interés",
+            "Gastos",
+            "Com SGR",
+            "Neto",
+          ];
+          const data = [headers];
+          const sumas = new Array(headers.length).fill(0);
 
-        document.getElementById("btnExportarExcel").addEventListener("click", function () {
-            const tabla = document.getElementById("tablaInstrumentos");
-            const filas = Array.from(tabla.querySelectorAll("tbody tr"));
+          let contador = 1;
+          let totalPlazo = 0;
+          let filasValidas = 0;
 
-            const headers = ["#", "Monto", "Fecha", "Plazo", "Tasa (%)", "CFTa (%)", "Interés", "Gastos", "Com SGR", "Neto"];
-            const data = [headers];
-            const sumas = new Array(headers.length).fill(0);
+          filas.forEach((fila) => {
+            const celdas = fila.querySelectorAll("td");
+            if (celdas.length < 10 || !celdas[1].textContent.trim()) return;
 
-            let contador = 1;
-            let totalPlazo = 0;
-            let filasValidas = 0;
+            const filaData = [];
 
-            filas.forEach(fila => {
-                const celdas = fila.querySelectorAll("td");
-                if (celdas.length < 10 || !celdas[1].textContent.trim()) return;
+            try {
+              const monto =
+                parseInt(
+                  celdas[1].textContent.replace(/\./g, "").replace(/\s/g, ""),
+                ) || 0;
+              const fecha = celdas[2].textContent.trim();
+              const plazo = parseInt(celdas[3].textContent) || 0;
+              const tasa =
+                parseFloat(
+                  celdas[4].textContent.replace(",", ".").replace("%", ""),
+                ) || 0;
+              const cfta =
+                parseFloat(
+                  celdas[5].textContent.replace(",", ".").replace("%", ""),
+                ) || 0;
+              const interes =
+                parseInt(
+                  celdas[6].textContent.replace(/\./g, "").replace(/\s/g, ""),
+                ) || 0;
+              const gastos =
+                parseInt(
+                  celdas[7].textContent.replace(/\./g, "").replace(/\s/g, ""),
+                ) || 0;
+              const sgr =
+                parseInt(
+                  celdas[8].textContent.replace(/\./g, "").replace(/\s/g, ""),
+                ) || 0;
+              const neto =
+                parseInt(
+                  celdas[9].textContent.replace(/\./g, "").replace(/\s/g, ""),
+                ) || 0;
 
-                const filaData = [];
+              filaData.push(contador++);
+              filaData.push(monto);
+              filaData.push(fecha);
+              filaData.push(plazo);
+              filaData.push(tasa);
+              filaData.push(cfta);
+              filaData.push(interes);
+              filaData.push(gastos);
+              filaData.push(sgr);
+              filaData.push(neto);
 
-                try {
-                    const monto = parseInt(celdas[1].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
-                    const fecha = celdas[2].textContent.trim();
-                    const plazo = parseInt(celdas[3].textContent) || 0;
-                    const tasa = parseFloat(celdas[4].textContent.replace(",", ".").replace("%", "")) || 0;
-                    const cfta = parseFloat(celdas[5].textContent.replace(",", ".").replace("%", "")) || 0;
-                    const interes = parseInt(celdas[6].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
-                    const gastos = parseInt(celdas[7].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
-                    const sgr = parseInt(celdas[8].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
-                    const neto = parseInt(celdas[9].textContent.replace(/\./g, "").replace(/\s/g, "")) || 0;
+              sumas[1] += monto;
+              totalPlazo += plazo;
+              sumas[6] += interes;
+              sumas[7] += gastos;
+              sumas[8] += sgr;
+              sumas[9] += neto;
 
-                    filaData.push(contador++);
-                    filaData.push(monto);
-                    filaData.push(fecha);
-                    filaData.push(plazo);
-                    filaData.push(tasa);
-                    filaData.push(cfta);
-                    filaData.push(interes);
-                    filaData.push(gastos);
-                    filaData.push(sgr);
-                    filaData.push(neto);
+              filasValidas++;
 
-                    sumas[1] += monto;
-                    totalPlazo += plazo;
-                    sumas[6] += interes;
-                    sumas[7] += gastos;
-                    sumas[8] += sgr;
-                    sumas[9] += neto;
-
-                    filasValidas++;
-
-                    data.push(filaData);
-                } catch (err) {
-                    console.error("Error al procesar fila:", err);
-                }
-            });
-
-
-            const filaTotales = ["Totales:"];
-
-            for (let i = 1; i < headers.length; i++) {
-                if (i === 2 || i === 4 || i === 5) {
-                    filaTotales.push(""); // Fecha, tasa y cfta no se suman
-                } else if (i === 3) {
-                    const promedio = filasValidas > 0 ? Math.round(totalPlazo / filasValidas) : 0;
-                    filaTotales.push(promedio);
-                } else {
-                    filaTotales.push(sumas[i] || "");
-                }
+              data.push(filaData);
+            } catch (err) {
+              console.error("Error al procesar fila:", err);
             }
-            data.push(filaTotales);
+          });
 
-            const ws = XLSX.utils.aoa_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Simulación");
+          const filaTotales = ["Totales:"];
 
-            XLSX.writeFile(wb, "simulacion_cheques.xlsx");
+          for (let i = 1; i < headers.length; i++) {
+            if (i === 2 || i === 4 || i === 5) {
+              filaTotales.push(""); // Fecha, tasa y cfta no se suman
+            } else if (i === 3) {
+              const promedio =
+                filasValidas > 0 ? Math.round(totalPlazo / filasValidas) : 0;
+              filaTotales.push(promedio);
+            } else {
+              filaTotales.push(sumas[i] || "");
+            }
+          }
+          data.push(filaTotales);
+
+          const ws = XLSX.utils.aoa_to_sheet(data);
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "Simulación");
+
+          XLSX.writeFile(wb, "simulacion_cheques.xlsx");
         });
 
-
-        /* =========================================================
+      /* =========================================================
    TASAS MAV - CHEQUES AVALADOS
    ========================================================= */
 
-        const MAV_API =
-            "https://mav-proxy.lucasferrety.workers.dev/";
+      const MAV_API = "https://mav-proxy.lucasferrety.workers.dev/";
 
+      const btnVerTasas = document.getElementById("btnVerTasas");
 
-        const btnVerTasas =
-            document.getElementById("btnVerTasas");
+      const btnCerrarTasas = document.getElementById("btnCerrarTasas");
 
-        const btnCerrarTasas =
-            document.getElementById("btnCerrarTasas");
+      const panelTasas = document.getElementById("panelTasas");
 
-        const panelTasas =
-            document.getElementById("panelTasas");
+      const contenidoTasasMAV = document.getElementById("contenidoTasasMAV");
 
-        const contenidoTasasMAV =
-            document.getElementById("contenidoTasasMAV");
+      const fechaTasasMAV = document.getElementById("fechaTasasMAV");
 
-        const fechaTasasMAV =
-            document.getElementById("fechaTasasMAV");
-
-
-        /* =========================================================
+      /* =========================================================
            ABRIR / CERRAR
            ========================================================= */
 
-        btnVerTasas.addEventListener("click", () => {
+      btnVerTasas.addEventListener("click", () => {
+        panelTasas.classList.toggle("abierto");
+      });
 
-            panelTasas.classList.toggle("abierto");
+      btnCerrarTasas.addEventListener("click", () => {
+        panelTasas.classList.remove("abierto");
+      });
 
-        });
-
-
-        btnCerrarTasas.addEventListener("click", () => {
-
-            panelTasas.classList.remove("abierto");
-
-        });
-
-
-        /* =========================================================
+      /* =========================================================
            RANGOS MAV
            ========================================================= */
 
-        const RANGOS_MAV = [
-            {
-                nombre: "1 - 30",
-                desde: 0,
-                hasta: 30
-            },
-            {
-                nombre: "31 - 60",
-                desde: 31,
-                hasta: 60
-            },
-            {
-                nombre: "61 - 90",
-                desde: 61,
-                hasta: 90
-            },
-            {
-                nombre: "91 - 120",
-                desde: 91,
-                hasta: 120
-            },
-            {
-                nombre: "121 - 150",
-                desde: 121,
-                hasta: 150
-            },
-            {
-                nombre: "151 - 180",
-                desde: 151,
-                hasta: 180
-            },
-            {
-                nombre: "181 - 210",
-                desde: 181,
-                hasta: 210
-            },
-            {
-                nombre: "211 - 240",
-                desde: 211,
-                hasta: 240
-            },
-            {
-                nombre: "241 - 270",
-                desde: 241,
-                hasta: 270
-            },
-            {
-                nombre: "271 - 300",
-                desde: 271,
-                hasta: 300
-            },
-            {
-                nombre: "301 - 330",
-                desde: 301,
-                hasta: 330
-            },
-            {
-                nombre: "331 - 360",
-                desde: 331,
-                hasta: 360
-            }
-        ];
+      const RANGOS_MAV = [
+        {
+          nombre: "1 - 30",
+          desde: 0,
+          hasta: 30,
+        },
+        {
+          nombre: "31 - 60",
+          desde: 31,
+          hasta: 60,
+        },
+        {
+          nombre: "61 - 90",
+          desde: 61,
+          hasta: 90,
+        },
+        {
+          nombre: "91 - 120",
+          desde: 91,
+          hasta: 120,
+        },
+        {
+          nombre: "121 - 150",
+          desde: 121,
+          hasta: 150,
+        },
+        {
+          nombre: "151 - 180",
+          desde: 151,
+          hasta: 180,
+        },
+        {
+          nombre: "181 - 210",
+          desde: 181,
+          hasta: 210,
+        },
+        {
+          nombre: "211 - 240",
+          desde: 211,
+          hasta: 240,
+        },
+        {
+          nombre: "241 - 270",
+          desde: 241,
+          hasta: 270,
+        },
+        {
+          nombre: "271 - 300",
+          desde: 271,
+          hasta: 300,
+        },
+        {
+          nombre: "301 - 330",
+          desde: 301,
+          hasta: 330,
+        },
+        {
+          nombre: "331 - 360",
+          desde: 331,
+          hasta: 360,
+        },
+      ];
 
-
-        /* =========================================================
+      /* =========================================================
            FECHA YYYY-MM-DD
            ========================================================= */
 
-        function fechaISO(fecha) {
+      function fechaISO(fecha) {
+        const año = fecha.getFullYear();
 
-            const año =
-                fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, "0");
 
-            const mes =
-                String(fecha.getMonth() + 1)
-                    .padStart(2, "0");
+        const dia = String(fecha.getDate()).padStart(2, "0");
 
-            const dia =
-                String(fecha.getDate())
-                    .padStart(2, "0");
+        return `${año}-${mes}-${dia}`;
+      }
 
-            return `${año}-${mes}-${dia}`;
-        }
-
-
-        /* =========================================================
+      /* =========================================================
            FORMATO FECHA
            ========================================================= */
 
-        function formatoFecha(fecha) {
+      function formatoFecha(fecha) {
+        const partes = fecha.split("-");
 
-            const partes =
-                fecha.split("-");
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+      }
 
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-        }
-
-
-        /* =========================================================
+      /* =========================================================
            BUSCAR ÚLTIMA RUEDA
            ========================================================= */
 
-        async function obtenerUltimaRuedaCheques() {
+      async function obtenerUltimaRuedaCheques() {
+        const respuesta = await fetch(MAV_API);
 
-            const respuesta = await fetch(MAV_API);
-
-            if (!respuesta.ok) {
-                throw new Error(
-                    `El proxy MAV respondió HTTP ${respuesta.status}`
-                );
-            }
-
-            const datos = await respuesta.json();
-
-            if (
-                !datos ||
-                !datos.fecha ||
-                !Array.isArray(datos.subastas)
-            ) {
-                throw new Error(
-                    "El proxy MAV devolvió una respuesta inválida."
-                );
-            }
-
-            /*
-             * FILTROS PARA LA SEGREGACIÓN DE CHEQUES
-             *
-             * Solo se consideran:
-             * - Cheques / ECHEQs
-             * - Segmento Avalado
-             * - Operaciones Negociadas (concertadas)
-             * - Moneda pesos
-             * - PPV entre 0 y 360 días
-             * - Monto y tasa compradora válidos
-             *
-             * Quedan afuera:
-             * - Pagarés
-             * - FCE
-             * - Operaciones Desiertas
-             * - Otros segmentos
-             * - Moneda USD
-             * - Plazos superiores a 360 días
-             */
-
-            const operaciones = datos.subastas.filter(subasta => {
-
-                const instrumento =
-                    String(subasta.instrumento || "")
-                        .trim()
-                        .toUpperCase();
-
-                const estado =
-                    String(subasta.estado || "")
-                        .trim()
-                        .toUpperCase();
-
-                const segmento =
-                    String(subasta.segmento || "")
-                        .trim()
-                        .toUpperCase();
-
-                const moneda =
-                    String(subasta.moneda || "")
-                        .trim()
-                        .toUpperCase();
-
-                const ppv = Number(subasta.ppv);
-                const monto = Number(subasta.monto);
-                const tasa = Number(subasta.tasa_compradora);
-
-                const esCheque =
-                    instrumento === "ECHEQ" ||
-                    instrumento === "CHEQUE" ||
-                    instrumento === "CPD";
-
-                const esNegociada =
-                    estado === "NEGOCIADA";
-
-                const esAvalado =
-                    segmento === "AVALADO";
-
-                const esPesos =
-                    moneda === "$";
-
-                const plazoValido =
-                    Number.isFinite(ppv) &&
-                    ppv >= 0 &&
-                    ppv <= 360;
-
-                const montoValido =
-                    Number.isFinite(monto) &&
-                    monto > 0;
-
-                const tasaValida =
-                    Number.isFinite(tasa);
-
-                return (
-                    esCheque &&
-                    esNegociada &&
-                    esAvalado &&
-                    esPesos &&
-                    plazoValido &&
-                    montoValido &&
-                    tasaValida
-                );
-            });
-
-            return {
-                fecha: datos.fecha,
-                operaciones
-            };
+        if (!respuesta.ok) {
+          throw new Error(`El proxy MAV respondió HTTP ${respuesta.status}`);
         }
 
-        /* =========================================================
+        const datos = await respuesta.json();
+
+        if (!datos || !datos.fecha || !Array.isArray(datos.subastas)) {
+          throw new Error("El proxy MAV devolvió una respuesta inválida.");
+        }
+
+        /*
+         * FILTROS PARA LA SEGREGACIÓN DE CHEQUES
+         *
+         * Solo se consideran:
+         * - Cheques / ECHEQs
+         * - Segmento Avalado
+         * - Operaciones Negociadas (concertadas)
+         * - Moneda pesos
+         * - PPV entre 0 y 360 días
+         * - Monto y tasa compradora válidos
+         *
+         * Quedan afuera:
+         * - Pagarés
+         * - FCE
+         * - Operaciones Desiertas
+         * - Otros segmentos
+         * - Moneda USD
+         * - Plazos superiores a 360 días
+         */
+
+        const operaciones = datos.subastas.filter((subasta) => {
+          const instrumento = String(subasta.instrumento || "")
+            .trim()
+            .toUpperCase();
+
+          const estado = String(subasta.estado || "")
+            .trim()
+            .toUpperCase();
+
+          const segmento = String(subasta.segmento || "")
+            .trim()
+            .toUpperCase();
+
+          const moneda = String(subasta.moneda || "")
+            .trim()
+            .toUpperCase();
+
+          const ppv = Number(subasta.ppv);
+          const monto = Number(subasta.monto);
+          const tasa = Number(subasta.tasa_compradora);
+
+          const esCheque =
+            instrumento === "ECHEQ" ||
+            instrumento === "CHEQUE" ||
+            instrumento === "CPD";
+
+          const esNegociada = estado === "NEGOCIADA";
+
+          const esAvalado = segmento === "AVALADO";
+
+          const esPesos = moneda === "$";
+
+          const plazoValido = Number.isFinite(ppv) && ppv >= 0 && ppv <= 360;
+
+          const montoValido = Number.isFinite(monto) && monto > 0;
+
+          const tasaValida = Number.isFinite(tasa);
+
+          return (
+            esCheque &&
+            esNegociada &&
+            esAvalado &&
+            esPesos &&
+            plazoValido &&
+            montoValido &&
+            tasaValida
+          );
+        });
+
+        return {
+          fecha: datos.fecha,
+          operaciones,
+        };
+      }
+
+      /* =========================================================
            CALCULAR SEGREGACIÓN
            ========================================================= */
 
-        function calcularSegregacion(operaciones) {
+      function calcularSegregacion(operaciones) {
+        /*
+         * Primero calculamos la TNA real de cada rango.
+         * Los rangos sin operaciones quedan con tna = null.
+         */
 
+        const resultados = RANGOS_MAV.map((rango) => {
+          const operacionesRango = operaciones.filter(
+            (op) =>
+              Number(op.ppv) >= rango.desde && Number(op.ppv) <= rango.hasta,
+          );
+
+          if (operacionesRango.length === 0) {
+            return {
+              rango: rango.nombre,
+              desde: rango.desde,
+              hasta: rango.hasta,
+              tna: null,
+              monto: 0,
+              cantidad: 0,
+            };
+          }
+
+          /*
+           * TNA promedio ponderada por monto
+           */
+
+          let montoTotal = 0;
+          let tasaPonderada = 0;
+
+          operacionesRango.forEach((op) => {
+            const monto = Number(op.monto);
+
+            const tasa = Number(op.tasa_compradora);
+
+            montoTotal += monto;
+
+            tasaPonderada += tasa * monto;
+          });
+
+          const tna = montoTotal > 0 ? tasaPonderada / montoTotal : null;
+
+          return {
+            rango: rango.nombre,
+            desde: rango.desde,
+            hasta: rango.hasta,
+            tna: tna,
+            monto: montoTotal,
+            cantidad: operacionesRango.length,
+          };
+        });
+
+        /*
+         * =====================================================
+         * COMPLETAR RANGOS SIN TASA
+         * =====================================================
+         *
+         * Si un rango no tiene operaciones, buscamos el rango
+         * con tasa disponible más cercano.
+         *
+         * Usamos el punto medio de cada rango para determinar
+         * la distancia.
+         *
+         * En caso de empate, priorizamos el rango anterior.
+         */
+
+        resultados.forEach((resultado, indice) => {
+          if (resultado.tna !== null) {
+            return;
+          }
+
+          const centroResultado = (resultado.desde + resultado.hasta) / 2;
+
+          let mejorTasa = null;
+          let menorDistancia = Infinity;
+          let mejorIndice = -1;
+
+          resultados.forEach((candidato, candidatoIndice) => {
             /*
-             * Primero calculamos la TNA real de cada rango.
-             * Los rangos sin operaciones quedan con tna = null.
+             * No considerar rangos sin tasa.
              */
 
-            const resultados = RANGOS_MAV.map(rango => {
+            if (candidato.tna === null) {
+              return;
+            }
 
-                const operacionesRango =
-                    operaciones.filter(op =>
+            const centroCandidato = (candidato.desde + candidato.hasta) / 2;
 
-                        Number(op.ppv) >= rango.desde &&
-                        Number(op.ppv) <= rango.hasta
-
-                    );
-
-
-                if (operacionesRango.length === 0) {
-
-                    return {
-                        rango: rango.nombre,
-                        desde: rango.desde,
-                        hasta: rango.hasta,
-                        tna: null,
-                        monto: 0,
-                        cantidad: 0
-                    };
-
-                }
-
-
-                /*
-                 * TNA promedio ponderada por monto
-                 */
-
-                let montoTotal = 0;
-                let tasaPonderada = 0;
-
-
-                operacionesRango.forEach(op => {
-
-                    const monto =
-                        Number(op.monto);
-
-                    const tasa =
-                        Number(op.tasa_compradora);
-
-
-                    montoTotal += monto;
-
-                    tasaPonderada +=
-                        tasa * monto;
-
-                });
-
-
-                const tna =
-                    montoTotal > 0
-                        ? tasaPonderada / montoTotal
-                        : null;
-
-
-                return {
-                    rango: rango.nombre,
-                    desde: rango.desde,
-                    hasta: rango.hasta,
-                    tna: tna,
-                    monto: montoTotal,
-                    cantidad: operacionesRango.length
-                };
-
-            });
-
+            const distancia = Math.abs(centroResultado - centroCandidato);
 
             /*
-             * =====================================================
-             * COMPLETAR RANGOS SIN TASA
-             * =====================================================
+             * Si encontramos una tasa más cercana,
+             * la utilizamos.
              *
-             * Si un rango no tiene operaciones, buscamos el rango
-             * con tasa disponible más cercano.
-             *
-             * Usamos el punto medio de cada rango para determinar
-             * la distancia.
-             *
-             * En caso de empate, priorizamos el rango anterior.
+             * Si la distancia es exactamente igual,
+             * mantenemos la anterior porque recorremos
+             * los rangos de izquierda a derecha.
              */
 
-            resultados.forEach((resultado, indice) => {
+            if (distancia < menorDistancia) {
+              menorDistancia = distancia;
 
-                if (resultado.tna !== null) {
-                    return;
-                }
+              mejorTasa = candidato.tna;
 
+              mejorIndice = candidatoIndice;
+            }
+          });
 
-                const centroResultado =
-                    (resultado.desde + resultado.hasta) / 2;
-
-
-                let mejorTasa = null;
-                let menorDistancia = Infinity;
-                let mejorIndice = -1;
-
-
-                resultados.forEach((candidato, candidatoIndice) => {
-
-                    /*
-                     * No considerar rangos sin tasa.
-                     */
-
-                    if (candidato.tna === null) {
-                        return;
-                    }
-
-
-                    const centroCandidato =
-                        (candidato.desde + candidato.hasta) / 2;
-
-
-                    const distancia =
-                        Math.abs(
-                            centroResultado -
-                            centroCandidato
-                        );
-
-
-                    /*
-                     * Si encontramos una tasa más cercana,
-                     * la utilizamos.
-                     *
-                     * Si la distancia es exactamente igual,
-                     * mantenemos la anterior porque recorremos
-                     * los rangos de izquierda a derecha.
-                     */
-
-                    if (distancia < menorDistancia) {
-
-                        menorDistancia = distancia;
-
-                        mejorTasa = candidato.tna;
-
-                        mejorIndice = candidatoIndice;
-
-                    }
-
-                });
-
-
-                if (mejorTasa !== null) {
-
-                    resultado.tna = mejorTasa;
-
-                    /*
-                     * Dejamos registrado de dónde vino la tasa.
-                     * Esto sirve para depuración y no afecta
-                     * la visualización.
-                     */
-
-                    resultado.tasaTomadaDe =
-                        resultados[mejorIndice].rango;
-
-                }
-
-            });
-
+          if (mejorTasa !== null) {
+            resultado.tna = mejorTasa;
 
             /*
- * Tasa que efectivamente se mostrará y utilizará
- * el simulador.
- */
-            resultados.forEach(resultado => {
+             * Dejamos registrado de dónde vino la tasa.
+             * Esto sirve para depuración y no afecta
+             * la visualización.
+             */
 
-                resultado.tnaMostrada =
-                    resultado.tna !== null
-                        ? Math.ceil(resultado.tna)
-                        : null;
+            resultado.tasaTomadaDe = resultados[mejorIndice].rango;
+          }
+        });
 
-            });
+        /*
+         * Tasa que efectivamente se mostrará y utilizará
+         * el simulador.
+         */
+        resultados.forEach((resultado) => {
+          resultado.tnaMostrada =
+            resultado.tna !== null ? Math.ceil(resultado.tna) : null;
+        });
 
-
-            return resultados;
-        }
-        /* =========================================================
+        return resultados;
+      }
+      /* =========================================================
            FORMATEAR TASA
            ========================================================= */
 
-        function formatearTasa(tasa) {
-
-            if (tasa === null) {
-                return "—";
-            }
-
-            return Math.ceil(tasa) + "%";
+      function formatearTasa(tasa) {
+        if (tasa === null) {
+          return "—";
         }
-        /* =========================================================
+
+        return Math.ceil(tasa) + "%";
+      }
+      /* =========================================================
            GENERAR TABLA
            ========================================================= */
 
-        function generarTablaTasas(tasas) {
-
-            return `
+      function generarTablaTasas(tasas) {
+        return `
 
        
 
@@ -1195,7 +1089,9 @@
 
             <tbody>
 
-                ${tasas.map(item => `
+                ${tasas
+                  .map(
+                    (item) => `
 
                     <tr>
 
@@ -1209,109 +1105,73 @@
 
                     </tr>
 
-                `).join("")}
+                `,
+                  )
+                  .join("")}
 
             </tbody>
 
         </table>
 
     `;
-        }
+      }
 
-
-        /* =========================================================
+      /* =========================================================
            CARGAR TASAS
            ========================================================= */
 
-        async function cargarTasasMAV() {
+      async function cargarTasasMAV() {
+        try {
+          const resultado = await obtenerUltimaRuedaCheques();
 
-            try {
-
-                const resultado =
-                    await obtenerUltimaRuedaCheques();
-
-
-                /*
+          /*
                    Fecha de la última rueda
                 */
 
-                fechaTasasMAV.textContent =
-                    `Última rueda: ${formatoFecha(resultado.fecha)}`;
+          fechaTasasMAV.textContent = `Última rueda: ${formatoFecha(resultado.fecha)}`;
 
-
-                /*
+          /*
                    Calcular segregación
                 */
 
-                const tasas =
-                    calcularSegregacion(
-                        resultado.operaciones
-                    );
+          const tasas = calcularSegregacion(resultado.operaciones);
 
+          /*
+           * Guardar tasas para el simulador
+           */
 
-                /*
-                 * Guardar tasas para el simulador
-                 */
+          tasasMAVPorRango = tasas;
 
-                tasasMAVPorRango = tasas;
+          tasasMAVDisponibles = tasas.some((item) => item.tnaMostrada !== null);
 
-                tasasMAVDisponibles =
-                    tasas.some(item =>
-                        item.tnaMostrada !== null
-                    );
+          /*
+           * Mostrar tabla
+           */
 
+          contenidoTasasMAV.innerHTML = generarTablaTasas(tasas);
 
-                /*
-                 * Mostrar tabla
-                 */
-
-                contenidoTasasMAV.innerHTML =
-                    generarTablaTasas(tasas);
-
-
-                /*
+          /*
                    Para depurar
                 */
 
-                console.log(
-                    "Última rueda MAV:",
-                    resultado.fecha
-                );
+          console.log("Última rueda MAV:", resultado.fecha);
 
-                console.log(
-                    "Cheques avalados filtrados:",
-                    resultado.operaciones
-                );
+          console.log("Cheques avalados filtrados:", resultado.operaciones);
 
-                console.log(
-                    "Cantidad de operaciones consideradas:",
-                    resultado.operaciones.length
-                );
+          console.log(
+            "Cantidad de operaciones consideradas:",
+            resultado.operaciones.length,
+          );
 
-                console.log(
-                    "Segregación MAV:",
-                    tasas
-                );
+          console.log("Segregación MAV:", tasas);
 
-                console.log(
-                    "Tasas MAV listas para el simulador."
-                );
+          console.log("Tasas MAV listas para el simulador.");
+        } catch (error) {
+          console.error("Error cargando tasas MAV:", error);
 
-            }
+          fechaTasasMAV.textContent = "No disponible";
 
-            catch (error) {
-
-                console.error(
-                    "Error cargando tasas MAV:",
-                    error
-                );
-
-
-                fechaTasasMAV.textContent =
-                    "No disponible";
-
-
-                contenidoTasasMAV.innerHTML = `
+          contenidoTasasMAV.innerHTML = `
 
             <div class="tasas-error">
 
@@ -1326,20 +1186,14 @@
             </div>
 
         `;
-
-            }
-
         }
+      }
 
-
-        /* =========================================================
+      /* =========================================================
            EJECUTAR AL CARGAR LA WEB
            ========================================================= */
 
-        cargarTasasMAV();
-
-
+      cargarTasasMAV();
     </script>
-</body>
-
+  </body>
 </html>
