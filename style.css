@@ -176,7 +176,7 @@ input {
    ========================================================= */
 
 .botones {
-  width: 90px;
+  width: 104px;
   height: 32px;
   padding: 0 10px;
 
@@ -880,9 +880,9 @@ text-align: center;
     content: "❌";
   }
 
-  #btnLimpiar {
+/*   #btnLimpiar {
     width: 60px;
-  }
+  } */
 
   #btnLimpiar::after {
     content: "🗑️";
