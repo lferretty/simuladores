@@ -13,6 +13,7 @@
     />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <!-- Cloudflare Web Analytics -->
     <script
@@ -38,7 +39,62 @@
       gtag("js", new Date());
       gtag("config", "G-ZGT3LC99K6");
     </script>
-  </head>
+      <style>
+      /* =========================================================
+         BOTÓN PARA COPIAR EL PANEL DE TASAS COMO IMAGEN
+         ========================================================= */
+      .acciones-tasas {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        width: 70px;
+        height: 72px;
+        z-index: 2;
+      }
+
+      /* La X queda siempre fija en su posición original. */
+      .acciones-tasas .btn-cerrar-tasas {
+        position: absolute !important;
+        top: 0;
+        right: 0;
+      }
+
+      .btn-captura-tasas {
+        position: absolute;
+        top: 39px;
+        right: 0;
+        border: none;
+        background: transparent;
+        color: #666;
+        font-size: 18px;
+        line-height: 1;
+        padding: 2px 4px;
+        cursor: pointer;
+      }
+
+      .btn-captura-tasas:hover {
+        color: #1f4b40;
+        transform: scale(1.08);
+      }
+
+      .estado-copia-tasas {
+        display: none;
+        position: absolute;
+        top: 42px;
+        right: 0;
+        color: #1f4b40;
+        font-size: 14px;
+        line-height: 1.1;
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .estado-copia-tasas.visible {
+        display: block;
+      }
+    </style>
+</head>
 
   <body>
     <button id="btnSimAuto" class="botones" type="button">
@@ -100,21 +156,36 @@
       </button>
 
       <div id="panelTasasMAV" class="panel-tasas" aria-hidden="true">
-        <div class="panel-tasas-header">
+        <div class="panel-tasas-header" style="position: relative;">
           <div>
             <strong>Tasas promedio</strong>
             <strong id="panel-tasas-subtitulo">Pagarés avalados</strong>
             <span id="fechaTasasMAV">Buscando última rueda...</span>
           </div>
 
-          <button
-            id="cerrarTasasMAV"
-            class="btn-cerrar-tasas"
-            type="button"
-            aria-label="Cerrar"
-          >
-            ×
-          </button>
+          <div class="acciones-tasas">
+            <button
+              id="cerrarTasasMAV"
+              class="btn-cerrar-tasas"
+              type="button"
+              aria-label="Cerrar"
+              title="Cerrar"
+            >
+              ×
+            </button>
+
+            <button
+              id="btnCapturaTasasMAV"
+              class="btn-captura-tasas"
+              type="button"
+              aria-label="Copiar tasas como imagen"
+              title="Copiar tasas como imagen"
+            >
+              ⧉
+            </button>
+
+            <span id="estadoCopiaTasasMAV" class="estado-copia-tasas">Copiado!</span>
+          </div>
         </div>
 
         <div id="contenidoTasasMAV" class="contenido-tasas-mav">
@@ -644,6 +715,69 @@
 
       const fechaTasasMAV =
         document.querySelector("#fechaTasasMAV");
+
+      // =========================================================
+      // COPIAR TASAS COMO IMAGEN
+      // Permite pegar directamente con Ctrl+V en Gmail, Outlook,
+      // WhatsApp Web y otras aplicaciones compatibles.
+      // =========================================================
+
+      const btnCapturaTasasMAV =
+        document.getElementById("btnCapturaTasasMAV");
+      const estadoCopiaTasasMAV =
+        document.getElementById("estadoCopiaTasasMAV");
+
+      btnCapturaTasasMAV.addEventListener("click", async () => {
+        if (typeof html2canvas === "undefined") {
+          alert("No se pudo cargar la herramienta de captura. Verificá tu conexión a Internet.");
+          return;
+        }
+
+        const btnCerrar = document.getElementById("cerrarTasasMAV");
+
+        try {
+          // Ocultamos sólo los controles durante la captura, sin alterar el layout.
+          btnCerrar.style.visibility = "hidden";
+          btnCapturaTasasMAV.style.display = "none";
+          estadoCopiaTasasMAV.classList.remove("visible");
+
+          const canvas = await html2canvas(panelTasasMAV, {
+            backgroundColor: "#ffffff",
+            scale: 2,
+            useCORS: true,
+            logging: false,
+          });
+
+          const blob = await new Promise((resolve) =>
+            canvas.toBlob(resolve, "image/png"),
+          );
+
+          if (!blob) throw new Error("No se pudo generar la imagen.");
+
+          if (!navigator.clipboard || typeof ClipboardItem === "undefined") {
+            throw new Error("Tu navegador no permite copiar imágenes al portapapeles.");
+          }
+
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+
+          estadoCopiaTasasMAV.classList.add("visible");
+          setTimeout(() => {
+            estadoCopiaTasasMAV.classList.remove("visible");
+            btnCapturaTasasMAV.style.display = "block";
+          }, 1800);
+        } catch (error) {
+          console.error("Error al copiar tasas:", error);
+          alert("No se pudo copiar la captura. Probá nuevamente desde una página HTTPS (por ejemplo, GitHub Pages).");
+        } finally {
+          btnCerrar.style.visibility = "";
+          // Si hubo un error, restauramos el botón de copia.
+          if (!estadoCopiaTasasMAV.classList.contains("visible")) {
+            btnCapturaTasasMAV.style.display = "block";
+          }
+        }
+      });
 
       function normalizarTexto(valor) {
         return String(valor || "")
