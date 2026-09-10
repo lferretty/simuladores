@@ -1248,10 +1248,11 @@
 
           const tasa = Number(subasta.tasa_compradora);
 
-          const esCheque =
+          const esChequeOPagare =
             instrumento === "ECHEQ" ||
             instrumento === "CHEQUE" ||
-            instrumento === "CPD";
+            instrumento === "CPD" ||
+            instrumento === "PAGARE";
 
           const esNegociada = estado === "NEGOCIADA";
 
@@ -1266,7 +1267,7 @@
           const tasaValida = Number.isFinite(tasa);
 
           return (
-            esCheque &&
+            esChequeOPagare &&
             esNegociada &&
             esAvalado &&
             esPesos &&
@@ -1402,22 +1403,43 @@
         return Math.ceil(tasa) + "%";
       }
 
+      // Monto operado expresado en miles de pesos
+      function formatearMontoMiles(monto) {
+        const valor = Number(monto);
+
+        if (!Number.isFinite(valor) || valor <= 0) {
+          return "—";
+        }
+
+        return (valor / 1000).toLocaleString("es-AR", {
+          maximumFractionDigits: 0,
+        });
+      }
+
       // =========================================================
       // GENERAR TABLA
       // =========================================================
 
       function generarTablaTasas(tasas) {
+        // Para mostrar: solo rangos con operaciones reales.
+        // La tasa de los rangos sin operaciones sigue disponible
+        // en tasasMAVPorRango para que el simulador pueda utilizarla.
+        const tasasParaMostrar = tasas.filter(
+          (item) => Number(item.monto) > 0,
+        );
+
         return `
           <table class="tabla-tasas-mav">
             <thead>
               <tr>
                 <th>Plazo (días)</th>
                 <th>TNA</th>
+                <th>Volumen (Miles)</th>
               </tr>
             </thead>
 
             <tbody>
-              ${tasas
+              ${tasasParaMostrar
                 .map(
                   (item) => `
                     <tr>
@@ -1427,6 +1449,10 @@
 
                       <td>
                         ${formatearTasa(item.tna)}
+                      </td>
+
+                      <td>
+                        ${formatearMontoMiles(item.monto)}
                       </td>
                     </tr>
                   `,
