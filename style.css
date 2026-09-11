@@ -415,11 +415,12 @@ input {
   position: fixed;
   padding: 3px;
   right: 2%;
-bottom: 2%;
+  bottom: 2%;
   /* padding-top: 5px; */
-text-align: center;
-/*   font-weight: 600;
- */  text-decoration: none;
+  text-align: center;
+  /*   font-weight: 600;
+ */
+  text-decoration: none;
 }
 
 .volver::after {
@@ -483,7 +484,8 @@ text-align: center;
    TASAS MAV
    ========================================================= */
 
-#texto-ver-tasas, #textoComisionSGR {
+#texto-ver-tasas,
+#textoComisionSGR {
   color: rgb(167, 209, 167);
 }
 
@@ -495,7 +497,7 @@ text-align: center;
   width: 95vw;
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   gap: 12px;
 }
 
@@ -536,6 +538,7 @@ text-align: center;
   display: grid;
   place-items: center;
 
+  
   padding: 20px;
   background: rgba(27, 27, 27, 0.747);
 }
@@ -553,7 +556,7 @@ text-align: center;
 
   justify-content: center;
   width: min(100%, 360px);
-  padding:20px;
+  padding: 20px;
 
   color: #222;
   background: white;
@@ -567,13 +570,20 @@ text-align: center;
   font-size: 22px;
 }
 
-.modal-comision-sgr-contenido > .btn-cerrar-tasas {
+.modal-comision-sgr-contenido>.btn-cerrar-tasas {
   position: absolute;
   top: 8px;
   right: 10px;
 }
 
-#btnAplicarComisionSGR{
+
+.modif-comis-container{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#btnAplicarComisionSGR {
   background-color: var(--verde);
   width: 100px;
   color: white;
@@ -588,7 +598,7 @@ text-align: center;
 }
 
 .opciones-comision-sgr label,
-.modal-comision-sgr-contenido > label {
+.modal-comision-sgr-contenido>label {
   color: #222;
   font-weight: 700;
   text-align: center;
@@ -601,9 +611,9 @@ text-align: center;
 .input-comision-sgr {
   display: flex;
   justify-content: center;
-  
+
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
 }
 
 .input-comision-sgr input {
@@ -682,7 +692,7 @@ text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
-.panel-tasas-header > div {
+.panel-tasas-header>div {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -833,7 +843,7 @@ text-align: center;
   animation: spin 1s linear infinite;
 }
 
-.loader + span {
+.loader+span {
   padding: 2px 20px;
 
   color: white;
@@ -880,7 +890,7 @@ text-align: center;
     content: "❌";
   }
 
-/*   #btnLimpiar {
+  /*   #btnLimpiar {
     width: 60px;
   } */
 
@@ -941,10 +951,20 @@ text-align: center;
       sans-serif;
   }
 
-   header {
+  .modif-comis-container{
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0;
+}
+
+#modificarComisionSGR, .input-comision-sgr{
+  scale: 1.5;
+}
+
+  header {
     position: static;
   }
-
 
   #dolar-section-alternativo #noFuePosible {
     margin-top: 0;
@@ -961,6 +981,7 @@ text-align: center;
   #logoAVFE {
     width: 200px;
   }
+
 
   #inputsContainer {
     flex-direction: column;
@@ -1006,7 +1027,7 @@ text-align: center;
   #btnAgregar::after {
     content: "SIMULAR";
   }
-  
+
 
   #btnBorrar,
   #btnLimpiar {
@@ -1014,7 +1035,7 @@ text-align: center;
     height: 40px;
   }
 
-    .resumenTabla td {
+  .resumenTabla td {
     padding: 5px 2px;
     background-color: white;
   }
@@ -1049,7 +1070,8 @@ text-align: center;
     background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .volver, #btnSimAuto {
+  .volver,
+  #btnSimAuto {
     box-shadow: 1px 1px 5px grey;
   }
 
@@ -1079,7 +1101,7 @@ text-align: center;
     top: 48px;
     left: 0;
 
-   width: calc(100vw - 20px);
+    width: calc(100vw - 20px);
     max-width: 100%;
     max-height: 100vh;
 
@@ -1166,9 +1188,9 @@ text-align: center;
     display: none;
   }
 
-     header {
+  header {
     padding-top: 100px;
-    position:relative;
+    position: relative;
   }
 
   h1 {

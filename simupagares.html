@@ -1,1132 +1,1078 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Descuento de pagarés</title>
-    <link rel="stylesheet" href="style.css" />
 
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='black' viewBox='0 0 16 16'><path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z'/></svg>"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descuento de pagarés</title>
+  <link rel="stylesheet" href="style.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='black' viewBox='0 0 16 16'><path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z'/></svg>" />
 
-    <!-- Cloudflare Web Analytics -->
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "6089f4e055784b91bdda1540c03bffaa"}'
-    ></script>
-    <!-- End Cloudflare Web Analytics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-ZGT3LC99K6"
-    ></script>
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "6089f4e055784b91bdda1540c03bffaa"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
-    <script>
-      window.dataLayer = window.dataLayer || [];
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGT3LC99K6"></script>
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      gtag("js", new Date());
-      gtag("config", "G-ZGT3LC99K6");
-    </script>
-      <style>
-      /* =========================================================
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-ZGT3LC99K6");
+  </script>
+  <style>
+    /* =========================================================
          BOTÓN PARA COPIAR EL PANEL DE TASAS COMO IMAGEN
          ========================================================= */
-      .acciones-tasas {
-        position: absolute;
-        top: 8px;
-        right: 10px;
-        width: 70px;
-        height: 72px;
-        z-index: 2;
-      }
+    .acciones-tasas {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 70px;
+      height: 72px;
+      z-index: 2;
+    }
 
-      /* La X queda siempre fija en su posición original. */
-      .acciones-tasas .btn-cerrar-tasas {
-        position: absolute !important;
-        top: 0;
-        right: 0;
-      }
+    /* La X queda siempre fija en su posición original. */
+    .acciones-tasas .btn-cerrar-tasas {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+    }
 
-      .btn-captura-tasas {
-        position: absolute;
-        top: 39px;
-        right: 0;
-        border: none;
-        background: transparent;
-        color: #666;
-        font-size: 18px;
-        line-height: 1;
-        padding: 2px 4px;
-        cursor: pointer;
-      }
+    .btn-captura-tasas {
+      position: absolute;
+      top: 39px;
+      right: 0;
+      border: none;
+      background: transparent;
+      color: #666;
+      font-size: 18px;
+      line-height: 1;
+      padding: 2px 4px;
+      cursor: pointer;
+    }
 
-      .btn-captura-tasas:hover {
-        color: #1f4b40;
-        transform: scale(1.08);
-      }
+    .btn-captura-tasas:hover {
+      color: #1f4b40;
+      transform: scale(1.08);
+    }
 
-      .estado-copia-tasas {
-        display: none;
-        position: absolute;
-        top: 42px;
-        right: 0;
-        color: #1f4b40;
-        font-size: 14px;
-        line-height: 1.1;
-        white-space: nowrap;
-        pointer-events: none;
-        user-select: none;
-      }
+    .estado-copia-tasas {
+      display: none;
+      position: absolute;
+      top: 42px;
+      right: 0;
+      color: #1f4b40;
+      font-size: 14px;
+      line-height: 1.1;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
 
-      .estado-copia-tasas.visible {
-        display: block;
-      }
-    </style>
+    .estado-copia-tasas.visible {
+      display: block;
+    }
+  </style>
 </head>
 
-  <body>
-    <button id="btnSimAuto" class="botones" type="button">
-      Simulación Rápida
-    </button>
+<body>
+  <button id="btnSimAuto" class="botones" type="button">
+    Simulación Rápida
+  </button>
 
-    <div id="fondo-fijo"></div>
+  <div id="fondo-fijo"></div>
 
-    <header>
-      <div class="header-container">
-        <div class="title-container">
-          <!--
+  <header>
+    <div class="header-container">
+      <div class="title-container">
+        <!--
           <a href="https://holdingareco.com/" target="_blank">
             <img id="logoAVFE" src="imagenes/logoAVFE.png" alt="">
           </a>
           -->
 
-          <h2>Simulador</h2>
-          <h1>Descuento de Pagarés</h1>
-          <h3>Dollar Linked</h3>
-          <h4>Avalados por SGR</h4>
-        </div>
-
-        <section id="carga" class="centrar">
-          <div id="inputsContainer" class="centrar verde inputs-como-cheques">
-            <label for="monto">
-              Monto USD:
-              <input type="number" id="monto" />
-            </label>
-
-            <label for="fecha">
-              Fecha:
-              <input type="date" id="fecha" />
-            </label>
-
-            <button id="btnAgregar" class="botones">
-              ✚ <span class="ocultoEnCelu"> Simular</span>
-            </button>
-          </div>
-        </section>
+        <h2>Simulador</h2>
+        <h1>Descuento de Pagarés</h1>
+        <h3>Dollar Linked</h3>
+        <h4>Avalados por SGR</h4>
       </div>
-    </header>
 
-    <div class="tasas">
-      <button
-        id="btnTasasMAV"
-        class="btn-ver-tasas"
-        type="button"
-        aria-expanded="false"
-        aria-controls="panelTasasMAV"
-      >
-        <span class="icono-ojo">▼</span>
-        <span id="texto-ver-tasas">Tasas</span>
-      </button>
+      <section id="carga" class="centrar">
+        <div id="inputsContainer" class="centrar verde inputs-como-cheques">
+          <label for="monto">
+            Monto USD:
+            <input type="number" id="monto" />
+          </label>
 
-      <button id="btnComisionSGR" class="btn-ver-tasas" type="button">
-        <span class="icono-ojo">▼</span>
-        <span id="textoComisionSGR">Comisión</span>
-      </button>
+          <label for="fecha">
+            Fecha:
+            <input type="date" id="fecha" />
+          </label>
 
-      <div id="panelTasasMAV" class="panel-tasas" aria-hidden="true">
-        <div class="panel-tasas-header" style="position: relative;">
-          <div>
-            <strong>Tasas promedio</strong>
-            <strong id="panel-tasas-subtitulo">Pagarés avalados</strong>
-            <span id="fechaTasasMAV">Buscando última rueda...</span>
-          </div>
+          <button id="btnAgregar" class="botones">
+            ✚ <span class="ocultoEnCelu"> Simular</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </header>
 
-          <div class="acciones-tasas">
-            <button
-              id="cerrarTasasMAV"
-              class="btn-cerrar-tasas"
-              type="button"
-              aria-label="Cerrar"
-              title="Cerrar"
-            >
-              ×
-            </button>
+  <div class="tasas">
+    <button id="btnTasasMAV" class="btn-ver-tasas" type="button" aria-expanded="false" aria-controls="panelTasasMAV">
+      <span class="icono-ojo">▼</span>
+      <span id="texto-ver-tasas">Tasas</span>
+    </button>
 
-            <button
-              id="btnCapturaTasasMAV"
-              class="btn-captura-tasas"
-              type="button"
-              aria-label="Copiar tasas como imagen"
-              title="Copiar tasas como imagen"
-            >
-              ⧉
-            </button>
+    <button id="btnComisionSGR" class="btn-ver-tasas" type="button">
+      <span class="icono-ojo">▼</span>
+      <span id="textoComisionSGR">Comisión</span>
+    </button>
 
-            <span id="estadoCopiaTasasMAV" class="estado-copia-tasas">Copiado!</span>
-          </div>
+    <div id="panelTasasMAV" class="panel-tasas" aria-hidden="true">
+      <div class="panel-tasas-header" style="position: relative;">
+        <div>
+          <strong>Tasas promedio</strong>
+          <strong id="panel-tasas-subtitulo">Pagarés avalados</strong>
+          <span id="fechaTasasMAV">Buscando última rueda...</span>
         </div>
 
-        <div id="contenidoTasasMAV" class="contenido-tasas-mav">
-          <div class="tasas-loading">Cargando tasas...</div>
-        </div>
+        <div class="acciones-tasas">
+          <button id="cerrarTasasMAV" class="btn-cerrar-tasas" type="button" aria-label="Cerrar" title="Cerrar">
+            ×
+          </button>
 
-        <div class="fuente-tasas">
-          Fuente: MAV · Información Pública
+          <button id="btnCapturaTasasMAV" class="btn-captura-tasas" type="button" aria-label="Copiar tasas como imagen"
+            title="Copiar tasas como imagen">
+            ⧉
+          </button>
+
+          <span id="estadoCopiaTasasMAV" class="estado-copia-tasas">Copiado!</span>
         </div>
+      </div>
+
+      <div id="contenidoTasasMAV" class="contenido-tasas-mav">
+        <div class="tasas-loading">Cargando tasas...</div>
+      </div>
+
+      <div class="fuente-tasas">
+        Fuente: MAV · Información Pública
       </div>
     </div>
+  </div>
 
-    <!-- MODAL COMISIÓN SGR -->
-    <div id="modalComisionSGR" class="modal-comision-sgr" hidden>
-      <div
-        class="modal-comision-sgr-contenido"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="tituloComisionSGR"
-      >
-        <button
-          id="btnCerrarComisionSGR"
-          class="btn-cerrar-tasas"
-          type="button"
-          aria-label="Cerrar"
-        >
-          ×
-        </button>
+  <!-- MODAL COMISIÓN SGR -->
+  <div id="modalComisionSGR" class="modal-comision-sgr" hidden>
+    <div class="modal-comision-sgr-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloComisionSGR">
+      <button id="btnCerrarComisionSGR" class="btn-cerrar-tasas" type="button" aria-label="Cerrar">
+        ×
+      </button>
 
-        <h2 id="tituloComisionSGR">Comisión SGR</h2>
+      <h2 id="tituloComisionSGR">Comisión SGR</h2>
 
+      <div class="modif-comis-container">
         <div class="opciones-comision-sgr">
-          <label >
-            <input type="checkbox" id="modificarComisionSGR"  />
+          <label>
+            <input type="checkbox" id="modificarComisionSGR" />
             Modificar
           </label>
         </div>
-<!-- 
-        <label for="inputComisionSGR">Comisión SGR:</label> -->
+      
+    
+      <div class="input-comision-sgr">
+        <input id="inputComisionSGR" type="number" min="0" step="0.01" value="2.5" disabled />
 
-        <div class="input-comision-sgr">
-          <input
-            id="inputComisionSGR"
-            type="number"
-            min="0"
-            step="0.01"
-            value="2.5"
-            disabled
-          />
+        <span>%</span>
+      </div>
+      </div>
 
-          <span>%</span>
-        </div>
+      <p id="errorComisionSGR" class="error-comision-sgr" hidden></p>
 
-        <p id="errorComisionSGR" class="error-comision-sgr" hidden></p>
+      <button id="btnAplicarComisionSGR" class="botones" type="button">
+        Aplicar
+      </button>
+    </div>
+  </div>
 
-        <button id="btnAplicarComisionSGR" class="botones" type="button">
-          Aplicar
+  <div id="alertas" class="centrar"></div>
+
+  <section id="dolar-section">
+    <div id="tipoDeCambio" class="centrar"></div>
+
+    <div id="spinner" style="display: none">
+      <div class="loader"></div>
+      <span>Obteniendo tipo de cambio...</span>
+    </div>
+  </section>
+
+  <!-- TC manual si no es posible acceder a las APIs -->
+  <section id="dolar-section-alternativo">
+    <span id="noFuePosible">
+      No fue posible obtener el tipo de cambio en forma automática
+      (ingréselo a continuación):
+    </span>
+
+    <div id="tipoDeCambioManual-container">
+      <label for="tipoDeCambioManual">Tipo de cambio:</label>
+      <input type="number" id="tipoDeCambioManual" />
+    </div>
+  </section>
+
+  <main>
+    <div class="big-container">
+      <section id="detalle">
+        <br />
+
+        <table id="tablaInstrumentos">
+          <thead>
+            <tr>
+              <th class="ocultoEnCelu ocultarNroItem">#</th>
+              <th>Monto (USD)</th>
+              <th>Fecha</th>
+              <th class="ocultoEnCelu">Plazo</th>
+              <th>Tasa</th>
+              <th>CFTa</th>
+              <th class="ocultoEnCelu">Interés ($)</th>
+              <th class="ocultoEnCelu">ALYC y otros ($)</th>
+              <th class="ocultoEnCelu">Comisión SGR ($)</th>
+              <th>Neto ($)</th>
+              <th style="border: none; background-color: transparent"></th>
+            </tr>
+          </thead>
+
+          <tbody id="grilla" class="centrar"></tbody>
+        </table>
+      </section>
+
+      <section id="resumenOperacion" class="centrar"></section>
+
+      <div class="printerContainer">
+        <button id="btnImprimir" class="botones centrar" title="Imprimir" onclick="window.print()">
+          🖨️
         </button>
+
+        <button id="btnExportarExcel" class="botones centrar" title="Genera un archivo .xlsx">
+          <img src="imagenes/excel-icon.png" alt="" width="16px" />
+        </button>
+      </div>
+
+      <div class="nota">
+        <p>
+          El neto incluye gastos de Alyc, Caja de Valores, SGR e impuestos.
+          CFTa es TNA más gastos.
+          <br />
+          Simulador con fines comerciales, no implica obligación contractual.
+        </p>
       </div>
     </div>
 
-    <div id="alertas" class="centrar"></div>
+    <div class="volver-container">
+      <a href="simucheques.html" class="botones volver" title="Ir al simulador de cheques">
+        Cheques
+      </a>
+    </div>
+  </main>
 
-    <section id="dolar-section">
-      <div id="tipoDeCambio" class="centrar"></div>
+  <script>
+    const inputMonto = document.querySelector("#monto");
+    const inputFecha = document.querySelector("#fecha");
+    const btnAgregar = document.querySelector("#btnAgregar");
+    const btnSimAuto = document.querySelector("#btnSimAuto");
+    const detalle = document.querySelector("#detalle");
+    const grilla = document.querySelector("#grilla");
+    const totalMonto = document.querySelector("#totalMonto");
+    const totalNeto = document.querySelector("#totalNeto");
+    const totalDescuento = document.querySelector("#totalDescuento");
+    const totalGastos = document.querySelector("#totalGastos");
+    const totalComSGR = document.querySelector("#totalComSGR");
+    const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
+    const alertas = document.querySelector("#alertas");
+    const notas = document.querySelector(".nota");
+    const resumenOperacion = document.querySelector("#resumenOperacion");
+    const oculto = document.querySelector(".oculto");
+    const ocultarNroItem = document.querySelector(".ocultarNroItem");
+    const btnLimpiar = document.querySelector("#btnLimpiar");
+    const btnImprimir = document.querySelector("#btnImprimir");
+    const bigContainer = document.querySelector(".big-container");
 
-      <div id="spinner" style="display: none">
-        <div class="loader"></div>
-        <span>Obteniendo tipo de cambio...</span>
-      </div>
-    </section>
+    const dolarSection = document.querySelector("#dolar-section");
+    const divTipoDeCambio = document.querySelector("#tipoDeCambio");
 
-    <!-- TC manual si no es posible acceder a las APIs -->
-    <section id="dolar-section-alternativo">
-      <span id="noFuePosible">
-        No fue posible obtener el tipo de cambio en forma automática
-        (ingréselo a continuación):
-      </span>
+    const divtipoDeCambioManual = document.querySelector(
+      "#tipoDeCambioManual-container",
+    );
 
-      <div id="tipoDeCambioManual-container">
-        <label for="tipoDeCambioManual">Tipo de cambio:</label>
-        <input type="number" id="tipoDeCambioManual" />
-      </div>
-    </section>
+    const tipoDeCambioManual = document.querySelector(
+      "#tipoDeCambioManual",
+    );
 
-    <main>
-      <div class="big-container">
-        <section id="detalle">
-          <br />
+    const spanNoFuePosible = document.querySelector("#noFuePosible");
 
-          <table id="tablaInstrumentos">
-            <thead>
-              <tr>
-                <th class="ocultoEnCelu ocultarNroItem">#</th>
-                <th>Monto (USD)</th>
-                <th>Fecha</th>
-                <th class="ocultoEnCelu">Plazo</th>
-                <th>Tasa</th>
-                <th>CFTa</th>
-                <th class="ocultoEnCelu">Interés ($)</th>
-                <th class="ocultoEnCelu">ALYC y otros ($)</th>
-                <th class="ocultoEnCelu">Comisión SGR ($)</th>
-                <th>Neto ($)</th>
-                <th style="border: none; background-color: transparent"></th>
-              </tr>
-            </thead>
+    const dolarSectionAlternativo = document.querySelector(
+      "#dolar-section-alternativo",
+    );
 
-            <tbody id="grilla" class="centrar"></tbody>
-          </table>
-        </section>
+    const spinner = document.querySelector("#spinner");
 
-        <section id="resumenOperacion" class="centrar"></section>
+    const montoMin = 5000;
+    const montoMax = 1000000;
 
-        <div class="printerContainer">
-          <button
-            id="btnImprimir"
-            class="botones centrar"
-            title="Imprimir"
-            onclick="window.print()"
-          >
-            🖨️
-          </button>
+    const plazoMin = 30;
+    const plazoMax = 1095;
 
-          <button
-            id="btnExportarExcel"
-            class="botones centrar"
-            title="Genera un archivo .xlsx"
-          >
-            <img src="imagenes/excel-icon.png" alt="" width="16px" />
-          </button>
-        </div>
+    const comAlyc = 1;
+    const comCVyOtros = 0.09;
 
-        <div class="nota">
-          <p>
-            El neto incluye gastos de Alyc, Caja de Valores, SGR e impuestos.
-            CFTa es TNA más gastos.
-            <br />
-            Simulador con fines comerciales, no implica obligación contractual.
-          </p>
-        </div>
-      </div>
+    // Comisión automática por defecto
+    const comSGRDefault = 2.5;
 
-      <div class="volver-container">
-        <a
-          href="simucheques.html"
-          class="botones volver"
-          title="Ir al simulador de cheques"
-        >
-          Cheques
-        </a>
-      </div>
-    </main>
+    // Comisión utilizada actualmente por el simulador
+    let comSGR = comSGRDefault;
 
-    <script>
-      const inputMonto = document.querySelector("#monto");
-      const inputFecha = document.querySelector("#fecha");
-      const btnAgregar = document.querySelector("#btnAgregar");
-      const btnSimAuto = document.querySelector("#btnSimAuto");
-      const detalle = document.querySelector("#detalle");
-      const grilla = document.querySelector("#grilla");
-      const totalMonto = document.querySelector("#totalMonto");
-      const totalNeto = document.querySelector("#totalNeto");
-      const totalDescuento = document.querySelector("#totalDescuento");
-      const totalGastos = document.querySelector("#totalGastos");
-      const totalComSGR = document.querySelector("#totalComSGR");
-      const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
-      const alertas = document.querySelector("#alertas");
-      const notas = document.querySelector(".nota");
-      const resumenOperacion = document.querySelector("#resumenOperacion");
-      const oculto = document.querySelector(".oculto");
-      const ocultarNroItem = document.querySelector(".ocultarNroItem");
-      const btnLimpiar = document.querySelector("#btnLimpiar");
-      const btnImprimir = document.querySelector("#btnImprimir");
-      const bigContainer = document.querySelector(".big-container");
+    // "auto" = 2,5% / "manual" = valor ingresado
+    let modoComisionSGR = "auto";
 
-      const dolarSection = document.querySelector("#dolar-section");
-      const divTipoDeCambio = document.querySelector("#tipoDeCambio");
+    const pagares = [];
 
-      const divtipoDeCambioManual = document.querySelector(
-        "#tipoDeCambioManual-container",
-      );
+    // =========================================================
+    // COMISIÓN SGR
+    // =========================================================
 
-      const tipoDeCambioManual = document.querySelector(
-        "#tipoDeCambioManual",
-      );
+    const btnComisionSGR = document.querySelector("#btnComisionSGR");
 
-      const spanNoFuePosible = document.querySelector("#noFuePosible");
+    const modalComisionSGR = document.querySelector(
+      "#modalComisionSGR",
+    );
 
-      const dolarSectionAlternativo = document.querySelector(
-        "#dolar-section-alternativo",
-      );
+    const btnCerrarComisionSGR = document.querySelector(
+      "#btnCerrarComisionSGR",
+    );
 
-      const spinner = document.querySelector("#spinner");
+    const btnAplicarComisionSGR = document.querySelector(
+      "#btnAplicarComisionSGR",
+    );
 
-      const montoMin = 5000;
-      const montoMax = 1000000;
+    const inputComisionSGR = document.querySelector(
+      "#inputComisionSGR",
+    );
 
-      const plazoMin = 30;
-      const plazoMax = 1095;
+    const modificarComisionSGR = document.querySelector(
+      "#modificarComisionSGR",
+    );
 
-      const comAlyc = 1;
-      const comCVyOtros = 0.09;
+    const textoComisionSGR = document.querySelector(
+      "#textoComisionSGR",
+    );
 
-      // Comisión automática por defecto
-      const comSGRDefault = 2.5;
+    const errorComisionSGR = document.querySelector(
+      "#errorComisionSGR",
+    );
 
-      // Comisión utilizada actualmente por el simulador
-      let comSGR = comSGRDefault;
+    // Mostrar comisión actual en el botón
+    function actualizarEtiquetaComisionSGR() {
+      textoComisionSGR.textContent =
+        `Comisión: ${comSGR.toLocaleString("es-AR", {
+          maximumFractionDigits: 2,
+        })}%`;
+    }
 
-      // "auto" = 2,5% / "manual" = valor ingresado
-      let modoComisionSGR = "auto";
+    actualizarEtiquetaComisionSGR();
 
-      const pagares = [];
+    // Habilita o deshabilita el input según el checkbox
+    function actualizarVistaComisionSGR() {
+      const modificar = modificarComisionSGR.checked;
 
-      // =========================================================
-      // COMISIÓN SGR
-      // =========================================================
+      inputComisionSGR.disabled = !modificar;
 
-      const btnComisionSGR = document.querySelector("#btnComisionSGR");
+      errorComisionSGR.hidden = true;
 
-      const modalComisionSGR = document.querySelector(
-        "#modalComisionSGR",
-      );
+      if (!modificar) {
+        inputComisionSGR.value = comSGRDefault;
+      }
+    }
 
-      const btnCerrarComisionSGR = document.querySelector(
-        "#btnCerrarComisionSGR",
-      );
+    // Abrir modal
+    btnComisionSGR.addEventListener("click", () => {
+      // El checkbox refleja si la comisión actual es manual
+      modificarComisionSGR.checked = modoComisionSGR === "manual";
 
-      const btnAplicarComisionSGR = document.querySelector(
-        "#btnAplicarComisionSGR",
-      );
+      // Mostrar la comisión actual
+      inputComisionSGR.value = comSGR;
 
-      const inputComisionSGR = document.querySelector(
-        "#inputComisionSGR",
-      );
+      actualizarVistaComisionSGR();
 
-      const modificarComisionSGR = document.querySelector(
-        "#modificarComisionSGR",
-      );
+      modalComisionSGR.hidden = false;
+    });
 
-      const textoComisionSGR = document.querySelector(
-        "#textoComisionSGR",
-      );
+    // Checkbox modificar comisión
+    modificarComisionSGR.addEventListener(
+      "change",
+      actualizarVistaComisionSGR,
+    );
 
-      const errorComisionSGR = document.querySelector(
-        "#errorComisionSGR",
-      );
+    // Cerrar modal
+    btnCerrarComisionSGR.addEventListener("click", () => {
+      modalComisionSGR.hidden = true;
+    });
 
-      // Mostrar comisión actual en el botón
-      function actualizarEtiquetaComisionSGR() {
-        textoComisionSGR.textContent =
-          `Comisión: ${comSGR.toLocaleString("es-AR", {
-            maximumFractionDigits: 2,
-          })}%`;
+    // Cerrar haciendo click fuera del modal
+    modalComisionSGR.addEventListener("click", (evento) => {
+      if (evento.target === modalComisionSGR) {
+        modalComisionSGR.hidden = true;
+      }
+    });
+
+    // Aplicar comisión
+    btnAplicarComisionSGR.addEventListener("click", () => {
+      // Si el usuario tildó "Modificar comisión"
+      if (modificarComisionSGR.checked) {
+        const nuevaComision = Number(inputComisionSGR.value);
+
+        if (
+          !inputComisionSGR.value.trim() ||
+          !Number.isFinite(nuevaComision) ||
+          nuevaComision < 0
+        ) {
+          errorComisionSGR.textContent =
+            "Ingrese una comisión mayor o igual a 0.";
+
+          errorComisionSGR.hidden = false;
+
+          return;
+        }
+
+        comSGR = nuevaComision;
+        modoComisionSGR = "manual";
+      } else {
+        // Si NO está tildado, siempre vuelve al 2,5%
+        comSGR = comSGRDefault;
+        modoComisionSGR = "auto";
       }
 
       actualizarEtiquetaComisionSGR();
 
-      // Habilita o deshabilita el input según el checkbox
-      function actualizarVistaComisionSGR() {
-        const modificar = modificarComisionSGR.checked;
+      modalComisionSGR.hidden = true;
+    });
 
-        inputComisionSGR.disabled = !modificar;
+    // =========================================================
+    // TASAS MAV
+    // =========================================================
 
-        errorComisionSGR.hidden = true;
+    /*
+     * Tasas MAV dinámicas.
+     * El simulador ya no utiliza tasas hardcodeadas.
+     */
 
-        if (!modificar) {
-          inputComisionSGR.value = comSGRDefault;
-        }
-      }
+    let tasasMAVPorRango = [];
+    let tasasMAVDisponibles = false;
 
-      // Abrir modal
-      btnComisionSGR.addEventListener("click", () => {
-        // El checkbox refleja si la comisión actual es manual
-        modificarComisionSGR.checked = modoComisionSGR === "manual";
+    /*
+     * Rangos de 90 días compartidos por la tabla y el simulador.
+     */
 
-        // Mostrar la comisión actual
-        inputComisionSGR.value = comSGR;
+    const RANGOS_MAV = generarRangosMAVPagare(plazoMax);
 
-        actualizarVistaComisionSGR();
+    const MAV_API =
+      "https://mav-proxy.lucasferrety.workers.dev/";
 
-        modalComisionSGR.hidden = false;
+    let idPagare = 0;
+    let tipoCambio = null;
+
+    spinner.style.display = "block";
+    bigContainer.style.opacity = "0";
+    bigContainer.style.visibility = "hidden";
+
+    const hoy = new Date();
+
+    obtenerTipoCambioDesdeBCRA(formatoFecha(hoy));
+
+    function formatoFecha(fecha) {
+      return fecha.toISOString().split("T")[0];
+    }
+
+    function mostrarTipoCambio(valor, fuente) {
+      const tipoCambioParaMostrar = valor.toLocaleString("es-AR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
       });
 
-      // Checkbox modificar comisión
-      modificarComisionSGR.addEventListener(
-        "change",
-        actualizarVistaComisionSGR,
-      );
+      tipoCambio = valor;
 
-      // Cerrar modal
-      btnCerrarComisionSGR.addEventListener("click", () => {
-        modalComisionSGR.hidden = true;
-      });
+      document.getElementById("tipoDeCambio").textContent =
+        `Tipo de cambio: $${tipoCambioParaMostrar}`;
 
-      // Cerrar haciendo click fuera del modal
-      modalComisionSGR.addEventListener("click", (evento) => {
-        if (evento.target === modalComisionSGR) {
-          modalComisionSGR.hidden = true;
-        }
-      });
+      spinner.style.display = "none";
+    }
 
-      // Aplicar comisión
-      btnAplicarComisionSGR.addEventListener("click", () => {
-        // Si el usuario tildó "Modificar comisión"
-        if (modificarComisionSGR.checked) {
-          const nuevaComision = Number(inputComisionSGR.value);
+    function mostrarError(mensaje) {
+      document.getElementById("tipoDeCambio").textContent = mensaje;
 
-          if (
-            !inputComisionSGR.value.trim() ||
-            !Number.isFinite(nuevaComision) ||
-            nuevaComision < 0
-          ) {
-            errorComisionSGR.textContent =
-              "Ingrese una comisión válida mayor o igual a 0.";
+      spinner.style.display = "none";
+    }
 
-            errorComisionSGR.hidden = false;
+    // =========================================================
+    // TIPO DE CAMBIO BCRA
+    // =========================================================
 
-            return;
-          }
+    async function obtenerTipoCambioDesdeBCRA(
+      fecha,
+      yaIntentamosConAyer = false,
+    ) {
+      const url =
+        `https://api.bcra.gob.ar/estadisticascambiarias/v1.0/Cotizaciones?fecha=${fecha}`;
 
-          comSGR = nuevaComision;
-          modoComisionSGR = "manual";
+      try {
+        const respuesta = await fetch(url);
+        const data = await respuesta.json();
+
+        const lista = data?.results?.detalle || [];
+
+        const dolar = lista.find(
+          (item) => item.codigoMoneda === "REF",
+        );
+
+        if (
+          dolar &&
+          typeof dolar.tipoCotizacion === "number"
+        ) {
+          mostrarTipoCambio(dolar.tipoCotizacion, "BCRA");
         } else {
-          // Si NO está tildado, siempre vuelve al 2,5%
-          comSGR = comSGRDefault;
-          modoComisionSGR = "auto";
-        }
-
-        actualizarEtiquetaComisionSGR();
-
-        modalComisionSGR.hidden = true;
-      });
-
-      // =========================================================
-      // TASAS MAV
-      // =========================================================
-
-      /*
-       * Tasas MAV dinámicas.
-       * El simulador ya no utiliza tasas hardcodeadas.
-       */
-
-      let tasasMAVPorRango = [];
-      let tasasMAVDisponibles = false;
-
-      /*
-       * Rangos de 90 días compartidos por la tabla y el simulador.
-       */
-
-      const RANGOS_MAV = generarRangosMAVPagare(plazoMax);
-
-      const MAV_API =
-        "https://mav-proxy.lucasferrety.workers.dev/";
-
-      let idPagare = 0;
-      let tipoCambio = null;
-
-      spinner.style.display = "block";
-      bigContainer.style.opacity = "0";
-      bigContainer.style.visibility = "hidden";
-
-      const hoy = new Date();
-
-      obtenerTipoCambioDesdeBCRA(formatoFecha(hoy));
-
-      function formatoFecha(fecha) {
-        return fecha.toISOString().split("T")[0];
-      }
-
-      function mostrarTipoCambio(valor, fuente) {
-        const tipoCambioParaMostrar = valor.toLocaleString("es-AR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-
-        tipoCambio = valor;
-
-        document.getElementById("tipoDeCambio").textContent =
-          `Tipo de cambio: $${tipoCambioParaMostrar}`;
-
-        spinner.style.display = "none";
-      }
-
-      function mostrarError(mensaje) {
-        document.getElementById("tipoDeCambio").textContent = mensaje;
-
-        spinner.style.display = "none";
-      }
-
-      // =========================================================
-      // TIPO DE CAMBIO BCRA
-      // =========================================================
-
-      async function obtenerTipoCambioDesdeBCRA(
-        fecha,
-        yaIntentamosConAyer = false,
-      ) {
-        const url =
-          `https://api.bcra.gob.ar/estadisticascambiarias/v1.0/Cotizaciones?fecha=${fecha}`;
-
-        try {
-          const respuesta = await fetch(url);
-          const data = await respuesta.json();
-
-          const lista = data?.results?.detalle || [];
-
-          const dolar = lista.find(
-            (item) => item.codigoMoneda === "REF",
-          );
-
-          if (
-            dolar &&
-            typeof dolar.tipoCotizacion === "number"
-          ) {
-            mostrarTipoCambio(dolar.tipoCotizacion, "BCRA");
-          } else {
-            await fallbackTipoCambio(yaIntentamosConAyer);
-          }
-        } catch (error) {
-          console.error(
-            "Error al consultar la API BCRA",
-            error,
-          );
-
           await fallbackTipoCambio(yaIntentamosConAyer);
         }
+      } catch (error) {
+        console.error(
+          "Error al consultar la API BCRA",
+          error,
+        );
+
+        await fallbackTipoCambio(yaIntentamosConAyer);
       }
+    }
 
-      async function fallbackTipoCambio(
-        yaIntentamosConAyer,
-      ) {
-        if (!yaIntentamosConAyer) {
-          const ayer = new Date();
+    async function fallbackTipoCambio(
+      yaIntentamosConAyer,
+    ) {
+      if (!yaIntentamosConAyer) {
+        const ayer = new Date();
 
-          ayer.setDate(ayer.getDate() - 1);
+        ayer.setDate(ayer.getDate() - 1);
 
-          const fechaAyer = formatoFecha(ayer);
+        const fechaAyer = formatoFecha(ayer);
 
-          obtenerTipoCambioDesdeBCRA(
-            fechaAyer,
-            true,
+        obtenerTipoCambioDesdeBCRA(
+          fechaAyer,
+          true,
+        );
+      } else {
+        console.log(
+          "No funcionó la API BCRA, se tomará el TC desde dolarapi.com",
+        );
+
+        await obtenerTipoCambioDesdeDolarApi();
+      }
+    }
+
+    async function obtenerTipoCambioDesdeDolarApi() {
+      const url =
+        "https://dolarapi.com/v1/dolares/mayorista";
+
+      try {
+        const respuesta = await fetch(url);
+
+        const datos = await respuesta.json();
+
+        const valor = datos?.venta;
+
+        if (typeof valor === "number") {
+          mostrarTipoCambio(
+            valor,
+            "dolarapi.com",
           );
+
+          spanNoFuePosible.style.visibility =
+            "hidden";
         } else {
-          console.log(
-            "No funcionó la API BCRA, se tomará el TC desde dolarapi.com",
-          );
-
-          await obtenerTipoCambioDesdeDolarApi();
-        }
-      }
-
-      async function obtenerTipoCambioDesdeDolarApi() {
-        const url =
-          "https://dolarapi.com/v1/dolares/mayorista";
-
-        try {
-          const respuesta = await fetch(url);
-
-          const datos = await respuesta.json();
-
-          const valor = datos?.venta;
-
-          if (typeof valor === "number") {
-            mostrarTipoCambio(
-              valor,
-              "dolarapi.com",
-            );
-
-            spanNoFuePosible.style.visibility =
-              "hidden";
-          } else {
-            pedirTCmanual();
-          }
-        } catch (error) {
-          console.error(
-            "Error al obtener el tipo de cambio desde dolarapi; pediremos el TC manual",
-            error,
-          );
-
           pedirTCmanual();
         }
-      }
-
-      function pedirTCmanual() {
-        dolarSection.style.display = "none";
-
-        divtipoDeCambioManual.style.display =
-          "flex";
-
-        spanNoFuePosible.style.visibility =
-          "visible";
-
-        tipoDeCambioManual.addEventListener(
-          "change",
-          () => {
-            tipoCambio =
-              tipoDeCambioManual.value;
-
-            mostrarTipoCambio(
-              tipoCambio,
-              "ingreso manual",
-            );
-          },
+      } catch (error) {
+        console.error(
+          "Error al obtener el tipo de cambio desde dolarapi; pediremos el TC manual",
+          error,
         );
+
+        pedirTCmanual();
+      }
+    }
+
+    function pedirTCmanual() {
+      dolarSection.style.display = "none";
+
+      divtipoDeCambioManual.style.display =
+        "flex";
+
+      spanNoFuePosible.style.visibility =
+        "visible";
+
+      tipoDeCambioManual.addEventListener(
+        "change",
+        () => {
+          tipoCambio =
+            tipoDeCambioManual.value;
+
+          mostrarTipoCambio(
+            tipoCambio,
+            "ingreso manual",
+          );
+        },
+      );
+    }
+
+    // =========================================================
+    // FIN TIPO DE CAMBIO
+    // =========================================================
+
+    // =========================================================
+    // TASAS MAV - PAGARÉS
+    // =========================================================
+
+    const btnTasasMAV =
+      document.querySelector("#btnTasasMAV");
+
+    const panelTasasMAV =
+      document.querySelector("#panelTasasMAV");
+
+    const cerrarTasasMAV =
+      document.querySelector("#cerrarTasasMAV");
+
+    const contenidoTasasMAV =
+      document.querySelector("#contenidoTasasMAV");
+
+    const fechaTasasMAV =
+      document.querySelector("#fechaTasasMAV");
+
+    // =========================================================
+    // COPIAR TASAS COMO IMAGEN
+    // Permite pegar directamente con Ctrl+V en Gmail, Outlook,
+    // WhatsApp Web y otras aplicaciones compatibles.
+    // =========================================================
+
+    const btnCapturaTasasMAV =
+      document.getElementById("btnCapturaTasasMAV");
+    const estadoCopiaTasasMAV =
+      document.getElementById("estadoCopiaTasasMAV");
+
+    btnCapturaTasasMAV.addEventListener("click", async () => {
+      if (typeof html2canvas === "undefined") {
+        alert("No se pudo cargar la herramienta de captura. Verificá tu conexión a Internet.");
+        return;
       }
 
-      // =========================================================
-      // FIN TIPO DE CAMBIO
-      // =========================================================
+      const btnCerrar = document.getElementById("cerrarTasasMAV");
 
-      // =========================================================
-      // TASAS MAV - PAGARÉS
-      // =========================================================
+      try {
+        // Ocultamos sólo los controles durante la captura, sin alterar el layout.
+        btnCerrar.style.visibility = "hidden";
+        btnCapturaTasasMAV.style.display = "none";
+        estadoCopiaTasasMAV.classList.remove("visible");
 
-      const btnTasasMAV =
-        document.querySelector("#btnTasasMAV");
+        const canvas = await html2canvas(panelTasasMAV, {
+          backgroundColor: "#ffffff",
+          scale: 2,
+          useCORS: true,
+          logging: false,
+        });
 
-      const panelTasasMAV =
-        document.querySelector("#panelTasasMAV");
+        const blob = await new Promise((resolve) =>
+          canvas.toBlob(resolve, "image/png"),
+        );
 
-      const cerrarTasasMAV =
-        document.querySelector("#cerrarTasasMAV");
+        if (!blob) throw new Error("No se pudo generar la imagen.");
 
-      const contenidoTasasMAV =
-        document.querySelector("#contenidoTasasMAV");
-
-      const fechaTasasMAV =
-        document.querySelector("#fechaTasasMAV");
-
-      // =========================================================
-      // COPIAR TASAS COMO IMAGEN
-      // Permite pegar directamente con Ctrl+V en Gmail, Outlook,
-      // WhatsApp Web y otras aplicaciones compatibles.
-      // =========================================================
-
-      const btnCapturaTasasMAV =
-        document.getElementById("btnCapturaTasasMAV");
-      const estadoCopiaTasasMAV =
-        document.getElementById("estadoCopiaTasasMAV");
-
-      btnCapturaTasasMAV.addEventListener("click", async () => {
-        if (typeof html2canvas === "undefined") {
-          alert("No se pudo cargar la herramienta de captura. Verificá tu conexión a Internet.");
-          return;
+        if (!navigator.clipboard || typeof ClipboardItem === "undefined") {
+          throw new Error("Tu navegador no permite copiar imágenes al portapapeles.");
         }
 
-        const btnCerrar = document.getElementById("cerrarTasasMAV");
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
 
-        try {
-          // Ocultamos sólo los controles durante la captura, sin alterar el layout.
-          btnCerrar.style.visibility = "hidden";
-          btnCapturaTasasMAV.style.display = "none";
+        estadoCopiaTasasMAV.classList.add("visible");
+        setTimeout(() => {
           estadoCopiaTasasMAV.classList.remove("visible");
-
-          const canvas = await html2canvas(panelTasasMAV, {
-            backgroundColor: "#ffffff",
-            scale: 2,
-            useCORS: true,
-            logging: false,
-          });
-
-          const blob = await new Promise((resolve) =>
-            canvas.toBlob(resolve, "image/png"),
-          );
-
-          if (!blob) throw new Error("No se pudo generar la imagen.");
-
-          if (!navigator.clipboard || typeof ClipboardItem === "undefined") {
-            throw new Error("Tu navegador no permite copiar imágenes al portapapeles.");
-          }
-
-          await navigator.clipboard.write([
-            new ClipboardItem({ "image/png": blob }),
-          ]);
-
-          estadoCopiaTasasMAV.classList.add("visible");
-          setTimeout(() => {
-            estadoCopiaTasasMAV.classList.remove("visible");
-            btnCapturaTasasMAV.style.display = "block";
-          }, 1800);
-        } catch (error) {
-          console.error("Error al copiar tasas:", error);
-          alert("No se pudo copiar la captura. Probá nuevamente desde una página HTTPS (por ejemplo, GitHub Pages).");
-        } finally {
-          btnCerrar.style.visibility = "";
-          // Si hubo un error, restauramos el botón de copia.
-          if (!estadoCopiaTasasMAV.classList.contains("visible")) {
-            btnCapturaTasasMAV.style.display = "block";
-          }
+          btnCapturaTasasMAV.style.display = "block";
+        }, 1800);
+      } catch (error) {
+        console.error("Error al copiar tasas:", error);
+        alert("No se pudo copiar la captura. Probá nuevamente desde una página HTTPS (por ejemplo, GitHub Pages).");
+      } finally {
+        btnCerrar.style.visibility = "";
+        // Si hubo un error, restauramos el botón de copia.
+        if (!estadoCopiaTasasMAV.classList.contains("visible")) {
+          btnCapturaTasasMAV.style.display = "block";
         }
-      });
+      }
+    });
 
-      function normalizarTexto(valor) {
-        return String(valor || "")
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .trim()
-          .toUpperCase();
+    function normalizarTexto(valor) {
+      return String(valor || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toUpperCase();
+    }
+
+    function generarRangosMAVPagare(maximo) {
+      const limite =
+        Math.max(
+          90,
+          Math.ceil(maximo / 90) * 90,
+        );
+
+      const rangos = [];
+
+      let desde = 1;
+
+      while (desde <= limite) {
+        const hasta = desde + 89;
+
+        rangos.push({
+          nombre: `${desde} - ${hasta}`,
+          desde,
+          hasta,
+        });
+
+        desde = hasta + 1;
       }
 
-      function generarRangosMAVPagare(maximo) {
-        const limite =
-          Math.max(
-            90,
-            Math.ceil(maximo / 90) * 90,
+      return rangos;
+    }
+
+    function calcularSegregacionPagares(
+      operaciones,
+    ) {
+      const pagaresAvalados =
+        operaciones.filter((op) => {
+          const instrumento =
+            normalizarTexto(op.instrumento);
+
+          const estado =
+            normalizarTexto(op.estado);
+
+          const segmento =
+            normalizarTexto(op.segmento);
+
+          const moneda =
+            normalizarTexto(op.moneda);
+
+          const ppv = Number(op.ppv);
+          const monto = Number(op.monto);
+          const tasa =
+            Number(op.tasa_compradora);
+
+          const esPagare =
+            instrumento === "PAGARE";
+
+          const esNegociada =
+            estado === "NEGOCIADA";
+
+          const esAvalado =
+            segmento === "AVALADO";
+
+          const esDolares =
+            moneda === "U$D" ||
+            moneda === "U$S" ||
+            moneda === "DOLA" ||
+            moneda === "USD";
+
+          return (
+            esPagare &&
+            esNegociada &&
+            esAvalado &&
+            esDolares &&
+            Number.isFinite(ppv) &&
+            ppv >= 0 &&
+            Number.isFinite(monto) &&
+            monto > 0 &&
+            Number.isFinite(tasa)
           );
+        });
 
-        const rangos = [];
+      const maxPPV =
+        pagaresAvalados.length
+          ? Math.max(
+            ...pagaresAvalados.map(
+              (op) => Number(op.ppv),
+            ),
+          )
+          : plazoMax;
 
-        let desde = 1;
+      const maximoNecesario =
+        Math.max(plazoMax, maxPPV);
 
-        while (desde <= limite) {
-          const hasta = desde + 89;
-
-          rangos.push({
-            nombre: `${desde} - ${hasta}`,
-            desde,
-            hasta,
-          });
-
-          desde = hasta + 1;
-        }
-
-        return rangos;
-      }
-
-      function calcularSegregacionPagares(
-        operaciones,
+      while (
+        RANGOS_MAV[
+          RANGOS_MAV.length - 1
+        ].hasta < maximoNecesario
       ) {
-        const pagaresAvalados =
-          operaciones.filter((op) => {
-            const instrumento =
-              normalizarTexto(op.instrumento);
-
-            const estado =
-              normalizarTexto(op.estado);
-
-            const segmento =
-              normalizarTexto(op.segmento);
-
-            const moneda =
-              normalizarTexto(op.moneda);
-
-            const ppv = Number(op.ppv);
-            const monto = Number(op.monto);
-            const tasa =
-              Number(op.tasa_compradora);
-
-            const esPagare =
-              instrumento === "PAGARE";
-
-            const esNegociada =
-              estado === "NEGOCIADA";
-
-            const esAvalado =
-              segmento === "AVALADO";
-
-            const esDolares =
-              moneda === "U$D" ||
-              moneda === "U$S" ||
-              moneda === "DOLA" ||
-              moneda === "USD";
-
-            return (
-              esPagare &&
-              esNegociada &&
-              esAvalado &&
-              esDolares &&
-              Number.isFinite(ppv) &&
-              ppv >= 0 &&
-              Number.isFinite(monto) &&
-              monto > 0 &&
-              Number.isFinite(tasa)
-            );
-          });
-
-        const maxPPV =
-          pagaresAvalados.length
-            ? Math.max(
-                ...pagaresAvalados.map(
-                  (op) => Number(op.ppv),
-                ),
-              )
-            : plazoMax;
-
-        const maximoNecesario =
-          Math.max(plazoMax, maxPPV);
-
-        while (
+        const desdeNuevo =
           RANGOS_MAV[
             RANGOS_MAV.length - 1
-          ].hasta < maximoNecesario
-        ) {
-          const desdeNuevo =
-            RANGOS_MAV[
-              RANGOS_MAV.length - 1
-            ].hasta + 1;
+          ].hasta + 1;
 
-          const hastaNuevo =
-            desdeNuevo + 89;
+        const hastaNuevo =
+          desdeNuevo + 89;
 
-          RANGOS_MAV.push({
-            nombre: `${desdeNuevo} - ${hastaNuevo}`,
-            desde: desdeNuevo,
-            hasta: hastaNuevo,
-          });
-        }
+        RANGOS_MAV.push({
+          nombre: `${desdeNuevo} - ${hastaNuevo}`,
+          desde: desdeNuevo,
+          hasta: hastaNuevo,
+        });
+      }
 
-        const rangos = RANGOS_MAV;
+      const rangos = RANGOS_MAV;
 
-        const resultados = rangos.map(
-          (rango) => {
-            const operacionesRango =
-              pagaresAvalados.filter(
-                (op) => {
-                  const ppv =
-                    Number(op.ppv);
-
-                  return (
-                    ppv >= rango.desde &&
-                    ppv <= rango.hasta
-                  );
-                },
-              );
-
-            if (!operacionesRango.length) {
-              return {
-                rango: rango.nombre,
-                desde: rango.desde,
-                hasta: rango.hasta,
-                tna: null,
-                tnaMostrada: null,
-                monto: 0,
-                cantidad: 0,
-              };
-            }
-
-            let montoTotal = 0;
-            let tasaPonderada = 0;
-
-            operacionesRango.forEach(
+      const resultados = rangos.map(
+        (rango) => {
+          const operacionesRango =
+            pagaresAvalados.filter(
               (op) => {
-                const monto =
-                  Number(op.monto);
+                const ppv =
+                  Number(op.ppv);
 
-                const tasa =
-                  Number(
-                    op.tasa_compradora,
-                  );
-
-                montoTotal += monto;
-
-                tasaPonderada +=
-                  tasa * monto;
+                return (
+                  ppv >= rango.desde &&
+                  ppv <= rango.hasta
+                );
               },
             );
 
-            const tna =
-              montoTotal > 0
-                ? tasaPonderada /
-                  montoTotal
-                : null;
-
+          if (!operacionesRango.length) {
             return {
               rango: rango.nombre,
               desde: rango.desde,
               hasta: rango.hasta,
-              tna,
-              tnaMostrada:
-                tna !== null
-                  ? redondearTasaPagare(
-                      tna,
-                    )
-                  : null,
-              monto: montoTotal,
-              cantidad:
-                operacionesRango.length,
+              tna: null,
+              tnaMostrada: null,
+              monto: 0,
+              cantidad: 0,
             };
-          },
-        );
+          }
 
-        resultados.forEach(
-          (resultado) => {
-            if (resultado.tna !== null) {
-              return;
-            }
+          let montoTotal = 0;
+          let tasaPonderada = 0;
 
-            const centroResultado =
-              (resultado.desde +
-                resultado.hasta) /
-              2;
+          operacionesRango.forEach(
+            (op) => {
+              const monto =
+                Number(op.monto);
 
-            let mejorTasa = null;
-            let menorDistancia =
-              Infinity;
-            let mejorIndice = -1;
-
-            resultados.forEach(
-              (
-                candidato,
-                candidatoIndice,
-              ) => {
-                if (
-                  candidato.tna === null
-                ) {
-                  return;
-                }
-
-                const centroCandidato =
-                  (candidato.desde +
-                    candidato.hasta) /
-                  2;
-
-                const distancia =
-                  Math.abs(
-                    centroResultado -
-                      centroCandidato,
-                  );
-
-                if (
-                  distancia <
-                  menorDistancia
-                ) {
-                  menorDistancia =
-                    distancia;
-
-                  mejorTasa =
-                    candidato.tna;
-
-                  mejorIndice =
-                    candidatoIndice;
-                }
-              },
-            );
-
-            if (mejorTasa !== null) {
-              resultado.tna =
-                mejorTasa;
-
-              resultado.tnaMostrada =
-                redondearTasaPagare(
-                  mejorTasa,
+              const tasa =
+                Number(
+                  op.tasa_compradora,
                 );
 
-              resultado.tasaTomadaDe =
-                resultados[
-                  mejorIndice
-                ].rango;
-            }
-          },
-        );
+              montoTotal += monto;
 
-        return {
-          operaciones:
-            pagaresAvalados,
-          resultados,
-        };
-      }
-
-      function redondearTasaPagare(tasa) {
-        if (
-          tasa === null ||
-          !Number.isFinite(
-            Number(tasa),
-          )
-        ) {
-          return null;
-        }
-
-        return (
-          Math.ceil(
-            Number(tasa) * 2,
-          ) / 2
-        );
-      }
-
-      // Monto operado expresado en miles de dólares
-      function formatearMontoMiles(monto) {
-        const valor = Number(monto);
-
-        if (!Number.isFinite(valor) || valor <= 0) {
-          return "—";
-        }
-
-        return (valor / 1000).toLocaleString("es-AR", {
-          maximumFractionDigits: 0,
-        });
-      }
-
-      function formatearTasaPagare(tasa) {
-        if (tasa === null) {
-          return "—";
-        }
-
-        const tasaRedondeada =
-          redondearTasaPagare(tasa);
-
-        if (
-          tasaRedondeada === null
-        ) {
-          return "—";
-        }
-
-        return (
-          tasaRedondeada.toLocaleString(
-            "es-AR",
-            {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 1,
+              tasaPonderada +=
+                tasa * monto;
             },
-          ) + "%"
-        );
-      }
+          );
 
-      function formatearFechaMAV(fecha) {
-        if (!fecha) {
-          return "";
-        }
+          const tna =
+            montoTotal > 0
+              ? tasaPonderada /
+              montoTotal
+              : null;
 
-        const partes =
-          fecha.split("-");
+          return {
+            rango: rango.nombre,
+            desde: rango.desde,
+            hasta: rango.hasta,
+            tna,
+            tnaMostrada:
+              tna !== null
+                ? redondearTasaPagare(
+                  tna,
+                )
+                : null,
+            monto: montoTotal,
+            cantidad:
+              operacionesRango.length,
+          };
+        },
+      );
 
-        if (partes.length !== 3) {
-          return fecha;
-        }
+      resultados.forEach(
+        (resultado) => {
+          if (resultado.tna !== null) {
+            return;
+          }
 
-        return `${partes[2]}/${partes[1]}/${partes[0]}`;
-      }
+          const centroResultado =
+            (resultado.desde +
+              resultado.hasta) /
+            2;
 
-      function generarTablaTasasPagares(
+          let mejorTasa = null;
+          let menorDistancia =
+            Infinity;
+          let mejorIndice = -1;
+
+          resultados.forEach(
+            (
+              candidato,
+              candidatoIndice,
+            ) => {
+              if (
+                candidato.tna === null
+              ) {
+                return;
+              }
+
+              const centroCandidato =
+                (candidato.desde +
+                  candidato.hasta) /
+                2;
+
+              const distancia =
+                Math.abs(
+                  centroResultado -
+                  centroCandidato,
+                );
+
+              if (
+                distancia <
+                menorDistancia
+              ) {
+                menorDistancia =
+                  distancia;
+
+                mejorTasa =
+                  candidato.tna;
+
+                mejorIndice =
+                  candidatoIndice;
+              }
+            },
+          );
+
+          if (mejorTasa !== null) {
+            resultado.tna =
+              mejorTasa;
+
+            resultado.tnaMostrada =
+              redondearTasaPagare(
+                mejorTasa,
+              );
+
+            resultado.tasaTomadaDe =
+              resultados[
+                mejorIndice
+              ].rango;
+          }
+        },
+      );
+
+      return {
+        operaciones:
+          pagaresAvalados,
         resultados,
-      ) {
-        // Para mostrar: solo rangos con operaciones reales.
-        // Los rangos sin operaciones siguen formando parte de
-        // resultados y pueden ser utilizados por el simulador.
-        const resultadosParaMostrar = resultados.filter(
-          (item) => Number(item.monto) > 0,
-        );
+      };
+    }
 
-        let html = `
+    function redondearTasaPagare(tasa) {
+      if (
+        tasa === null ||
+        !Number.isFinite(
+          Number(tasa),
+        )
+      ) {
+        return null;
+      }
+
+      return (
+        Math.ceil(
+          Number(tasa) * 2,
+        ) / 2
+      );
+    }
+
+    // Monto operado expresado en miles de dólares
+    function formatearMontoMiles(monto) {
+      const valor = Number(monto);
+
+      if (!Number.isFinite(valor) || valor <= 0) {
+        return "—";
+      }
+
+      return (valor / 1000).toLocaleString("es-AR", {
+        maximumFractionDigits: 0,
+      });
+    }
+
+    function formatearTasaPagare(tasa) {
+      if (tasa === null) {
+        return "—";
+      }
+
+      const tasaRedondeada =
+        redondearTasaPagare(tasa);
+
+      if (
+        tasaRedondeada === null
+      ) {
+        return "—";
+      }
+
+      return (
+        tasaRedondeada.toLocaleString(
+          "es-AR",
+          {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          },
+        ) + "%"
+      );
+    }
+
+    function formatearFechaMAV(fecha) {
+      if (!fecha) {
+        return "";
+      }
+
+      const partes =
+        fecha.split("-");
+
+      if (partes.length !== 3) {
+        return fecha;
+      }
+
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    function generarTablaTasasPagares(
+      resultados,
+    ) {
+      // Para mostrar: solo rangos con operaciones reales.
+      // Los rangos sin operaciones siguen formando parte de
+      // resultados y pueden ser utilizados por el simulador.
+      const resultadosParaMostrar = resultados.filter(
+        (item) => Number(item.monto) > 0,
+      );
+
+      let html = `
           <table class="tabla-tasas-mav">
             <thead>
               <tr>
@@ -1138,134 +1084,134 @@
             <tbody>
         `;
 
-        resultadosParaMostrar.forEach(
-          (resultado) => {
-            html += `
+      resultadosParaMostrar.forEach(
+        (resultado) => {
+          html += `
               <tr>
                 <td>${resultado.rango}</td>
                 <td>
                   ${formatearTasaPagare(
-                    resultado.tnaMostrada,
-                  )}
+            resultado.tnaMostrada,
+          )}
                 </td>
                 <td>
                   ${formatearMontoMiles(resultado.monto)}
                 </td>
               </tr>
             `;
-          },
-        );
+        },
+      );
 
-        html += `
+      html += `
             </tbody>
           </table>
         `;
 
-        return html;
+      return html;
+    }
+
+    async function obtenerUltimaRuedaPagares() {
+      const respuesta =
+        await fetch(MAV_API);
+
+      if (!respuesta.ok) {
+        throw new Error(
+          `El proxy MAV respondió HTTP ${respuesta.status}`,
+        );
       }
 
-      async function obtenerUltimaRuedaPagares() {
-        const respuesta =
-          await fetch(MAV_API);
+      const datos =
+        await respuesta.json();
 
-        if (!respuesta.ok) {
-          throw new Error(
-            `El proxy MAV respondió HTTP ${respuesta.status}`,
-          );
-        }
-
-        const datos =
-          await respuesta.json();
-
-        if (
-          !datos ||
-          !datos.fecha ||
-          !Array.isArray(
-            datos.subastas,
-          )
-        ) {
-          throw new Error(
-            "El proxy MAV devolvió una respuesta inválida.",
-          );
-        }
-
-        return datos;
+      if (
+        !datos ||
+        !datos.fecha ||
+        !Array.isArray(
+          datos.subastas,
+        )
+      ) {
+        throw new Error(
+          "El proxy MAV devolvió una respuesta inválida.",
+        );
       }
 
-      async function cargarTasasMAV() {
-        try {
-          contenidoTasasMAV.innerHTML = `
+      return datos;
+    }
+
+    async function cargarTasasMAV() {
+      try {
+        contenidoTasasMAV.innerHTML = `
             <div class="tasas-loading">
               Cargando tasas...
             </div>
           `;
 
-          fechaTasasMAV.textContent =
-            "Buscando última rueda...";
+        fechaTasasMAV.textContent =
+          "Buscando última rueda...";
 
-          const datos =
-            await obtenerUltimaRuedaPagares();
+        const datos =
+          await obtenerUltimaRuedaPagares();
 
-          const calculo =
-            calcularSegregacionPagares(
-              datos.subastas,
-            );
+        const calculo =
+          calcularSegregacionPagares(
+            datos.subastas,
+          );
 
-          tasasMAVPorRango =
-            calculo.resultados;
+        tasasMAVPorRango =
+          calculo.resultados;
 
-          tasasMAVDisponibles =
-            calculo.resultados.some(
-              (item) =>
-                item.tnaMostrada !== null,
-            );
+        tasasMAVDisponibles =
+          calculo.resultados.some(
+            (item) =>
+              item.tnaMostrada !== null,
+          );
 
-          fechaTasasMAV.textContent =
-            `Última rueda: ${formatearFechaMAV(
-              datos.fecha,
-            )}`;
-
-          contenidoTasasMAV.innerHTML =
-            generarTablaTasasPagares(
-              calculo.resultados,
-            );
-
-          console.log(
-            "Última rueda MAV pagarés:",
+        fechaTasasMAV.textContent =
+          `Última rueda: ${formatearFechaMAV(
             datos.fecha,
-          );
+          )}`;
 
-          console.log(
-            "Pagarés avalados filtrados:",
-            calculo.operaciones,
-          );
-
-          console.log(
-            "Cantidad de pagarés considerados:",
-            calculo.operaciones.length,
-          );
-
-          console.log(
-            "Segregación MAV pagarés:",
+        contenidoTasasMAV.innerHTML =
+          generarTablaTasasPagares(
             calculo.resultados,
           );
 
-          console.log(
-            "Tasas MAV de pagarés listas para el simulador.",
-          );
-        } catch (error) {
-          console.error(
-            "Error consultando MAV pagarés:",
-            error,
-          );
+        console.log(
+          "Última rueda MAV pagarés:",
+          datos.fecha,
+        );
 
-          tasasMAVPorRango = [];
-          tasasMAVDisponibles = false;
+        console.log(
+          "Pagarés avalados filtrados:",
+          calculo.operaciones,
+        );
 
-          fechaTasasMAV.textContent =
-            "No disponible";
+        console.log(
+          "Cantidad de pagarés considerados:",
+          calculo.operaciones.length,
+        );
 
-          contenidoTasasMAV.innerHTML = `
+        console.log(
+          "Segregación MAV pagarés:",
+          calculo.resultados,
+        );
+
+        console.log(
+          "Tasas MAV de pagarés listas para el simulador.",
+        );
+      } catch (error) {
+        console.error(
+          "Error consultando MAV pagarés:",
+          error,
+        );
+
+        tasasMAVPorRango = [];
+        tasasMAVDisponibles = false;
+
+        fechaTasasMAV.textContent =
+          "No disponible";
+
+        contenidoTasasMAV.innerHTML = `
             <div class="tasas-error">
               No se pudieron obtener las tasas
               de pagarés de la última rueda MAV.
@@ -1275,426 +1221,426 @@
               actualicen las tasas antes de simular.
             </div>
           `;
+      }
+    }
+
+    function abrirPanelTasasMAV() {
+      panelTasasMAV.classList.add(
+        "abierto",
+      );
+
+      panelTasasMAV.setAttribute(
+        "aria-hidden",
+        "false",
+      );
+
+      btnTasasMAV.setAttribute(
+        "aria-expanded",
+        "true",
+      );
+    }
+
+    function cerrarPanelTasasMAV() {
+      panelTasasMAV.classList.remove(
+        "abierto",
+      );
+
+      panelTasasMAV.setAttribute(
+        "aria-hidden",
+        "true",
+      );
+
+      btnTasasMAV.setAttribute(
+        "aria-expanded",
+        "false",
+      );
+    }
+
+    btnTasasMAV.addEventListener(
+      "click",
+      () => {
+        if (
+          panelTasasMAV.classList.contains(
+            "abierto",
+          )
+        ) {
+          cerrarPanelTasasMAV();
+        } else {
+          abrirPanelTasasMAV();
         }
-      }
+      },
+    );
 
-      function abrirPanelTasasMAV() {
-        panelTasasMAV.classList.add(
-          "abierto",
-        );
+    cerrarTasasMAV.addEventListener(
+      "click",
+      cerrarPanelTasasMAV,
+    );
 
-        panelTasasMAV.setAttribute(
-          "aria-hidden",
-          "false",
-        );
+    cargarTasasMAV();
 
-        btnTasasMAV.setAttribute(
-          "aria-expanded",
-          "true",
-        );
-      }
+    // =========================================================
+    // FECHAS
+    // =========================================================
 
-      function cerrarPanelTasasMAV() {
-        panelTasasMAV.classList.remove(
-          "abierto",
-        );
+    function fechaISO(fecha) {
+      const año =
+        fecha.getFullYear();
 
-        panelTasasMAV.setAttribute(
-          "aria-hidden",
-          "true",
-        );
+      const mes = String(
+        fecha.getMonth() + 1,
+      ).padStart(2, "0");
 
-        btnTasasMAV.setAttribute(
-          "aria-expanded",
-          "false",
-        );
-      }
+      const dia = String(
+        fecha.getDate(),
+      ).padStart(2, "0");
 
-      btnTasasMAV.addEventListener(
-        "click",
-        () => {
-          if (
-            panelTasasMAV.classList.contains(
-              "abierto",
-            )
-          ) {
-            cerrarPanelTasasMAV();
-          } else {
-            abrirPanelTasasMAV();
-          }
-        },
-      );
+      return `${año}-${mes}-${dia}`;
+    }
 
-      cerrarTasasMAV.addEventListener(
-        "click",
-        cerrarPanelTasasMAV,
-      );
+    function calcularPlazo(
+      fechaSeleccionada,
+    ) {
+      const [
+        año,
+        mes,
+        dia,
+      ] =
+        fechaSeleccionada
+          .split("-")
+          .map(Number);
 
-      cargarTasasMAV();
-
-      // =========================================================
-      // FECHAS
-      // =========================================================
-
-      function fechaISO(fecha) {
-        const año =
-          fecha.getFullYear();
-
-        const mes = String(
-          fecha.getMonth() + 1,
-        ).padStart(2, "0");
-
-        const dia = String(
-          fecha.getDate(),
-        ).padStart(2, "0");
-
-        return `${año}-${mes}-${dia}`;
-      }
-
-      function calcularPlazo(
-        fechaSeleccionada,
-      ) {
-        const [
+      const vencimiento =
+        new Date(
           año,
-          mes,
+          mes - 1,
           dia,
-        ] =
-          fechaSeleccionada
-            .split("-")
-            .map(Number);
-
-        const vencimiento =
-          new Date(
-            año,
-            mes - 1,
-            dia,
-          );
-
-        const hoy = new Date();
-
-        vencimiento.setHours(
-          0,
-          0,
-          0,
-          0,
         );
 
-        hoy.setHours(
-          0,
-          0,
-          0,
-          0,
+      const hoy = new Date();
+
+      vencimiento.setHours(
+        0,
+        0,
+        0,
+        0,
+      );
+
+      hoy.setHours(
+        0,
+        0,
+        0,
+        0,
+      );
+
+      return Math.round(
+        (vencimiento - hoy) /
+        (1000 *
+          60 *
+          60 *
+          24),
+      );
+    }
+
+    // =========================================================
+    // CARGAR PAGARÉ
+    // =========================================================
+
+    function cargarPagare(
+      fechaSeleccionada =
+        inputFecha.value,
+      montoSeleccionado =
+        parseInt(
+          inputMonto.value,
+        ),
+    ) {
+      const monto =
+        montoSeleccionado;
+
+      const fecha =
+        new Date(
+          fechaSeleccionada +
+          "T00:00:00",
+        ).toLocaleDateString(
+          "es-AR",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+          },
         );
 
-        return Math.round(
-          (vencimiento - hoy) /
-            (1000 *
-              60 *
-              60 *
-              24),
+      const plazo =
+        calcularPlazo(
+          fechaSeleccionada,
         );
-      }
 
-      // =========================================================
-      // CARGAR PAGARÉ
-      // =========================================================
+      alertas.style.visibility =
+        "visible";
 
-      function cargarPagare(
-        fechaSeleccionada =
-          inputFecha.value,
-        montoSeleccionado =
-          parseInt(
-            inputMonto.value,
-          ),
+      // =====================================================
+      // VALIDACIONES
+      // =====================================================
+
+      if (
+        isNaN(plazo) &&
+        isNaN(monto)
       ) {
-        const monto =
-          montoSeleccionado;
+        alertas.textContent =
+          "Ingrese monto y plazo";
 
-        const fecha =
-          new Date(
-            fechaSeleccionada +
-              "T00:00:00",
-          ).toLocaleDateString(
+        return;
+      }
+
+      if (
+        plazo < plazoMin ||
+        plazo > plazoMax ||
+        isNaN(plazo)
+      ) {
+        alertas.textContent =
+          `El plazo debe estar entre ${plazoMin} y ${plazoMax} días`;
+
+        return;
+      }
+
+      if (
+        !monto ||
+        monto < montoMin ||
+        monto > montoMax
+      ) {
+        alertas.textContent =
+          `El monto debe estar comprendido entre USD ${montoMin.toLocaleString(
             "es-AR",
-            {
-              day: "2-digit",
-              month: "2-digit",
-              year: "2-digit",
-            },
-          );
+          )} y USD ${montoMax.toLocaleString(
+            "es-AR",
+          )}`;
 
-        const plazo =
-          calcularPlazo(
-            fechaSeleccionada,
-          );
+        return;
+      }
 
+      if (
+        !tipoCambio ||
+        tipoCambio < 1
+      ) {
         alertas.style.visibility =
           "visible";
 
-        // =====================================================
-        // VALIDACIONES
-        // =====================================================
+        alertas.textContent =
+          "Debe ingresar un TC mayor a 0";
 
-        if (
-          isNaN(plazo) &&
-          isNaN(monto)
-        ) {
-          alertas.textContent =
-            "Ingrese monto y plazo";
+        return;
+      }
 
-          return;
-        }
+      // =====================================================
+      // TASAS MAV
+      // =====================================================
 
-        if (
-          plazo < plazoMin ||
-          plazo > plazoMax ||
-          isNaN(plazo)
-        ) {
-          alertas.textContent =
-            `El plazo debe estar entre ${plazoMin} y ${plazoMax} días`;
+      if (
+        !tasasMAVDisponibles
+      ) {
+        alertas.textContent =
+          "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
 
-          return;
-        }
+        return;
+      }
 
-        if (
-          !monto ||
-          monto < montoMin ||
-          monto > montoMax
-        ) {
-          alertas.textContent =
-            `El monto debe estar comprendido entre USD ${montoMin.toLocaleString(
-              "es-AR",
-            )} y USD ${montoMax.toLocaleString(
-              "es-AR",
-            )}`;
+      const tasa =
+        obtenerTasa(plazo);
 
-          return;
-        }
+      if (tasa === null) {
+        alertas.textContent =
+          "No hay una tasa MAV disponible para este plazo.";
 
-        if (
-          !tipoCambio ||
-          tipoCambio < 1
-        ) {
-          alertas.style.visibility =
-            "visible";
+        return;
+      }
 
-          alertas.textContent =
-            "Debe ingresar un TC mayor a 0";
+      // =====================================================
+      // CÁLCULO DEL PAGARÉ
+      // =====================================================
 
-          return;
-        }
+      const descuentoAlyc =
+        Math.round(
+          ((comAlyc *
+            (plazo + 1) *
+            monto *
+            1.21) /
+            36000) *
+          tipoCambio,
+        ) * -1;
 
-        // =====================================================
-        // TASAS MAV
-        // =====================================================
+      const descuentoSGR =
+        Math.round(
+          ((comSGR *
+            (plazo + 1) *
+            monto) /
+            36500) *
+          (tipoCambio *
+            1.019),
+        ) * -1;
 
-        if (
-          !tasasMAVDisponibles
-        ) {
-          alertas.textContent =
-            "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+      const otrosGastos =
+        Math.round(
+          ((monto *
+            comCVyOtros) /
+            100) *
+          tipoCambio,
+        ) * -1;
 
-          return;
-        }
+      const descuentoTNA =
+        Math.round(
+          (monto -
+            monto /
+            (1 +
+              (tasa *
+                (plazo + 1)) /
+              36500)) *
+          tipoCambio,
+        ) * -1;
 
-        const tasa =
-          obtenerTasa(plazo);
-
-        if (tasa === null) {
-          alertas.textContent =
-            "No hay una tasa MAV disponible para este plazo.";
-
-          return;
-        }
-
-        // =====================================================
-        // CÁLCULO DEL PAGARÉ
-        // =====================================================
-
-        const descuentoAlyc =
-          Math.round(
-            ((comAlyc *
-              (plazo + 1) *
-              monto *
-              1.21) /
-              36000) *
-              tipoCambio,
-          ) * -1;
-
-        const descuentoSGR =
-          Math.round(
-            ((comSGR *
-              (plazo + 1) *
-              monto) /
-              36500) *
-              (tipoCambio *
-                1.019),
-          ) * -1;
-
-        const otrosGastos =
-          Math.round(
-            ((monto *
-              comCVyOtros) /
-              100) *
-              tipoCambio,
-          ) * -1;
-
-        const descuentoTNA =
-          Math.round(
-            (monto -
-              monto /
-                (1 +
-                  (tasa *
-                    (plazo + 1)) /
-                    36500)) *
-              tipoCambio,
-          ) * -1;
-
-        const gastosCVyAlyc =
-          Math.round(
-            descuentoAlyc +
-              otrosGastos,
-          );
-
-        const neto = Math.round(
-          monto * tipoCambio +
-            descuentoTNA +
-            descuentoAlyc +
-            descuentoSGR +
-            otrosGastos,
+      const gastosCVyAlyc =
+        Math.round(
+          descuentoAlyc +
+          otrosGastos,
         );
 
-        const cft =
-          (monto * tipoCambio) /
-            neto -
-          1;
+      const neto = Math.round(
+        monto * tipoCambio +
+        descuentoTNA +
+        descuentoAlyc +
+        descuentoSGR +
+        otrosGastos,
+      );
 
-        const cfta =
-          Math.round(
-            (cft / plazo) *
-              36500,
-          );
+      const cft =
+        (monto * tipoCambio) /
+        neto -
+        1;
 
-        dolarSectionAlternativo.style.display =
-          "none";
+      const cfta =
+        Math.round(
+          (cft / plazo) *
+          36500,
+        );
 
-        alertas.style.visibility =
-          "hidden";
+      dolarSectionAlternativo.style.display =
+        "none";
 
-        pagares.push({
-          idPagare: idPagare++,
+      alertas.style.visibility =
+        "hidden";
 
-          monto,
-          fecha,
-          plazo,
-          tasa,
-          cfta,
-          descuentoTNA,
-          gastosCVyAlyc,
-          descuentoSGR,
-          neto,
-        });
+      pagares.push({
+        idPagare: idPagare++,
+
+        monto,
+        fecha,
+        plazo,
+        tasa,
+        cfta,
+        descuentoTNA,
+        gastosCVyAlyc,
+        descuentoSGR,
+        neto,
+      });
+    }
+
+    // =========================================================
+    // OBTENER TASA
+    // =========================================================
+
+    function obtenerTasa(plazo) {
+      const rango =
+        RANGOS_MAV.find(
+          (rango) =>
+            plazo >=
+            rango.desde &&
+            plazo <=
+            rango.hasta,
+        );
+
+      if (!rango) {
+        return null;
       }
 
-      // =========================================================
-      // OBTENER TASA
-      // =========================================================
+      const dato =
+        tasasMAVPorRango.find(
+          (item) =>
+            item.rango ===
+            rango.nombre,
+        );
 
-      function obtenerTasa(plazo) {
-        const rango =
-          RANGOS_MAV.find(
-            (rango) =>
-              plazo >=
-                rango.desde &&
-              plazo <=
-                rango.hasta,
-          );
-
-        if (!rango) {
-          return null;
-        }
-
-        const dato =
-          tasasMAVPorRango.find(
-            (item) =>
-              item.rango ===
-              rango.nombre,
-          );
-
-        if (
-          !dato ||
-          dato.tna === null
-        ) {
-          return null;
-        }
-
-        return dato.tnaMostrada !==
-          null
-          ? dato.tnaMostrada
-          : redondearTasaPagare(
-              dato.tna,
-            );
+      if (
+        !dato ||
+        dato.tna === null
+      ) {
+        return null;
       }
 
-      // =========================================================
-      // MOSTRAR TABLA
-      // =========================================================
+      return dato.tnaMostrada !==
+        null
+        ? dato.tnaMostrada
+        : redondearTasaPagare(
+          dato.tna,
+        );
+    }
 
-      function mostrarTabla() {
+    // =========================================================
+    // MOSTRAR TABLA
+    // =========================================================
+
+    function mostrarTabla() {
+      bigContainer.style.opacity =
+        "0";
+
+      bigContainer.style.visibility =
+        "visible";
+
+      dolarSection.style.display =
+        "block";
+
+      let sumaMontos = 0;
+      let sumaDescuentoTNA = 0;
+      let sumaDescuentoAlyc = 0;
+      let sumaDescuentoSGR = 0;
+      let sumaOtrosGastos = 0;
+      let sumaNetos = 0;
+      let sumaGastosCVyAlyc = 0;
+
+      if (pagares.length !== 0) {
+        tablaInstrumentos.style.opacity =
+          "1";
+
+        resumenOperacion.style.opacity =
+          "1";
+
+        notas.style.opacity =
+          "1";
+
+        grilla.innerHTML = "";
+
+        btnImprimir.style.opacity =
+          "1";
+
+        btnExportarExcel.style.opacity =
+          "1";
+
         bigContainer.style.opacity =
-          "0";
+          "1";
 
-        bigContainer.style.visibility =
-          "visible";
+        pagares.forEach(
+          (pagare) => {
+            let fila =
+              document.createElement(
+                "tr",
+              );
 
-        dolarSection.style.display =
-          "block";
-
-        let sumaMontos = 0;
-        let sumaDescuentoTNA = 0;
-        let sumaDescuentoAlyc = 0;
-        let sumaDescuentoSGR = 0;
-        let sumaOtrosGastos = 0;
-        let sumaNetos = 0;
-        let sumaGastosCVyAlyc = 0;
-
-        if (pagares.length !== 0) {
-          tablaInstrumentos.style.opacity =
-            "1";
-
-          resumenOperacion.style.opacity =
-            "1";
-
-          notas.style.opacity =
-            "1";
-
-          grilla.innerHTML = "";
-
-          btnImprimir.style.opacity =
-            "1";
-
-          btnExportarExcel.style.opacity =
-            "1";
-
-          bigContainer.style.opacity =
-            "1";
-
-          pagares.forEach(
-            (pagare) => {
-              let fila =
-                document.createElement(
-                  "tr",
-                );
-
-              fila.innerHTML = `
+            fila.innerHTML = `
                 <td class="ocultoEnCelu ocultarNroItem">
                   ${pagares.indexOf(pagare) + 1}
                 </td>
 
                 <td>
                   ${pagare.monto.toLocaleString(
-                    "es-AR",
-                  )}
+              "es-AR",
+            )}
                 </td>
 
                 <td>${pagare.fecha}</td>
@@ -1709,26 +1655,26 @@
 
                 <td class="ocultoEnCelu">
                   ${pagare.descuentoTNA.toLocaleString(
-                    "es-AR",
-                  )}
+              "es-AR",
+            )}
                 </td>
 
                 <td class="ocultoEnCelu">
                   ${pagare.gastosCVyAlyc.toLocaleString(
-                    "es-AR",
-                  )}
+              "es-AR",
+            )}
                 </td>
 
                 <td class="ocultoEnCelu">
                   ${pagare.descuentoSGR.toLocaleString(
-                    "es-AR",
-                  )}
+              "es-AR",
+            )}
                 </td>
 
                 <td class="blacky">
                   ${pagare.neto.toLocaleString(
-                    "es-AR",
-                  )}
+              "es-AR",
+            )}
                 </td>
 
                 <td
@@ -1748,42 +1694,42 @@
                 </td>
               `;
 
-              grilla.appendChild(fila);
+            grilla.appendChild(fila);
 
-              sumaMontos +=
-                pagare.monto;
+            sumaMontos +=
+              pagare.monto;
 
-              sumaDescuentoTNA +=
-                pagare.descuentoTNA;
+            sumaDescuentoTNA +=
+              pagare.descuentoTNA;
 
-              sumaDescuentoAlyc +=
-                pagare.gastosCVyAlyc;
+            sumaDescuentoAlyc +=
+              pagare.gastosCVyAlyc;
 
-              sumaOtrosGastos +=
-                pagare.gastosCVyAlyc;
+            sumaOtrosGastos +=
+              pagare.gastosCVyAlyc;
 
-              sumaDescuentoSGR +=
-                pagare.descuentoSGR;
+            sumaDescuentoSGR +=
+              pagare.descuentoSGR;
 
-              sumaNetos +=
-                pagare.neto;
+            sumaNetos +=
+              pagare.neto;
 
-              sumaGastosCVyAlyc +=
-                pagare.gastosCVyAlyc;
-            },
-          );
+            sumaGastosCVyAlyc +=
+              pagare.gastosCVyAlyc;
+          },
+        );
 
-          if (pagares.length > 1) {
-            let filaFinal =
-              document.createElement(
-                "tr",
-              );
-
-            grilla.appendChild(
-              filaFinal,
+        if (pagares.length > 1) {
+          let filaFinal =
+            document.createElement(
+              "tr",
             );
 
-            filaFinal.innerHTML = `
+          grilla.appendChild(
+            filaFinal,
+          );
+
+          filaFinal.innerHTML = `
               <td
                 style="
                   border: none;
@@ -1815,31 +1761,31 @@
                 ></button>
               </td>
             `;
-          }
+        }
 
-          const plazoPromedio =
-            () => {
-              let sumaPlazos = 0;
+        const plazoPromedio =
+          () => {
+            let sumaPlazos = 0;
 
-              pagares.forEach(
-                (pagare) =>
-                  (sumaPlazos +=
-                    pagare.plazo),
-              );
-
-              return (
-                sumaPlazos /
-                pagares.length
-              );
-            };
-
-          let sumaNetosEquivUSD =
-            Math.round(
-              sumaNetos /
-                tipoCambio,
+            pagares.forEach(
+              (pagare) =>
+              (sumaPlazos +=
+                pagare.plazo),
             );
 
-          resumenOperacion.innerHTML = `
+            return (
+              sumaPlazos /
+              pagares.length
+            );
+          };
+
+        let sumaNetosEquivUSD =
+          Math.round(
+            sumaNetos /
+            tipoCambio,
+          );
+
+        resumenOperacion.innerHTML = `
             <table class="resumenTabla centrar">
               <tr>
                 <td class="resParrafo blacky">
@@ -1848,8 +1794,8 @@
 
                 <td class="resParrafo blacky">
                   USD ${sumaMontos.toLocaleString(
-                    "es-AR",
-                  )}
+          "es-AR",
+        )}
                 </td>
               </tr>
 
@@ -1870,8 +1816,8 @@
 
                 <td class="resParrafo">
                   ${Math.round(
-                    plazoPromedio(),
-                  )} días
+          plazoPromedio(),
+        )} días
                 </td>
               </tr>
 
@@ -1882,10 +1828,10 @@
 
                 <td class="resParrafo">
                   $ ${Math.round(
-                    sumaDescuentoTNA,
-                  ).toLocaleString(
-                    "es-AR",
-                  )}
+          sumaDescuentoTNA,
+        ).toLocaleString(
+          "es-AR",
+        )}
                 </td>
               </tr>
 
@@ -1896,10 +1842,10 @@
 
                 <td class="resParrafo">
                   $ ${Math.round(
-                    sumaOtrosGastos,
-                  ).toLocaleString(
-                    "es-AR",
-                  )}
+          sumaOtrosGastos,
+        ).toLocaleString(
+          "es-AR",
+        )}
                 </td>
               </tr>
 
@@ -1910,10 +1856,10 @@
 
                 <td class="resParrafo">
                   $ ${Math.round(
-                    sumaDescuentoSGR,
-                  ).toLocaleString(
-                    "es-AR",
-                  )}
+          sumaDescuentoSGR,
+        ).toLocaleString(
+          "es-AR",
+        )}
                 </td>
               </tr>
 
@@ -1928,8 +1874,8 @@
                   class="resParrafo blacky borderTop txt-azul"
                 >
                   $ ${sumaNetos.toLocaleString(
-                    "es-AR",
-                  )}
+          "es-AR",
+        )}
                 </td>
               </tr>
 
@@ -1940,486 +1886,487 @@
 
                 <td class="resParrafo txt-small">
                   USD ${sumaNetosEquivUSD.toLocaleString(
-                    "es-AR",
-                  )}
+          "es-AR",
+        )}
                 </td>
               </tr>
             </table>
           `;
-        } else {
-          dolarSectionAlternativo.style.display =
-            "block";
+      } else {
+        dolarSectionAlternativo.style.display =
+          "block";
 
-          dolarSection.style.display =
-            "none";
-        }
+        dolarSection.style.display =
+          "none";
+      }
+    }
+
+    // =========================================================
+    // BORRAR PAGARÉ
+    // =========================================================
+
+    function borrar(idPagare) {
+      const index =
+        pagares.findIndex(
+          (c) =>
+            c.idPagare ===
+            idPagare,
+        );
+
+      if (index !== -1) {
+        pagares.splice(
+          index,
+          1,
+        );
+
+        mostrarTabla();
       }
 
-      // =========================================================
-      // BORRAR PAGARÉ
-      // =========================================================
+      alertas.style.visibility =
+        "hidden";
+    }
 
-      function borrar(idPagare) {
-        const index =
-          pagares.findIndex(
-            (c) =>
-              c.idPagare ===
-              idPagare,
-          );
+    // =========================================================
+    // AGREGAR PAGARÉ
+    // =========================================================
 
-        if (index !== -1) {
-          pagares.splice(
-            index,
-            1,
-          );
-
-          mostrarTabla();
-        }
-
-        alertas.style.visibility =
-          "hidden";
-      }
-
-      // =========================================================
-      // AGREGAR PAGARÉ
-      // =========================================================
-
-      btnAgregar.addEventListener(
-        "click",
-        () => {
-          cargarPagare();
-
-          mostrarTabla();
-
-          detalle.style.display =
-            "flex";
-        },
-      );
-
-      // =========================================================
-      // SIMULACIÓN RÁPIDA
-      // =========================================================
-
-      btnSimAuto.addEventListener(
-        "click",
-        () => {
-          const montoSimulacionRapida =
-            100000;
-
-          const plazosSimulacionRapida =
-            [
-              90,
-              180,
-              240,
-              270,
-              360,
-            ];
-
-          const fechaActual =
-            new Date();
-
-          if (
-            !tipoCambio ||
-            tipoCambio < 1
-          ) {
-            alertas.textContent =
-              "Debe ingresar un TC mayor a 0";
-
-            alertas.style.visibility =
-              "visible";
-
-            return;
-          }
-
-          if (
-            !tasasMAVDisponibles
-          ) {
-            alertas.textContent =
-              "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
-
-            alertas.style.visibility =
-              "visible";
-
-            return;
-          }
-
-          const fechas =
-            plazosSimulacionRapida.map(
-              (plazo) => {
-                const fechaPagare =
-                  new Date(
-                    fechaActual,
-                  );
-
-                fechaPagare.setDate(
-                  fechaPagare.getDate() +
-                    plazo,
-                );
-
-                return fechaISO(
-                  fechaPagare,
-                );
-              },
-            );
-
-          for (
-            const fechaPagare of fechas
-          ) {
-            const plazo =
-              calcularPlazo(
-                fechaPagare,
-              );
-
-            if (
-              obtenerTasa(plazo) ===
-              null
-            ) {
-              alertas.textContent =
-                "No hay tasas MAV disponibles para todos los plazos de la simulación rápida.";
-
-              alertas.style.visibility =
-                "visible";
-
-              return;
-            }
-          }
-
-          pagares.length = 0;
-          idPagare = 0;
-
-          fechas.forEach(
-            (fechaPagare) =>
-              cargarPagare(
-                fechaPagare,
-                montoSimulacionRapida,
-              ),
-          );
-
-          mostrarTabla();
-
-          detalle.style.display =
-            "flex";
-        },
-      );
-
-      // =========================================================
-      // LIMPIAR
-      // =========================================================
-
-      function limpiar() {
-        pagares.length = 0;
+    btnAgregar.addEventListener(
+      "click",
+      () => {
+        cargarPagare();
 
         mostrarTabla();
 
         detalle.style.display =
-          "none";
+          "flex";
+      },
+    );
 
-        alertas.style.visibility =
-          "hidden";
+    // =========================================================
+    // SIMULACIÓN RÁPIDA
+    // =========================================================
 
-        bigContainer.style.visibility =
-          "hidden";
-      }
+    btnSimAuto.addEventListener(
+      "click",
+      () => {
+        const montoSimulacionRapida =
+          100000;
 
-      // =========================================================
-      // EXPORTAR A EXCEL
-      // =========================================================
+        const plazosSimulacionRapida =
+          [
+            90,
+            180,
+            240,
+            270,
+            360,
+          ];
 
-      document
-        .getElementById(
-          "btnExportarExcel",
-        )
-        .addEventListener(
-          "click",
-          function () {
-            const tabla =
-              document.getElementById(
-                "tablaInstrumentos",
+        const fechaActual =
+          new Date();
+
+        if (
+          !tipoCambio ||
+          tipoCambio < 1
+        ) {
+          alertas.textContent =
+            "Debe ingresar un TC mayor a 0";
+
+          alertas.style.visibility =
+            "visible";
+
+          return;
+        }
+
+        if (
+          !tasasMAVDisponibles
+        ) {
+          alertas.textContent =
+            "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+
+          alertas.style.visibility =
+            "visible";
+
+          return;
+        }
+
+        const fechas =
+          plazosSimulacionRapida.map(
+            (plazo) => {
+              const fechaPagare =
+                new Date(
+                  fechaActual,
+                );
+
+              fechaPagare.setDate(
+                fechaPagare.getDate() +
+                plazo,
               );
 
-            const filas =
-              Array.from(
-                tabla.querySelectorAll(
-                  "tbody tr",
-                ),
+              return fechaISO(
+                fechaPagare,
               );
+            },
+          );
 
-            const headers = [
-              "#",
-              "Monto (USD)",
-              "Fecha",
-              "Plazo",
-              "Tasa (%)",
-              "CFTa (%)",
-              "Interés ($)",
-              "Gastos ($)",
-              "Com SGR ($)",
-              "Neto ($)",
-            ];
-
-            const data = [headers];
-
-            const sumas =
-              new Array(
-                headers.length,
-              ).fill(0);
-
-            let contador = 1;
-            let totalPlazo = 0;
-            let filasValidas = 0;
-
-            filas.forEach(
-              (fila) => {
-                const celdas =
-                  fila.querySelectorAll(
-                    "td",
-                  );
-
-                if (
-                  celdas.length <
-                    10 ||
-                  !celdas[1].textContent.trim()
-                ) {
-                  return;
-                }
-
-                const filaData = [];
-
-                try {
-                  const monto =
-                    parseInt(
-                      celdas[1].textContent
-                        .replace(
-                          /\./g,
-                          "",
-                        )
-                        .replace(
-                          /\s/g,
-                          "",
-                        ),
-                    ) || 0;
-
-                  const fecha =
-                    celdas[2].textContent.trim();
-
-                  const plazo =
-                    parseInt(
-                      celdas[3]
-                        .textContent,
-                    ) || 0;
-
-                  const tasa =
-                    parseFloat(
-                      celdas[4]
-                        .textContent
-                        .replace(
-                          ",",
-                          ".",
-                        )
-                        .replace(
-                          "%",
-                          "",
-                        ),
-                    ) || 0;
-
-                  const cfta =
-                    parseFloat(
-                      celdas[5]
-                        .textContent
-                        .replace(
-                          ",",
-                          ".",
-                        )
-                        .replace(
-                          "%",
-                          "",
-                        ),
-                    ) || 0;
-
-                  const interes =
-                    parseInt(
-                      celdas[6].textContent
-                        .replace(
-                          /\./g,
-                          "",
-                        )
-                        .replace(
-                          /\s/g,
-                          "",
-                        ),
-                    ) || 0;
-
-                  const gastos =
-                    parseInt(
-                      celdas[7].textContent
-                        .replace(
-                          /\./g,
-                          "",
-                        )
-                        .replace(
-                          /\s/g,
-                          "",
-                        ),
-                    ) || 0;
-
-                  const sgr =
-                    parseInt(
-                      celdas[8].textContent
-                        .replace(
-                          /\./g,
-                          "",
-                        )
-                        .replace(
-                          /\s/g,
-                          "",
-                        ),
-                    ) || 0;
-
-                  const neto =
-                    parseInt(
-                      celdas[9].textContent
-                        .replace(
-                          /\./g,
-                          "",
-                        )
-                        .replace(
-                          /\s/g,
-                          "",
-                        ),
-                    ) || 0;
-
-                  filaData.push(
-                    contador++,
-                  );
-
-                  filaData.push(
-                    monto,
-                  );
-
-                  filaData.push(
-                    fecha,
-                  );
-
-                  filaData.push(
-                    plazo,
-                  );
-
-                  filaData.push(
-                    tasa,
-                  );
-
-                  filaData.push(
-                    cfta,
-                  );
-
-                  filaData.push(
-                    interes,
-                  );
-
-                  filaData.push(
-                    gastos,
-                  );
-
-                  filaData.push(
-                    sgr,
-                  );
-
-                  filaData.push(
-                    neto,
-                  );
-
-                  sumas[1] += monto;
-
-                  totalPlazo +=
-                    plazo;
-
-                  sumas[6] +=
-                    interes;
-
-                  sumas[7] +=
-                    gastos;
-
-                  sumas[8] += sgr;
-
-                  sumas[9] += neto;
-
-                  filasValidas++;
-
-                  data.push(
-                    filaData,
-                  );
-                } catch (err) {
-                  console.error(
-                    "Error al procesar fila:",
-                    err,
-                  );
-                }
-              },
+        for (
+          const fechaPagare of fechas
+        ) {
+          const plazo =
+            calcularPlazo(
+              fechaPagare,
             );
 
-            const filaTotales = [
-              "Totales:",
-            ];
+          if (
+            obtenerTasa(plazo) ===
+            null
+          ) {
+            alertas.textContent =
+              "No hay tasas MAV disponibles para todos los plazos de la simulación rápida.";
 
-            for (
-              let i = 1;
-              i < headers.length;
-              i++
-            ) {
+            alertas.style.visibility =
+              "visible";
+
+            return;
+          }
+        }
+
+        pagares.length = 0;
+        idPagare = 0;
+
+        fechas.forEach(
+          (fechaPagare) =>
+            cargarPagare(
+              fechaPagare,
+              montoSimulacionRapida,
+            ),
+        );
+
+        mostrarTabla();
+
+        detalle.style.display =
+          "flex";
+      },
+    );
+
+    // =========================================================
+    // LIMPIAR
+    // =========================================================
+
+    function limpiar() {
+      pagares.length = 0;
+
+      mostrarTabla();
+
+      detalle.style.display =
+        "none";
+
+      alertas.style.visibility =
+        "hidden";
+
+      bigContainer.style.visibility =
+        "hidden";
+    }
+
+    // =========================================================
+    // EXPORTAR A EXCEL
+    // =========================================================
+
+    document
+      .getElementById(
+        "btnExportarExcel",
+      )
+      .addEventListener(
+        "click",
+        function () {
+          const tabla =
+            document.getElementById(
+              "tablaInstrumentos",
+            );
+
+          const filas =
+            Array.from(
+              tabla.querySelectorAll(
+                "tbody tr",
+              ),
+            );
+
+          const headers = [
+            "#",
+            "Monto (USD)",
+            "Fecha",
+            "Plazo",
+            "Tasa (%)",
+            "CFTa (%)",
+            "Interés ($)",
+            "Gastos ($)",
+            "Com SGR ($)",
+            "Neto ($)",
+          ];
+
+          const data = [headers];
+
+          const sumas =
+            new Array(
+              headers.length,
+            ).fill(0);
+
+          let contador = 1;
+          let totalPlazo = 0;
+          let filasValidas = 0;
+
+          filas.forEach(
+            (fila) => {
+              const celdas =
+                fila.querySelectorAll(
+                  "td",
+                );
+
               if (
-                [2, 4, 5].includes(
-                  i,
-                )
+                celdas.length <
+                10 ||
+                !celdas[1].textContent.trim()
               ) {
-                filaTotales.push(
-                  "",
-                );
-              } else if (
-                i === 3
-              ) {
-                const promedio =
-                  filasValidas >
-                  0
-                    ? Math.round(
-                        totalPlazo /
-                          filasValidas,
-                      )
-                    : 0;
+                return;
+              }
 
-                filaTotales.push(
-                  promedio,
+              const filaData = [];
+
+              try {
+                const monto =
+                  parseInt(
+                    celdas[1].textContent
+                      .replace(
+                        /\./g,
+                        "",
+                      )
+                      .replace(
+                        /\s/g,
+                        "",
+                      ),
+                  ) || 0;
+
+                const fecha =
+                  celdas[2].textContent.trim();
+
+                const plazo =
+                  parseInt(
+                    celdas[3]
+                      .textContent,
+                  ) || 0;
+
+                const tasa =
+                  parseFloat(
+                    celdas[4]
+                      .textContent
+                      .replace(
+                        ",",
+                        ".",
+                      )
+                      .replace(
+                        "%",
+                        "",
+                      ),
+                  ) || 0;
+
+                const cfta =
+                  parseFloat(
+                    celdas[5]
+                      .textContent
+                      .replace(
+                        ",",
+                        ".",
+                      )
+                      .replace(
+                        "%",
+                        "",
+                      ),
+                  ) || 0;
+
+                const interes =
+                  parseInt(
+                    celdas[6].textContent
+                      .replace(
+                        /\./g,
+                        "",
+                      )
+                      .replace(
+                        /\s/g,
+                        "",
+                      ),
+                  ) || 0;
+
+                const gastos =
+                  parseInt(
+                    celdas[7].textContent
+                      .replace(
+                        /\./g,
+                        "",
+                      )
+                      .replace(
+                        /\s/g,
+                        "",
+                      ),
+                  ) || 0;
+
+                const sgr =
+                  parseInt(
+                    celdas[8].textContent
+                      .replace(
+                        /\./g,
+                        "",
+                      )
+                      .replace(
+                        /\s/g,
+                        "",
+                      ),
+                  ) || 0;
+
+                const neto =
+                  parseInt(
+                    celdas[9].textContent
+                      .replace(
+                        /\./g,
+                        "",
+                      )
+                      .replace(
+                        /\s/g,
+                        "",
+                      ),
+                  ) || 0;
+
+                filaData.push(
+                  contador++,
                 );
-              } else {
-                filaTotales.push(
-                  sumas[i] || "",
+
+                filaData.push(
+                  monto,
+                );
+
+                filaData.push(
+                  fecha,
+                );
+
+                filaData.push(
+                  plazo,
+                );
+
+                filaData.push(
+                  tasa,
+                );
+
+                filaData.push(
+                  cfta,
+                );
+
+                filaData.push(
+                  interes,
+                );
+
+                filaData.push(
+                  gastos,
+                );
+
+                filaData.push(
+                  sgr,
+                );
+
+                filaData.push(
+                  neto,
+                );
+
+                sumas[1] += monto;
+
+                totalPlazo +=
+                  plazo;
+
+                sumas[6] +=
+                  interes;
+
+                sumas[7] +=
+                  gastos;
+
+                sumas[8] += sgr;
+
+                sumas[9] += neto;
+
+                filasValidas++;
+
+                data.push(
+                  filaData,
+                );
+              } catch (err) {
+                console.error(
+                  "Error al procesar fila:",
+                  err,
                 );
               }
-            }
+            },
+          );
 
-            data.push(
-              filaTotales,
-            );
+          const filaTotales = [
+            "Totales:",
+          ];
 
-            const ws =
-              XLSX.utils.aoa_to_sheet(
-                data,
+          for (
+            let i = 1;
+            i < headers.length;
+            i++
+          ) {
+            if (
+              [2, 4, 5].includes(
+                i,
+              )
+            ) {
+              filaTotales.push(
+                "",
               );
+            } else if (
+              i === 3
+            ) {
+              const promedio =
+                filasValidas >
+                  0
+                  ? Math.round(
+                    totalPlazo /
+                    filasValidas,
+                  )
+                  : 0;
 
-            const wb =
-              XLSX.utils.book_new();
+              filaTotales.push(
+                promedio,
+              );
+            } else {
+              filaTotales.push(
+                sumas[i] || "",
+              );
+            }
+          }
 
-            XLSX.utils.book_append_sheet(
-              wb,
-              ws,
-              "Simulación",
+          data.push(
+            filaTotales,
+          );
+
+          const ws =
+            XLSX.utils.aoa_to_sheet(
+              data,
             );
 
-            XLSX.writeFile(
-              wb,
-              "simulacion_pagares.xlsx",
-            );
-          },
-        );
-    </script>
-  </body>
+          const wb =
+            XLSX.utils.book_new();
+
+          XLSX.utils.book_append_sheet(
+            wb,
+            ws,
+            "Simulación",
+          );
+
+          XLSX.writeFile(
+            wb,
+            "simulacion_pagares.xlsx",
+          );
+        },
+      );
+  </script>
+</body>
+
 </html>
