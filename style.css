@@ -941,6 +941,11 @@ text-align: center;
       sans-serif;
   }
 
+     header {
+    top: -190px;
+  }
+
+
   #dolar-section-alternativo #noFuePosible {
     margin-top: 0;
     margin-bottom: 10px;
