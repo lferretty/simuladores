@@ -941,8 +941,8 @@ text-align: center;
       sans-serif;
   }
 
-     header {
-    top: -190px;
+   header {
+    position: static;
   }
 
 
