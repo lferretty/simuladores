@@ -524,6 +524,60 @@ input {
 }
 
 
+  /* =========================================================
+         BOTÓN PARA COPIAR EL PANEL DE TASAS COMO IMAGEN
+         ========================================================= */
+    .acciones-tasas {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 70px;
+      height: 72px;
+      z-index: 2;
+    }
+
+    /* La X queda siempre fija en su posición original. */
+    .acciones-tasas .btn-cerrar-tasas {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+    }
+
+    .btn-captura-tasas {
+      position: absolute;
+      top: 39px;
+      right: 0;
+      border: none;
+      background: transparent;
+      color: #666;
+      font-size: 18px;
+      line-height: 1;
+      padding: 2px 4px;
+      cursor: pointer;
+    }
+
+    .btn-captura-tasas:hover {
+      color: #1f4b40;
+      transform: scale(1.08);
+    }
+
+    .estado-copia-tasas {
+      display: none;
+      position: absolute;
+      top: 42px;
+      right: 0;
+      color: #1f4b40;
+      font-size: 14px;
+      line-height: 1.1;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .estado-copia-tasas.visible {
+      display: block;
+    }
+
 /* =========================================================
    MODAL COMISIÓN SGR
    ========================================================= */
@@ -1200,6 +1254,66 @@ input {
   }
 
   #btnImprimir {
+    display: none !important;
+  }
+}
+
+/* =========================================================
+   BOTÓN PARA COPIAR LA TABLA DE INSTRUMENTOS COMO IMAGEN
+   (simulador de cheques)
+   Queda en la celda vacía del encabezado, a la derecha de "Neto".
+   ========================================================= */
+
+#tablaInstrumentos th.th-captura {
+ /*  position: relative;
+  padding: 0;
+  border: none; */
+  background-color: transparent;
+
+}
+
+.btn-captura-tabla {
+  border: none;
+  position: relative;
+  background: transparent;
+  color: rgb(228, 236, 239);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 4px;
+  opacity: 0.8;
+  cursor: pointer;
+
+}
+
+.btn-captura-tabla:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.estado-copia-tabla {
+  display: none;
+  position: relative;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 2px;
+  color: white;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.estado-copia-tabla.visible {
+  display: block;
+}
+
+@media print {
+
+  .btn-captura-tabla,
+  .estado-copia-tabla {
     display: none !important;
   }
 }

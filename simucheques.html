@@ -32,62 +32,6 @@
     gtag("js", new Date());
     gtag("config", "G-PPRM2QHRDG");
   </script>
-
-  <style>
-    /* =========================================================
-         BOTÓN PARA COPIAR EL PANEL DE TASAS COMO IMAGEN
-         ========================================================= */
-    .acciones-tasas {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      width: 70px;
-      height: 72px;
-      z-index: 2;
-    }
-
-    /* La X queda siempre fija en su posición original. */
-    .acciones-tasas .btn-cerrar-tasas {
-      position: absolute !important;
-      top: 0;
-      right: 0;
-    }
-
-    .btn-captura-tasas {
-      position: absolute;
-      top: 39px;
-      right: 0;
-      border: none;
-      background: transparent;
-      color: #666;
-      font-size: 18px;
-      line-height: 1;
-      padding: 2px 4px;
-      cursor: pointer;
-    }
-
-    .btn-captura-tasas:hover {
-      color: #1f4b40;
-      transform: scale(1.08);
-    }
-
-    .estado-copia-tasas {
-      display: none;
-      position: absolute;
-      top: 42px;
-      right: 0;
-      color: #1f4b40;
-      font-size: 14px;
-      line-height: 1.1;
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .estado-copia-tasas.visible {
-      display: block;
-    }
-  </style>
 </head>
 
 <body>
@@ -215,6 +159,7 @@
   <main>
     <div class="big-container">
       <section id="detalle" class="centrar">
+        
         <table id="tablaInstrumentos" class="centrar">
           <thead>
             <tr>
@@ -228,7 +173,16 @@
               <th class="ocultoEnCelu">Gastos</th>
               <th class="ocultoEnCelu">Com SGR</th>
               <th>Neto</th>
-              <th style="border: none; background-color: transparent"></th>
+
+              <!-- BOTONITO PARA COPIAR LA TABLA A IMAGEN -->
+              <th class="th-captura" >
+                <button id="btnCapturaTabla" class="btn-captura-tabla" type="button"
+                  aria-label="Copiar tabla como imagen" title="Copiar tabla como imagen">
+                  ⧉ 
+                </button>
+                <span id="estadoCopiaTabla" class="estado-copia-tabla" >Tabla <br> copiada</span>
+              </th>
+               
             </tr>
           </thead>
 
@@ -1190,6 +1144,135 @@
         }
       }
     });
+
+   // =========================================================
+    // COPIAR TABLA DE INSTRUMENTOS COMO IMAGEN
+    // =========================================================
+
+    const btnCapturaTabla =
+      document.getElementById("btnCapturaTabla");
+    const estadoCopiaTabla =
+      document.getElementById("estadoCopiaTabla");
+
+    btnCapturaTabla.addEventListener("click", async () => {
+      if (typeof html2canvas === "undefined") {
+        alert("No se pudo cargar la herramienta de captura. Verificá tu conexión a Internet.");
+        return;
+      }
+
+      try {
+        // Ocultamos sólo el botón de copia durante la captura, sin alterar el layout.
+        btnCapturaTabla.style.display = "none";
+        estadoCopiaTabla.classList.remove("visible");
+
+        const canvas = await html2canvas(tablaInstrumentos, {
+          backgroundColor: "#ffffff",
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          // En el clon que se captura (la página real no se toca) se quitan
+          // los botones de Eliminar / Limpiar y la columna del botón de copia.
+          onclone: (docClonado) => {
+            const tablaClon = docClonado.getElementById("tablaInstrumentos");
+            if (!tablaClon) return;
+
+            // Botón "Eliminar" de cada fila: se elimina su celda
+            tablaClon
+              .querySelectorAll("button[onclick^='borrar']")
+              .forEach((btn) => {
+                const celda = btn.closest("td");
+                if (celda) celda.remove();
+              });
+
+            // Fila del botón "Limpiar tabla": se elimina completa
+            tablaClon
+              .querySelectorAll("button[onclick^='limpiar']")
+              .forEach((btn) => {
+                const fila = btn.closest("tr");
+                if (fila) fila.remove();
+              });
+
+            // Encabezado de la columna del botón de copia
+            tablaClon
+              .querySelectorAll("th.th-captura")
+              .forEach((th) => th.remove());
+
+            // El tfoot oculto de la página no debe duplicar los totales
+            tablaClon.querySelectorAll("tfoot").forEach((t) => t.remove());
+
+            // Fila de totales al final de la tabla (sólo si hay más de un instrumento)
+            const items = cheques;
+            const tbodyClon = tablaClon.querySelector("tbody");
+            if (items.length > 1 && tbodyClon) {
+              const num = (v) => Number(v) || 0;
+              const fmt = (n) => Math.round(n).toLocaleString("es-AR");
+              const dec = (n) => String(Math.round(n * 10) / 10);
+              const suma = (campo) =>
+                items.reduce((acc, it) => acc + num(it[campo]), 0);
+              const montoTotal = suma("monto");
+              // Promedios ponderados por monto
+              const prom = (campo) =>
+                montoTotal > 0
+                  ? items.reduce((acc, it) => acc + num(it[campo]) * num(it.monto), 0) / montoTotal
+                  : 0;
+
+              const celdas = [
+                [String(items.length), "ocultoEnCelu ocultarNroItem"],
+                [fmt(montoTotal), ""],
+                ["-", ""],
+                [fmt(prom("plazo")), "ocultoEnCelu"],
+                [dec(prom("tasa")) + "%", ""],
+                [dec(prom("cfta")) + "%", ""],
+                [fmt(suma("descuentoTNA")), "ocultoEnCelu"],
+                [fmt(suma("gastosCVyAlyc")), "ocultoEnCelu"],
+                [fmt(suma("descuentoSGR")), "ocultoEnCelu"],
+                [fmt(suma("neto")), ""],
+              ];
+
+              const filaTotales = docClonado.createElement("tr");
+              celdas.forEach(([texto, clase]) => {
+                const td = docClonado.createElement("td");
+                if (clase) td.className = clase;
+                td.textContent = texto;
+                td.style.cssText =
+                  "font-weight:700; background-color:#e8efee; border-top:2px solid #2f625c;";
+                filaTotales.appendChild(td);
+              });
+              tbodyClon.appendChild(filaTotales);
+            }
+          },
+        });
+
+        const blob = await new Promise((resolve) =>
+          canvas.toBlob(resolve, "image/png"),
+        );
+
+        if (!blob) throw new Error("No se pudo generar la imagen.");
+
+        if (!navigator.clipboard || typeof ClipboardItem === "undefined") {
+          throw new Error("Tu navegador no permite copiar imágenes al portapapeles.");
+        }
+
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
+
+        estadoCopiaTabla.classList.add("visible");
+        setTimeout(() => {
+          estadoCopiaTabla.classList.remove("visible");
+          btnCapturaTabla.style.display = "inline-block";
+        }, 1800);
+      } catch (error) {
+        console.error("Error al copiar tabla:", error);
+        alert("No se pudo copiar la captura. Probá nuevamente.");
+      } finally {
+        // Si hubo un error, restauramos el botón de copia.
+        if (!estadoCopiaTabla.classList.contains("visible")) {
+          btnCapturaTabla.style.display = "block";
+        }
+      }
+    });
+
 
     // =========================================================
     // RANGOS MAV
