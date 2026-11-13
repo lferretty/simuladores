@@ -2293,3 +2293,40 @@ body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
     color: #23864b;
   }
 }
+
+
+/* =========================================================
+   ALINEACIÓN DE .tasas CON .big-container
+   El borde derecho de los accesos coincide con el borde
+   derecho exterior del contenedor principal.
+   ========================================================= */
+.tasas {
+  box-sizing: border-box;
+  width: min(
+    calc(100% - 2 * clamp(10px, 2.4vw, 30px)),
+    1240px
+  ) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.tasas .panel-tasas {
+  right: 0 !important;
+}
+
+@media (max-width: 690px) {
+  .tasas {
+    /* main usa 8px de padding horizontal en mobile */
+    width: calc(100% - 16px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .tasas .panel-tasas {
+    right: 0 !important;
+  }
+}
