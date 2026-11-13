@@ -2310,5 +2310,5 @@ body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
 
 /* Botón para copiar la tabla: mismo fondo que .big-container. */
 #btnCapturaTabla {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgb(254, 254, 254);
 }
