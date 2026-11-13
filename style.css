@@ -79,7 +79,7 @@ html {
 header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000 !important;
 
   padding: 10px 0;
 
@@ -500,7 +500,7 @@ thead {
   position: absolute;
   /* top: 25px;
   left: 40px; */
-  z-index: 1000;
+  z-index: 998 !important;
   width: 95vw;
   display: flex;
   align-items: center;
@@ -2168,7 +2168,8 @@ body.simulador-pagares #tipoDeCambioManual-container {
    porque quedaría limitado por el contexto de apilamiento de su padre. */
 .tasas {
   position: relative;
-  z-index: 99998 !important;
+
+  z-index: 998 !important;
 }
 
 .panel-comision-sgr {
@@ -2304,4 +2305,10 @@ body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
   #grilla button#btnBorrar {
     display: none !important;
   }
+}
+
+
+/* Botón para copiar la tabla: mismo fondo que .big-container. */
+#btnCapturaTabla {
+  background-color: rgba(0, 0, 0, 0.15);
 }
