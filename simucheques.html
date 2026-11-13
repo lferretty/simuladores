@@ -34,7 +34,7 @@
   </script>
 </head>
 
-<body>
+<body class="simulador-cheques">
   <button id="btnSimAuto" class="botones" type="button">
     <span></span> Simulación Rápida
   </button>
@@ -42,81 +42,6 @@
   <div id="fondo-fijo"></div>
 
   <header>
-    <div class="tasas">
-      <button id="btnVerTasas" class="btn-ver-tasas" type="button">
-        <span class="icono-ojo">▼</span>
-        <span id="texto-ver-tasas">Tasas</span>
-      </button>
-
-      <button id="btnComisionSGR" class="btn-ver-tasas" type="button">
-        <span class="icono-ojo">▼</span>
-        <span id="textoComisionSGR">
-
-        </span>
-      </button>
-
-      <div id="panelTasas" class="panel-tasas">
-        <div class="panel-tasas-header" style="position: relative;">
-          <div>
-            <strong>Tasas promedio</strong>
-            <strong id="panel-tasas-subtitulo"> Cheques avalados </strong>
-            <span id="fechaTasasMAV"> Buscando última rueda... </span>
-          </div>
-
-          <div class="acciones-tasas">
-            <button id="btnCerrarTasas" class="btn-cerrar-tasas" type="button" aria-label="Cerrar tasas" title="Cerrar">
-              ×
-            </button>
-
-            <button id="btnCapturaTasas" class="btn-captura-tasas" type="button" aria-label="Copiar tasas como imagen"
-              title="Copiar tasas como imagen">
-              ⧉
-            </button>
-
-            <span id="estadoCopiaTasas" class="estado-copia-tasas">Copiado!</span>
-          </div>
-        </div>
-
-        <div id="contenidoTasasMAV" class="contenido-tasas-mav">
-          <div class="tasas-loading">Cargando tasas...</div>
-        </div>
-
-        <div class="fuente-tasas">Fuente: MAV · Información Pública</div>
-      </div>
-    </div>
-
-    <!-- MODAL COMISIÓN SGR -->
-    <div id="modalComisionSGR" class="modal-comision-sgr" hidden>
-      <div class="modal-comision-sgr-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloComisionSGR">
-        <button id="btnCerrarComisionSGR" class="btn-cerrar-tasas" type="button" aria-label="Cerrar">
-          ×
-        </button>
-
-        <h2 id="tituloComisionSGR">Comisión SGR</h2>
-
-        <div class="modif-comis-container">
-          <div class="opciones-comision-sgr">
-            <label>
-              <input type="checkbox" id="modificarComisionSGR" />
-              Modificar
-            </label>
-          </div>
-
-          <div class="input-comision-sgr">
-            <input id="inputComisionSGR" type="number" min="0" step="0.01" value="4" disabled />
-
-            <span>%</span>
-          </div>
-        </div>
-
-        <p id="errorComisionSGR" class="error-comision-sgr" hidden></p>
-
-        <button id="btnAplicarComisionSGR" class="botones" type="button">
-          Aplicar
-        </button>
-      </div>
-    </div>
-
     <div class="header-container">
       <div class="title-container">
         <!--
@@ -146,13 +71,82 @@
             <input type="date" id="fecha" />
           </label>
 
+          <label for="tnaManual">
+            TNA (%):
+            <input
+              type="number"
+              id="tnaManual"
+              min="0"
+              step="0.5"
+              inputmode="decimal"
+              placeholder="Automática"
+              aria-label="TNA manual en porcentaje. Dejar vacío para utilizar la tasa MAV"
+              class="tna-manual-input"
+            />
+          </label>
+
           <button id="btnAgregar" class="botones">
             ✚ <span class="ocultoEnCelu"> Simular</span>
           </button>
+          <button id="btnLimpiar" class="botones" type="button" title="Borra toda la tabla" onclick="limpiar()" hidden>Limpiar</button>
         </div>
       </section>
     </div>
   </header>
+
+    <div class="tasas">
+      <button id="btnVerTasas" class="btn-ver-tasas" type="button">
+        <span class="icono-ojo">▼</span>
+        <span id="texto-ver-tasas">Tasas Operadas</span>
+      </button>
+
+      <button id="btnComisionSGR" class="btn-ver-tasas" type="button">
+        <span class="icono-ojo">▼</span>
+        <span id="textoComisionSGR">
+
+        </span>
+      </button>
+
+      <div id="panelComisionSGR" class="panel-comision-sgr" hidden>
+        <div class="modif-comis-container">
+          <label class="opciones-comision-sgr"><input type="checkbox" id="modificarComisionSGR" /> Modificar</label>
+          <div class="input-comision-sgr"><input id="inputComisionSGR" type="number" min="0" step="0.01" value="4" disabled /><span>%</span></div>
+        </div>
+        <p id="errorComisionSGR" class="error-comision-sgr" hidden></p>
+        <button id="btnAplicarComisionSGR" class="botones" type="button">Aplicar</button>
+      </div>
+
+      <div id="panelTasas" class="panel-tasas">
+        <div class="panel-tasas-header panel-tasas-header-relativo">
+          <div>
+            <strong>Tasas promedio</strong>
+            <strong id="panel-tasas-subtitulo"> Cheques avalados </strong>
+            <span id="fechaTasasMAV"> Buscando última rueda... </span>
+          </div>
+
+          <div class="acciones-tasas">
+            <button id="btnCerrarTasas" class="btn-cerrar-tasas" type="button" aria-label="Cerrar tasas" title="Cerrar">
+              ×
+            </button>
+
+            <button id="btnCapturaTasas" class="btn-captura-tasas" type="button" aria-label="Copiar tasas como imagen"
+              title="Copiar tasas como imagen">
+              ⧉
+            </button>
+
+            <span id="estadoCopiaTasas" class="estado-copia-tasas">Copiado!</span>
+          </div>
+        </div>
+
+        <div id="contenidoTasasMAV" class="contenido-tasas-mav">
+          <div class="tasas-loading">Cargando tasas...</div>
+        </div>
+
+        <div class="fuente-tasas">Tasas a modo de referencia, de acuerdo a la última información disponible. Fuente: MAV
+</div>
+      </div>
+    </div>
+
 
   <div id="alertas" class="centrar"></div>
 
@@ -180,7 +174,7 @@
                   aria-label="Copiar tabla como imagen" title="Copiar tabla como imagen">
                   ⧉ 
                 </button>
-                <span id="estadoCopiaTabla" class="estado-copia-tabla" >Tabla <br> copiada</span>
+                <span id="estadoCopiaTabla" class="estado-copia-tabla" > Tabla copiada</span>
               </th>
                
             </tr>
@@ -190,17 +184,13 @@
 
           <tfoot class="ocultoEnCelu oculto">
             <tr>
-              <td style="
-                    border-bottom: none;
-                    background-color: transparent;
-                    border-left: none;
-                  "></td>
+              <td class="celda-sin-borde celda-sin-fondo celda-sin-borde-izquierdo"></td>
 
               <td id="totalMonto">
                 <strong>$ 0</strong>
               </td>
 
-              <td style="border-bottom: none; background-color: transparent" colspan="4" id="tdColspan"></td>
+              <td class="celda-sin-borde celda-sin-fondo" colspan="4" id="tdColspan"></td>
 
               <td id="totalDescuento"></td>
               <td id="totalGastos"></td>
@@ -246,6 +236,7 @@
   <script>
     const inputMonto = document.querySelector("#monto");
     const inputFecha = document.querySelector("#fecha");
+    const inputTnaManual = document.querySelector("#tnaManual");
     const btnAgregar = document.querySelector("#btnAgregar");
     const btnSimAuto = document.querySelector("#btnSimAuto");
     const detalle = document.querySelector("#detalle");
@@ -257,6 +248,12 @@
     const totalComSGR = document.querySelector("#totalComSGR");
     const tablaInstrumentos = document.querySelector("#tablaInstrumentos");
     const alertas = document.querySelector("#alertas");
+
+    // Cualquier clic en la pantalla descarta el mensaje de alerta.
+    // Se ejecuta en captura para que una alerta nueva pueda mostrarse desde el botón clickeado.
+    document.addEventListener("click", () => {
+      alertas.style.visibility = "hidden";
+    }, true);
     const notas = document.querySelector(".nota");
     const resumenOperacion = document.querySelector("#resumenOperacion");
     const oculto = document.querySelector(".oculto");
@@ -291,11 +288,7 @@
 
     const btnComisionSGR = document.querySelector("#btnComisionSGR");
 
-    const modalComisionSGR = document.querySelector("#modalComisionSGR");
-
-    const btnCerrarComisionSGR = document.querySelector(
-      "#btnCerrarComisionSGR",
-    );
+    const modalComisionSGR = document.querySelector("#panelComisionSGR");
 
     const btnAplicarComisionSGR = document.querySelector(
       "#btnAplicarComisionSGR",
@@ -313,7 +306,7 @@
 
     // Mostrar comisión actual
     function actualizarEtiquetaComisionSGR() {
-      textoComisionSGR.textContent = `Comisión      
+      textoComisionSGR.textContent = `Comisión SGR:    
             ${comSGR.toLocaleString(
         "es-AR",
         {
@@ -349,7 +342,7 @@
 
       actualizarVistaComisionSGR();
 
-      modalComisionSGR.hidden = false;
+      modalComisionSGR.hidden = !modalComisionSGR.hidden;
     });
 
     // Checkbox "Modificar comisión"
@@ -357,18 +350,6 @@
       "change",
       actualizarVistaComisionSGR,
     );
-
-    // Cerrar modal
-    btnCerrarComisionSGR.addEventListener("click", () => {
-      modalComisionSGR.hidden = true;
-    });
-
-    // Cerrar haciendo click fuera del modal
-    modalComisionSGR.addEventListener("click", (evento) => {
-      if (evento.target === modalComisionSGR) {
-        modalComisionSGR.hidden = true;
-      }
-    });
 
     // Aplicar comisión
     btnAplicarComisionSGR.addEventListener("click", () => {
@@ -433,6 +414,27 @@
     }
 
     // =========================================================
+    // TNA MANUAL (si está vacía, se utiliza la tasa MAV)
+    // =========================================================
+
+    function obtenerTnaManual() {
+      const valor = inputTnaManual.value.trim();
+
+      if (valor === "") {
+        return null;
+      }
+
+      // Admite tanto coma como punto decimal.
+      const tasa = Number(valor.replace(",", "."));
+
+      if (!Number.isFinite(tasa) || tasa < 0) {
+        return NaN;
+      }
+
+      return tasa;
+    }
+
+    // =========================================================
     // CARGAR CHEQUE
     // =========================================================
 
@@ -479,21 +481,29 @@
       }
 
       // =====================================================
-      // VERIFICAR TASAS MAV
+      // OBTENER TASA MANUAL O AUTOMÁTICA
       // =====================================================
 
-      if (!tasasMAVDisponibles) {
+      const tasaManual = obtenerTnaManual();
+
+      if (Number.isNaN(tasaManual)) {
         alertas.textContent =
-          "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+          "Ingrese una TNA válida (mayor o igual a 0) o deje el campo vacío para utilizar la tasa MAV.";
 
         return;
       }
 
-      // =====================================================
-      // OBTENER TASA
-      // =====================================================
+      if (tasaManual === null && !tasasMAVDisponibles) {
+        alertas.textContent =
+          "Actualizando tasas. Espere unos segundos..";
 
-      const tasa = obtenerTasa(plazo);
+        return;
+      }
+
+      const tasa =
+        tasaManual !== null
+          ? tasaManual
+          : obtenerTasa(plazo);
 
       if (tasa === null) {
         alertas.textContent =
@@ -602,6 +612,9 @@
       let sumaNetos = 0;
       let sumaGastosCVyAlyc = 0;
 
+      const botonLimpiar = document.querySelector("#btnLimpiar");
+      if (botonLimpiar) botonLimpiar.hidden = cheques.length === 0;
+
       if (cheques.length !== 0) {
         tablaInstrumentos.style.opacity = "1";
 
@@ -655,10 +668,7 @@
               </td>
 
               <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                "
+                class="celda-sin-borde celda-sin-fondo"
               >
                 <button
                   id="btnBorrar"
@@ -681,45 +691,6 @@
           sumaNetos += cheque.neto;
           sumaGastosCVyAlyc += cheque.gastosCVyAlyc;
         });
-
-        if (cheques.length > 1) {
-          let filaFinal = document.createElement("tr");
-
-          grilla.appendChild(filaFinal);
-
-          filaFinal.innerHTML = `
-              <td
-                style="
-                  border: none;
-                  background: transparent;
-                "
-                colspan="5"
-              ></td>
-
-              <td
-                style="
-                  border: none;
-                  background: transparent;
-                "
-                colspan="5"
-                class="ocultoEnCelu"
-              ></td>
-
-              <td
-                style="
-                  border: none;
-                  background: transparent;
-                "
-              >
-                <button
-                  id="btnLimpiar"
-                  class="botones"
-                  title="Borra toda la tabla"
-                  onclick="limpiar()"
-                ></button>
-              </td>
-            `;
-        }
 
         const plazoPromedio = () => {
           let sumaPlazos = 0;
@@ -858,9 +829,20 @@
 
       const fechaActual = new Date();
 
-      if (!tasasMAVDisponibles) {
+      const tasaManual = obtenerTnaManual();
+
+      if (Number.isNaN(tasaManual)) {
         alertas.textContent =
-          "Las tasas MAV todavía se están actualizando. Espere unos segundos y vuelva a intentar.";
+          "Ingrese una TNA válida (mayor o igual a 0) o deje el campo vacío para utilizar la tasa MAV.";
+
+        alertas.style.visibility = "visible";
+
+        return;
+      }
+
+      if (tasaManual === null && !tasasMAVDisponibles) {
+        alertas.textContent =
+          "Actualizando tasas. Espere unos segundos.";
 
         alertas.style.visibility = "visible";
 
@@ -881,7 +863,7 @@
         if (
           plazo < plazoMin ||
           plazo > plazoMax ||
-          obtenerTasa(plazo) === null
+          (tasaManual === null && obtenerTasa(plazo) === null)
         ) {
           alertas.textContent =
             "No hay tasas MAV disponibles para todos los plazos de la simulación rápida.";
@@ -910,6 +892,8 @@
 
     function limpiar() {
       cheques.length = 0;
+      const botonLimpiar = document.querySelector("#btnLimpiar");
+      if (botonLimpiar) botonLimpiar.hidden = true;
 
       mostrarTabla();
 
@@ -1709,6 +1693,79 @@
 
     cargarTasasMAV();
   </script>
+<script>
+(() => {
+  const isPagares = document.body.classList.contains('simulador-pagares');
+  const ratesPanel = document.getElementById(isPagares ? 'panelTasasMAV' : 'panelTasas');
+  const ratesButton = document.getElementById(isPagares ? 'btnTasasMAV' : 'btnVerTasas');
+  const ratesClose = document.getElementById(isPagares ? 'cerrarTasasMAV' : 'btnCerrarTasas');
+  const commissionPanel = document.getElementById('panelComisionSGR');
+  const commissionButton = document.getElementById('btnComisionSGR');
+
+  function closeRates() {
+    if (!ratesPanel) return;
+    ratesPanel.classList.remove('abierto');
+    if (isPagares) {
+      ratesPanel.setAttribute('aria-hidden', 'true');
+      ratesButton?.setAttribute('aria-expanded', 'false');
+    }
+  }
+  function closeCommission() {
+    if (commissionPanel) commissionPanel.hidden = true;
+  }
+
+  // Cerrar los desplegables al tocar/clickear fuera de ellos y de sus botones.
+  document.addEventListener('pointerdown', (event) => {
+    const target = event.target;
+    if (ratesPanel && !ratesPanel.contains(target) && !ratesButton?.contains(target)) closeRates();
+    if (commissionPanel && !commissionPanel.contains(target) && !commissionButton?.contains(target)) closeCommission();
+  }, true);
+
+  // Arrastre con mouse, lápiz o pantalla táctil.
+  function makeDraggable(panel, handle) {
+    if (!panel || !handle) return;
+    handle.style.cursor = 'grab';
+    handle.style.touchAction = 'none';
+    let active = false, startX = 0, startY = 0, originX = 0, originY = 0;
+    handle.addEventListener('pointerdown', (event) => {
+      if (event.button !== undefined && event.button !== 0) return;
+      if (event.target.closest('button, input, label, a, select, textarea')) return;
+      const rect = panel.getBoundingClientRect();
+      active = true;
+      startX = event.clientX; startY = event.clientY;
+      originX = rect.left; originY = rect.top;
+      panel.style.position = 'fixed';
+      panel.style.left = `${rect.left}px`;
+      panel.style.top = `${rect.top}px`;
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+      panel.style.transform = 'none';
+      panel.style.margin = '0';
+      panel.style.zIndex = '100001';
+      handle.style.cursor = 'grabbing';
+      handle.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    });
+    handle.addEventListener('pointermove', (event) => {
+      if (!active) return;
+      const maxX = Math.max(0, window.innerWidth - panel.offsetWidth);
+      const maxY = Math.max(0, window.innerHeight - panel.offsetHeight);
+      const x = Math.min(maxX, Math.max(0, originX + event.clientX - startX));
+      const y = Math.min(maxY, Math.max(0, originY + event.clientY - startY));
+      panel.style.left = `${x}px`;
+      panel.style.top = `${y}px`;
+    });
+    const stop = () => { active = false; handle.style.cursor = 'grab'; };
+    handle.addEventListener('pointerup', stop);
+    handle.addEventListener('pointercancel', stop);
+  }
+
+  makeDraggable(ratesPanel, ratesPanel?.querySelector('.panel-tasas-header'));
+  makeDraggable(commissionPanel, commissionPanel);
+  ratesClose?.addEventListener('click', closeRates);
+})();
+</script>
+
 </body>
 
 </html>

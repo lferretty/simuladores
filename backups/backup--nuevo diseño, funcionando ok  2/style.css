@@ -1,0 +1,2262 @@
+/* =========================================================
+   FUENTES
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+  --fondo: rgb(251, 252, 255);
+  --btn-fondo: rgb(255, 255, 255);
+  --btn-borde: 1px solid rgb(130, 130, 130);
+  --texto: rgb(67, 68, 80);
+
+  --verde: #1f4037;
+  --verde-claro: rgb(191, 237, 179);
+}
+
+
+/* =========================================================
+   RESET / GENERAL
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--texto);
+}
+
+html {
+  background-color: rgb(190, 190, 190);
+}
+
+::selection {
+  background: #5e97bc;
+  color: white;
+}
+
+.oculto {
+  display: none;
+}
+
+
+/* =========================================================
+   ESTRUCTURA GENERAL
+   ========================================================= */
+
+#dolar-section {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.big-container {
+  position: relative;
+  width: 99vw;
+  max-width: 1108px;
+  margin: auto;
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+
+  transition: 0.3s;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  padding: 10px 0;
+
+  background-color: rgb(34, 55, 49);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+
+  box-shadow: rgba(0, 0, 0, 0.524) 0 10px 20px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#logoAVFE {
+  display: block;
+  width: 15em;
+}
+
+h1,
+h2,
+h3 {
+  max-width: 300px;
+  font-size: clamp(18px, 3vw, 24px);
+  text-align: center;
+}
+
+h1,
+h3 {
+  color: var(--verde-claro);
+}
+
+h2 {
+  color: #c1c0c0;
+}
+
+h1 span,
+h4 {
+  display: block;
+  color: white;
+}
+
+
+/* =========================================================
+   CARGA DE DATOS
+   ========================================================= */
+
+#carga {
+  display: flex;
+  justify-content: center;
+}
+
+#inputsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 10px;
+  padding: 0 10px;
+
+  border: var(--btn-borde);
+  background-color: transparent;
+}
+
+label,
+input {
+  margin-left: 7px;
+  font-weight: 600;
+  color: aliceblue;
+}
+
+input {
+  max-width: 110px;
+  height: 30px;
+  margin: 10px 0;
+  padding: 0 5px;
+
+  background-color: var(--fondo);
+  border: var(--btn-borde);
+
+  text-align: center;
+  color: rgb(46, 46, 58);
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.botones {
+  width: 104px;
+  height: 32px;
+  padding: 0 10px;
+
+  background-color: var(--btn-fondo);
+  border: 1px solid rgb(101, 101, 101);
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.botones:hover {
+  scale: 1.02;
+  transition: 0.2s;
+}
+
+.botones:active {
+  scale: 0.97;
+  transition: 0.1s;
+  background-color: rgb(225, 222, 222);
+}
+
+#btnBorrar::after {
+  content: "❌ Quitar";
+}
+
+#btnLimpiar::after {
+  content: "🗑️ Limpiar";
+}
+
+#btnSimAuto {
+  width: auto;
+  padding: 0 14px;
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+}
+
+
+/* =========================================================
+   ALERTAS
+   ========================================================= */
+
+#alertas {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1100px;
+  padding: 10px;
+
+  transform: translateX(-50%);
+
+  color: rgb(255, 9, 9);
+  font-weight: 600;
+  text-align: center;
+
+  background-color: rgb(251, 255, 0);
+  box-shadow: 0 5px 5px rgba(138, 137, 137, 0.329);
+
+  visibility: hidden;
+  transition: 0.2s;
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.txt-azul {
+  color: rgb(10, 85, 46);
+}
+
+.txt-rojo {
+  color: rgb(211, 7, 7);
+}
+
+.txt-small {
+  font-size: smaller;
+}
+
+.blacky {
+  font-weight: 600;
+}
+
+.cursiva {
+  font-style: italic;
+}
+
+
+/* =========================================================
+   TABLA DE INSTRUMENTOS
+   ========================================================= */
+
+#detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#tablaInstrumentos {
+  width: 70%;
+  margin: 10px 0 30px;
+
+  border-collapse: collapse;
+
+  text-align: center;
+  z-index: 1;
+
+  transition: 0.1s;
+}
+
+thead {
+  height: 50px;
+}
+
+#tablaInstrumentos th,
+#tablaInstrumentos td {
+  padding: 4px 20px;
+  border-bottom: 1px solid rgb(209, 206, 206);
+}
+
+#tablaInstrumentos th {
+  padding: 10px;
+
+  background-color: rgb(49, 101, 97);
+  color: rgb(228, 236, 239);
+}
+
+#tablaInstrumentos td {
+  background-color: white;
+}
+
+#tablaInstrumentos tfoot td {
+  padding: 3px 5px;
+}
+
+.transparente {
+  background-color: transparent;
+}
+
+
+/* =========================================================
+   RESUMEN
+   ========================================================= */
+
+.resumenTabla {
+  min-width: 300px;
+  margin: auto;
+
+  border-collapse: collapse;
+}
+
+.resumenTabla td {
+  padding: 8px 30px;
+
+  background-color: white;
+  border-bottom: 1px solid rgb(217, 216, 216);
+}
+
+.resumenTabla td:first-child {
+  text-align: right;
+}
+
+.resumenTabla td:last-child {
+  text-align: center;
+}
+
+.resParrafo {
+  margin: 7px 0;
+}
+
+.borderTop {
+  border-top: 1px dotted black;
+}
+
+.nota {
+  padding-bottom: 20px;
+
+  font-size: smaller;
+  text-align: center;
+
+  opacity: 0;
+  transition: 0.1s;
+}
+
+.nota p {
+  margin: 10px 20px;
+  padding: 10px 20px;
+
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================================
+   BOTONES DE IMPRESIÓN / EXCEL
+   ========================================================= */
+
+.printerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 200px;
+  padding: 20px;
+
+  justify-self: center;
+}
+
+#btnImprimir,
+#btnExportarExcel {
+  width: 140px;
+  height: 50px;
+  margin: auto;
+  padding: 0 10px;
+
+  font-size: 22px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   BOTÓN PAGARÉS
+   ========================================================= */
+
+/* .volver-container {
+  position: fixed;
+  bottom: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100svw;
+}
+ */
+.volver {
+  position: fixed;
+  padding: 3px;
+  right: 2%;
+  bottom: 2%;
+  /* padding-top: 5px; */
+  text-align: center;
+  /*   font-weight: 600;
+ */
+  text-decoration: none;
+}
+
+.volver::after {
+  content: "";
+}
+
+
+/* =========================================================
+   TIPO DE CAMBIO
+   ========================================================= */
+
+#tipoDeCambio {
+  width: 80%;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 3px;
+
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#tipoDeCambioManual-container {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  width: 90vw;
+  max-width: 350px;
+  margin: auto;
+
+  background-color: rgb(40, 107, 151);
+  border-radius: 8px;
+}
+
+#dolar-section-alternativo {
+  max-width: 1108px;
+  margin: auto;
+}
+
+#dolar-section-alternativo #noFuePosible {
+  display: block;
+
+  line-height: 50px;
+  font-size: small;
+  font-weight: 600;
+  text-align: center;
+
+  color: rgb(206, 250, 31);
+  background-color: rgba(0, 0, 0, 0.724);
+
+  visibility: hidden;
+}
+
+
+/* =========================================================
+   TASAS MAV
+   ========================================================= */
+
+#texto-ver-tasas,
+#textoComisionSGR {
+  color: rgb(167, 209, 167);
+}
+
+.tasas {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  z-index: 1000;
+  width: 95vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-ver-tasas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 10px;
+
+  border: none;
+  background: transparent;
+
+  color: white;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.btn-ver-tasas:hover {
+  opacity: 0.8;
+}
+
+
+  /* =========================================================
+         BOTÓN PARA COPIAR EL PANEL DE TASAS COMO IMAGEN
+         ========================================================= */
+    .acciones-tasas {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 70px;
+      height: 72px;
+      z-index: 2;
+    }
+
+    /* La X queda siempre fija en su posición original. */
+    .acciones-tasas .btn-cerrar-tasas {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+    }
+
+    .btn-captura-tasas {
+      position: absolute;
+      top: 39px;
+      right: 0;
+      border: none;
+      background: transparent;
+      color: #666;
+      font-size: 18px;
+      line-height: 1;
+      padding: 2px 4px;
+      cursor: pointer;
+    }
+
+    .btn-captura-tasas:hover {
+      color: #1f4b40;
+      transform: scale(1.08);
+    }
+
+    .estado-copia-tasas {
+      display: none;
+      position: absolute;
+      top: 42px;
+      right: 0;
+      color: #1f4b40;
+      font-size: 14px;
+      line-height: 1.1;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .estado-copia-tasas.visible {
+      display: block;
+    }
+
+/* =========================================================
+   MODAL COMISIÓN SGR
+   ========================================================= */
+
+
+
+.modal-comision-sgr {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: grid;
+  place-items: center;
+
+  
+  padding: 20px;
+  background: rgba(27, 27, 27, 0.747);
+}
+
+.modal-comision-sgr[hidden] {
+  display: none;
+}
+
+.modal-comision-sgr-contenido {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  justify-content: center;
+  width: min(100%, 360px);
+  padding: 20px;
+
+  color: #222;
+  background: white;
+  border: 2px solid var(--verde);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.459);
+}
+
+.modal-comision-sgr-contenido h2 {
+  margin: 0;
+  color: var(--verde);
+  font-size: 22px;
+}
+
+.modal-comision-sgr-contenido>.btn-cerrar-tasas {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+
+.modif-comis-container{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#btnAplicarComisionSGR {
+  background-color: var(--verde);
+  width: 100px;
+  color: white;
+  margin-top: 20px;
+}
+
+.opciones-comision-sgr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.opciones-comision-sgr label,
+.modal-comision-sgr-contenido>label {
+  color: #222;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-comision-sgr {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  gap: 8px;
+}
+
+.input-comision-sgr input {
+  width: 60px;
+  padding: 7px;
+}
+
+.error-comision-sgr {
+  margin: 0;
+  color: #bd0000;
+  font-weight: 700;
+}
+
+.modal-comision-sgr-contenido .botones {
+  align-self: flex-end;
+  width: auto;
+  padding: 0 16px;
+}
+
+.icono-ojo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 2px solid white;
+
+  background: white;
+  color: var(--verde);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   PANEL TASAS MAV
+   ========================================================= */
+
+.panel-tasas {
+  position: absolute;
+  top: 52px;
+  left: 0;
+
+  width: 280px;
+
+  background: white;
+  border: 2px solid #1f1f1f;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateX(-20px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.panel-tasas.abierto {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.panel-tasas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 15px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.panel-tasas-header>div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panel-tasas-header strong {
+  font-size: 16px;
+  color: var(--verde);
+}
+
+.panel-tasas-header span {
+  font-size: 12px;
+  color: #777;
+}
+
+#panel-tasas-subtitulo {
+  color: rgb(90, 90, 90);
+  font-style: italic;
+}
+
+#fechaTasasMAV {
+  color: rgb(170, 12, 12);
+}
+
+.btn-cerrar-tasas {
+  border: none;
+  background: transparent;
+
+  color: #666;
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.btn-cerrar-tasas:hover {
+  color: #000;
+}
+
+
+/* =========================================================
+   TABLA TASAS MAV
+   ========================================================= */
+
+.contenido-tasas-mav {
+  padding: 12px 15px 15px;
+}
+
+.titulo-instrumento-mav {
+  margin-bottom: 8px;
+
+  color: var(--verde);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tabla-tasas-mav {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 13px;
+}
+
+.tabla-tasas-mav th {
+  padding: 7px 9px;
+
+  background: var(--verde);
+  color: white;
+
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabla-tasas-mav th:last-child,
+.tabla-tasas-mav td:last-child {
+  text-align: right;
+}
+
+.tabla-tasas-mav td {
+  padding: 7px 9px;
+
+  border-bottom: 1px solid #e4e4e4;
+
+  color: #333;
+}
+
+.tabla-tasas-mav tbody tr:hover {
+  background: #f3f6f4;
+}
+
+
+/* =========================================================
+   ESTADOS TASAS
+   ========================================================= */
+
+.tasas-loading,
+.tasas-error {
+  padding: 15px 5px;
+
+  font-size: 13px;
+}
+
+.tasas-loading {
+  text-align: center;
+  color: #777;
+}
+
+.tasas-error {
+  color: #a33;
+  line-height: 1.4;
+}
+
+.fuente-tasas {
+  padding: 8px 15px;
+
+  border-top: 1px solid #e5e5e5;
+
+  color: #192e3f;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+#spinner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1em;
+
+  text-align: center;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+
+  border: 5px dotted #05080660;
+  border-left: 5px solid #f3f3f300;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+}
+
+.loader+span {
+  padding: 2px 20px;
+
+  color: white;
+  text-shadow: 2px 2px 1px black;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   AJUSTE PAGARÉS = CHEQUES
+   ========================================================= */
+
+#inputsContainer.inputs-como-cheques {
+  width: fit-content;
+  max-width: calc(100% - 20px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media screen and (max-width: 992px) {
+
+  label {
+    color: white;
+  }
+
+  input {
+    color: black;
+    border: 1px solid gray;
+  }
+
+  #btnBorrar::after {
+    content: "❌";
+  }
+
+  /*   #btnLimpiar {
+    width: 60px;
+  } */
+
+  #btnLimpiar::after {
+    content: "🗑️";
+  }
+
+  #inputsContainer {
+    background-color: rgba(5, 15, 21, 0.604);
+    border: 1px dotted gray;
+  }
+
+  #btnImprimir {
+    top: 15px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 690px) {
+
+  #logoAVFE {
+    min-width: 20px;
+  }
+
+  #tipoCambio {
+    width: 80px;
+    font-size: 14px;
+  }
+
+  .ocultoEnCelu {
+    display: none;
+  }
+
+  .detalle {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+/* =========================================================
+   CELULARES
+   ========================================================= */
+
+@media screen and (max-width: 450px) {
+
+  * {
+    font-family:
+      "Archivo Narrow",
+      "Arial Narrow",
+      Tahoma,
+      Geneva,
+      Verdana,
+      sans-serif;
+  }
+
+  .modif-comis-container{
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0;
+}
+
+#modificarComisionSGR, .input-comision-sgr{
+  scale: 1.5;
+}
+
+  header {
+    position: static;
+  }
+
+  #dolar-section-alternativo #noFuePosible {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 5px;
+
+    color: rgb(179, 255, 0);
+    background-color: rgba(0, 0, 0, 0.719);
+
+    font-size: large;
+    line-height: 15px;
+  }
+
+  #logoAVFE {
+    width: 200px;
+  }
+
+
+  #inputsContainer {
+    flex-direction: column;
+
+    margin-bottom: 10px;
+    padding: 10px;
+
+    background-color: transparent;
+  }
+
+  label {
+    margin-top: 5px;
+    margin-left: -2px;
+
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #monto,
+  #fecha {
+    display: block;
+
+    min-width: 200px;
+    height: 30px;
+    margin: 0;
+
+    font-size: 20px;
+    text-align: center;
+  }
+
+  #detalle {
+    position: relative;
+  }
+
+  #btnAgregar {
+    width: 200px;
+    margin-top: 15px;
+
+    /* font-size: 18px;
+    font-weight: 600; */
+  }
+
+  #btnAgregar::after {
+    content: "Simular";
+  }
+
+
+  #btnBorrar,
+  #btnLimpiar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .resumenTabla td {
+    padding: 5px 2px;
+    background-color: white;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  #tablaInstrumentos {
+    width: 90vw;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 0 10px;
+  }
+
+  #tablaInstrumentos th {
+    padding: 10px 0;
+  }
+
+  .nota {
+    width: 90vw;
+  }
+
+  .nota p {
+    margin-bottom: 20px;
+    padding: 10px;
+
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .volver,
+  #btnSimAuto {
+    box-shadow: 1px 1px 5px grey;
+  }
+
+  /* TASAS MAV */
+
+  .tasas {
+    top: 12px;
+    left: 10px;
+  }
+
+  .btn-ver-tasas {
+    display: flex;
+    flex-flow: column-reverse;
+    gap: 1px;
+
+    border: 1px solid rgb(193, 208, 193);
+
+    font-size: 15px;
+
+  }
+
+  .icono-ojo {
+    display: none;
+  }
+
+  .panel-tasas {
+    top: 48px;
+    left: 0;
+
+    width: calc(100vw - 20px);
+    max-width: 100%;
+    max-height: 100vh;
+
+    overflow-y: auto;
+  }
+
+  .panel-tasas * {
+    font-size: 20px;
+  }
+
+  .panel-tasas-header strong {
+    font-size: 22px;
+  }
+
+  .tabla-tasas-mav {
+    font-size: 12px;
+  }
+
+  .tabla-tasas-mav th,
+  .tabla-tasas-mav td {
+    padding: 6px;
+  }
+
+  .fuente-tasas {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #fechaTasasMAV {
+    font-size: 18px;
+  }
+
+  #inputsContainer.inputs-como-cheques {
+    width: fit-content;
+    max-width: calc(100% - 20px);
+  }
+}
+
+
+/* =========================================================
+   CELULARES MUY CHICOS
+   ========================================================= */
+
+@media screen and (max-width: 320px) {
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 0 3px;
+    font-size: 16px;
+  }
+
+  .resumenTabla {
+    scale: 0.9;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  #btnBorrar,
+  #btnLimpiar {
+    margin: 3px 0;
+  }
+
+  #btnLimpiar {
+    width: 37px;
+  }
+}
+
+
+/* =========================================================
+   IMPRESIÓN
+   ========================================================= */
+
+@media print {
+
+  #logoAVFE {
+    display: none;
+  }
+
+  #carga,
+  .botones,
+  .tasas {
+    display: none;
+  }
+
+  header {
+    padding-top: 100px;
+    position: relative;
+  }
+
+  h1 {
+    color: black;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  #btnImprimir {
+    display: none !important;
+  }
+}
+
+/* =========================================================
+   BOTÓN PARA COPIAR LA TABLA DE INSTRUMENTOS COMO IMAGEN
+   (simulador de cheques)
+   Queda en la celda vacía del encabezado, a la derecha de "Neto".
+   ========================================================= */
+
+#tablaInstrumentos th.th-captura {
+ /*  position: relative;
+  padding: 0;
+  border: none; */
+  background-color: transparent;
+
+}
+
+.btn-captura-tabla {
+  border: none;
+  position: relative;
+  background: transparent;
+  color: rgb(228, 236, 239);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 4px;
+  opacity: 0.8;
+  cursor: pointer;
+
+}
+
+.btn-captura-tabla:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.estado-copia-tabla {
+  display: none;
+  position: relative;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 2px;
+  color: black;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.1;
+/*   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); */
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.estado-copia-tabla.visible {
+  display: block;
+}
+
+@media print {
+
+  .btn-captura-tabla,
+  .estado-copia-tabla {
+    display: none !important;
+  }
+}
+
+
+
+/* =========================================================
+   IDENTIDAD VISUAL CORPORATIVA — SIMULADORES AVFE
+   Capa visual responsive. No modifica la lógica funcional.
+   ========================================================= */
+
+:root {
+  --brand-900: #173b34;
+  --brand-800: #204b42;
+  --brand-700: #2d6258;
+  --brand-100: #e8f1ee;
+  --ink-900: #1d2b29;
+  --ink-700: #465653;
+  --ink-500: #71807c;
+  --line: #dce5e1;
+  --surface: #ffffff;
+  --surface-soft: #f4f7f6;
+  --canvas: #eef2f0;
+  --accent: #b9dfb2;
+  --shadow: 0 12px 32px rgba(24, 49, 43, .10);
+}
+
+html {
+  min-height: 100%;
+  background: var(--canvas);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(45, 98, 88, .08), transparent 48%),
+    var(--canvas);
+  color: var(--ink-900);
+  font-family: "Noto Sans", "Segoe UI", sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+body * { font-family: inherit; }
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 22px clamp(16px, 3vw, 40px) 24px;
+  background: linear-gradient(128deg, #173b34 0%, #214b41 58%, #2c5c50 100%);
+  box-shadow: 0 8px 24px rgba(17, 43, 37, .18);
+}
+
+.header-container {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.title-container h2 {
+  max-width: none;
+  color: rgba(255,255,255,.72);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.title-container h1 {
+  max-width: none;
+  color: #d1edc8;
+  font-size: clamp(23px, 3vw, 31px);
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+
+.title-container h3 {
+  max-width: none;
+  color: #e1f0dc;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+}
+
+.title-container h4 {
+  color: rgba(255,255,255,.88);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#carga { width: 100%; display: flex; justify-content: center; }
+
+#inputsContainer {
+  width: min(100%, 920px);
+  max-width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: end;
+  justify-content: center;
+  gap: 12px 18px;
+  margin: 0;
+  padding: 16px 20px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 12px;
+  background: rgba(255,255,255,.075);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+#inputsContainer label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  color: rgba(255,255,255,.9);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+#inputsContainer input {
+  width: 148px;
+  max-width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid #cbd8d3;
+  border-radius: 7px;
+  outline: none;
+  background: #fff;
+  color: var(--ink-900);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+#inputsContainer input:focus {
+  border-color: #9bc5ae;
+  box-shadow: 0 0 0 3px rgba(185,223,178,.22);
+}
+
+#inputsContainer input::placeholder { color: #8b9893; font-weight: 500; }
+
+.botones {
+  min-width: 104px;
+  min-height: 40px;
+  width: auto;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid rgba(20,58,49,.18);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--brand-900);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,.07);
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.botones:hover {
+  background: #f1f7f3;
+  box-shadow: 0 4px 12px rgba(0,0,0,.11);
+  transform: translateY(-1px);
+  scale: 1;
+}
+.botones:active { transform: translateY(0); scale: 1; }
+#btnAgregar {
+  min-width: 132px;
+  background: #d5edce;
+  border-color: #c0dfb8;
+  color: #173b34;
+}
+#btnAgregar:hover { background: #e4f5df; }
+
+.tasas {
+  top: 22px;
+  left: 0;
+  width: 100%;
+  padding: 0 clamp(14px, 3vw, 40px);
+  pointer-events: none;
+}
+.tasas > * { pointer-events: auto; }
+.btn-ver-tasas {
+  padding: 7px 11px;
+  border: 1px solid rgba(220,240,225,.28);
+  border-radius: 7px;
+  background: rgba(255,255,255,.07);
+  color: #d4ebd0;
+  font-size: 12px;
+  font-weight: 700;
+}
+#texto-ver-tasas, #textoComisionSGR { color: #d4ebd0; }
+.icono-ojo { display: none; }
+.panel-tasas {
+  top: 46px;
+  width: min(340px, calc(100vw - 28px));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  box-shadow: var(--shadow);
+}
+.panel-tasas-header { background: var(--surface-soft); }
+.panel-tasas-header strong { color: var(--brand-900); }
+
+main {
+  width: 100%;
+  flex: 1;
+  padding: 26px clamp(10px, 2.4vw, 30px) 72px;
+}
+.big-container {
+  width: min(100%, 1240px);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(12px, 2vw, 24px);
+  border: 1px solid rgba(31,64,55,.08);
+  border-radius: 14px;
+  background: rgba(255,255,255,.84);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+#detalle {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-radius: 9px;
+}
+#tablaInstrumentos {
+  width: 100%;
+  min-width: 760px;
+  margin: 0 0 24px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+#tablaInstrumentos th,
+#tablaInstrumentos td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  text-align: right;
+}
+#tablaInstrumentos th {
+  position: sticky;
+  top: 0;
+  background: #285b52;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .035em;
+  line-height: 1.35;
+  text-align: center;
+}
+#tablaInstrumentos th:first-child,
+#tablaInstrumentos td:first-child { text-align: center; }
+#tablaInstrumentos td {
+  background: #fff;
+  color: var(--ink-700);
+}
+#tablaInstrumentos tbody tr:nth-child(even) td { background: #f7faf8; }
+#tablaInstrumentos tbody tr:hover td { background: #edf5f0; }
+#tablaInstrumentos td.blacky { color: var(--brand-900); font-weight: 800; }
+#tablaInstrumentos tbody tr:last-child td { border-bottom-color: #cbd9d3; }
+#tablaInstrumentos td button { min-width: 34px; min-height: 30px; border-radius: 6px; }
+#tablaInstrumentos .th-captura { background: transparent; }
+
+#tipoDeCambio {
+  width: min(100%, 440px);
+  margin: 0 auto 18px;
+  padding: 9px 14px;
+  border: 1px solid #d5e4dc;
+  border-radius: 8px;
+  background: #e9f2ed;
+  color: var(--brand-900);
+  font-size: 13px;
+  font-weight: 700;
+}
+#dolar-section { position: relative; z-index: 1; width: 100%; padding: 10px 14px 0; }
+#dolar-section-alternativo { width: min(100%, 900px); padding: 0 12px; }
+#tipoDeCambioManual-container {
+  padding: 10px;
+  border-radius: 8px;
+  background: #e7f0ec;
+}
+#tipoDeCambioManual-container label { color: var(--brand-900); }
+#tipoDeCambioManual-container input { color: var(--ink-900); }
+
+#resumenOperacion {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 8px auto 0;
+}
+.resumenTabla {
+  width: min(100%, 560px);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(25,55,45,.06);
+  font-size: 13px;
+}
+.resumenTabla td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #edf1ef;
+  background: #fff;
+  color: var(--ink-700);
+}
+.resumenTabla tr:last-child td { border-bottom: 0; }
+.resumenTabla td:first-child { text-align: right; }
+.resumenTabla td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.resumenTabla .txt-azul { color: #176343; }
+
+.printerContainer {
+  width: auto;
+  max-width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 10px auto;
+  padding: 10px;
+}
+#btnImprimir, #btnExportarExcel {
+  width: 64px;
+  height: 46px;
+  margin: 0;
+  border-radius: 7px;
+  font-size: 19px;
+}
+.nota { width: min(100%, 650px); margin: 12px auto 0; padding: 0; }
+.nota p {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #edf2ef;
+  color: var(--ink-500);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.volver { z-index: 1200; right: 18px; bottom: 18px; border-radius: 7px; }
+#btnSimAuto {
+  z-index: 1200;
+  left: 18px;
+  bottom: 18px;
+  border-radius: 7px;
+  background: #fff;
+}
+#alertas {
+  z-index: 1100;
+  width: min(94%, 900px);
+  border: 1px solid #f1d58a;
+  border-radius: 8px;
+  background: #fff7df;
+  color: #805b0b;
+  box-shadow: 0 5px 16px rgba(60,50,20,.10);
+}
+#alertas * { color: inherit; }
+
+.modal-comision-sgr-contenido {
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+}
+.modal-comision-sgr-contenido h2 { color: var(--brand-900); }
+#btnAplicarComisionSGR { border-radius: 7px; background: var(--brand-900); }
+
+#spinner { color: var(--ink-700); }
+.loader { border-color: #b9d6c8; border-left-color: transparent; }
+
+@media (max-width: 900px) {
+  header { padding-top: 18px; }
+  .tasas { position: relative; top: auto; padding: 10px 16px; margin: 0 auto 10px; }
+  .panel-tasas { top: 42px; }
+  .big-container { width: 100%; }
+}
+
+@media (max-width: 690px) {
+  body { font-size: 13px; }
+  header { position: relative; padding: 16px 12px 18px; }
+  .header-container { gap: 14px; }
+  .title-container h1 { font-size: 23px; }
+  .title-container h3 { font-size: 17px; }
+  #inputsContainer {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px;
+  }
+  #inputsContainer label { flex: 1 1 135px; min-width: 0; }
+  #inputsContainer input { width: 100%; min-width: 0; height: 39px; }
+  #btnAgregar { flex: 1 1 100%; width: 100%; min-height: 42px; margin: 0; }
+  main { padding: 14px 8px 76px; }
+  .big-container { padding: 10px 8px 16px; border-radius: 10px; }
+  #detalle { margin: 0; padding-bottom: 5px; }
+  #tablaInstrumentos { min-width: 700px; font-size: 12px; }
+  #tablaInstrumentos th, #tablaInstrumentos td { padding: 9px 10px; }
+  .resumenTabla { font-size: 12px; }
+  .resumenTabla td { padding: 9px 10px; }
+  .nota { width: 100%; }
+  .tasas { margin-top: 100px; width: 100%; padding:0 12px; }
+  .btn-ver-tasas { font-size: 12px; }
+  .panel-tasas { width: min(360px, calc(100vw - 24px)); }
+  .volver, #btnSimAuto { bottom: 12px; }
+  .volver { right: 12px; }
+  #btnSimAuto { left: 12px; }
+}
+
+@media (max-width: 380px) {
+  .title-container h1 { font-size: 21px; }
+  #inputsContainer label { flex-basis: 100%; }
+  .resumenTabla td { padding: 8px 6px; }
+}
+
+@media print {
+  html, body { background: #fff !important; }
+  header { position: relative; box-shadow: none; background: #fff !important; }
+  .title-container h1, .title-container h2, .title-container h3, .title-container h4 { color: #222 !important; }
+  .big-container { width: 100%; max-width: none; box-shadow: none; border: 0; }
+  #detalle { overflow: visible; }
+  #tablaInstrumentos { min-width: 0; width: 100%; }
+  #btnSimAuto, .volver, .tasas, #carga, .printerContainer { display: none !important; }
+}
+
+
+/* =========================================================
+   AJUSTES DE COMPACTACIÓN Y ACCIONES
+   ========================================================= */
+header { padding: 9px clamp(14px, 2vw, 28px) 10px; }
+.header-container { flex-direction: row; justify-content: space-between; align-items: center; gap: 18px; }
+.title-container { align-items: flex-start; text-align: left; gap: 1px; flex: 0 1 auto; }
+.title-container h2 { font-size: 10px; }
+.title-container h1 { font-size: clamp(18px, 2vw, 24px); line-height: 1.12; }
+.title-container h3 { font-size: 14px; line-height: 1.1; }
+.title-container h4 { font-size: 10px; }
+#carga { width: auto; flex: 1 1 auto; justify-content: flex-end; }
+#inputsContainer { width: auto; max-width: 100%; padding: 8px 10px; gap: 8px 12px; border-radius: 9px; }
+#inputsContainer label { font-size: 10px; gap: 3px; }
+#inputsContainer input { height: 34px; padding: 7px 9px; }
+#btnAgregar, #btnLimpiar { width: auto; min-width: 92px; height: 35px; margin: 0; border-radius: 7px; }
+#btnLimpiar { display: none; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.48); color: #fff; }
+#btnLimpiar::after { content: "Limpiar"; color: inherit; }
+#btnAgregar { min-width: 100px; }
+@media (max-width: 900px) {
+  header { padding: 9px 12px; }
+  .header-container { gap: 10px; }
+  .title-container h1 { font-size: 19px; }
+  #inputsContainer { gap: 7px; }
+}
+@media (max-width: 690px) {
+  header { padding: 10px 12px; }
+  .header-container { flex-direction: column; gap: 8px; }
+  .title-container { align-items: center; text-align: center; }
+  .title-container h1 { font-size: 20px; }
+  .title-container h3 { font-size: 13px; }
+  .title-container h4 { font-size: 9px; }
+  #carga { width: 100%; }
+  #inputsContainer { width: 100%; padding: 8px; gap: 7px; }
+  #inputsContainer label { flex: 1 1 100px; }
+  #inputsContainer input { height: 34px; }
+  #btnAgregar, #btnLimpiar { flex: 0 1 auto; min-width: 82px; width: auto; min-height: 35px; }
+}
+@media (max-width: 380px) {
+  #inputsContainer label { flex-basis: 42%; }
+  #btnAgregar, #btnLimpiar { flex: 1 1 42%; }
+}
+#btnLimpiar:not([hidden]) { display: inline-flex; align-items: center; justify-content: center; }
+
+
+/* Accesos secundarios: Tasas Operadas y Comisión SGR */
+.tasas {
+  position: relative;
+  inset: auto;
+  z-index: 30;
+  width: 100%;
+  min-height: 30px;
+  margin: 10px 0;
+  padding: 3px clamp(14px, 2vw, 28px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  pointer-events: auto;
+}
+.tasas .btn-ver-tasas {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--brand-800, #383b7d);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color .15s ease, opacity .15s ease;
+}
+.tasas .btn-ver-tasas:hover {
+  color: var(--brand-900, #292b62);
+  opacity: .78;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tasas .icono-ojo { display: none; }
+.tasas .panel-tasas {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: clamp(14px, 2vw, 28px);
+  left: auto;
+  z-index: 1001;
+}
+@media (max-width: 690px) {
+  .tasas {
+    min-height: 18px;
+    padding: 2px 14px 0;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  .tasas .btn-ver-tasas { font-size: 10px; padding: 1px 1px; }
+  .tasas .panel-tasas { right: 12px; }
+}
+@media print { .tasas { display: none !important; } }
+
+
+/* Ajustes de legibilidad y alineación de tablas */
+#btnLimpiar::after { content: none !important; display: none !important; }
+#tablaInstrumentos th,
+#tablaInstrumentos td { text-align: center !important; }
+#tablaInstrumentos td button { margin-left: auto; margin-right: auto; }
+.resumenTabla td:nth-child(2) { text-align: center !important; }
+
+/* Accesos secundarios con texto casi negro */
+.tasas .btn-ver-tasas,
+.tasas .btn-ver-tasas:hover,
+.tasas .btn-ver-tasas:focus-visible { color: #242424 !important; }
+
+
+/* Tema azul/violeta exclusivo del simulador de cheques */
+/* Identidad visual azul / violeta para cheques */
+body.simulador-cheques { --verde: #34366f; --verde-claro: #e1e5ff; --brand-900: #292b62; --brand-800: #383b7d; --brand-700: #4c4fa0; --brand-100: #eef0ff; --surface-soft: #f2f3ff; }
+body.simulador-cheques header { background: linear-gradient(118deg, #20234f 0%, #34366f 58%, #514b91 100%); box-shadow: 0 8px 24px rgba(31, 32, 79, .2); }
+body.simulador-cheques .title-container h1 { color: #e2e5ff; }
+body.simulador-cheques .title-container h3 { color: #d7d8ff; }
+body.simulador-cheques #inputsContainer { border-color: rgba(222,224,255,.28); background: rgba(255,255,255,.08); }
+body.simulador-cheques #btnAgregar { background: #f1f2ff; color: #292b62; border-color: #c8cbf0; }
+body.simulador-cheques #btnAgregar:hover { background: #e2e5ff; }
+body.simulador-cheques #btnLimpiar { background: rgba(255,255,255,.10); border-color: rgba(225,228,255,.55); }
+body.simulador-cheques #tablaInstrumentos th { background: #3d4084; }
+body.simulador-cheques .panel-tasas-header strong, body.simulador-cheques .titulo-instrumento-mav { color: #34366f; }
+body.simulador-cheques #texto-ver-tasas, body.simulador-cheques #textoComisionSGR { color: #dfe1ff; }
+body.simulador-cheques .icono-ojo { color: #34366f; }
+body.simulador-cheques #btnAplicarComisionSGR { background: #34366f; }
+#btnLimpiar:not([hidden]) { display: inline-flex; align-items: center; justify-content: center; }
+
+
+
+/* Ajustes comunes */
+.tasas .btn-ver-tasas,
+.tasas .btn-ver-tasas:hover,
+.tasas .btn-ver-tasas:focus-visible,
+#texto-ver-tasas,
+#textoComisionSGR { color: #000 !important; }
+
+#btnLimpiar::after { content: none !important; display: none !important; }
+
+#alertas {
+  width: fit-content !important;
+  max-width: calc(100vw - 24px) !important;
+  padding: 7px 12px !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+/* Tipo de cambio: debajo de la tabla y alineado a la izquierda */
+body.simulador-pagares #contenedorTipoCambio {
+  width: 100%;
+  max-width: 1108px;
+  margin: 0 auto 12px;
+  padding: 0 20px;
+  text-align: left;
+}
+body.simulador-pagares #dolar-section {
+  position: static;
+  width: 100%;
+  text-align: center;
+}
+body.simulador-pagares #tipoDeCambio {
+  width: fit-content;
+  max-width: 100%;
+  margin: 8px 0;
+  text-align: center;
+}
+body.simulador-pagares #dolar-section-alternativo { margin: 0; text-align: left; }
+body.simulador-pagares #dolar-section-alternativo #noFuePosible {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 8px;
+  line-height: 1.5;
+  text-align: center;
+}
+body.simulador-pagares #tipoDeCambioManual-container {
+  margin: 8px 0;
+  justify-content: flex-start;
+}
+@media (max-width: 690px) {
+  body.simulador-pagares #contenedorTipoCambio { padding: 0 10px; }
+}
+
+/* Clases para evitar estilos CSS inline en el HTML */
+.tna-manual-input { width: 100px; }
+.panel-tasas-header-relativo { position: relative; }
+.celda-sin-borde { border: none !important; }
+.celda-sin-borde-izquierdo { border-left: none !important; }
+.celda-sin-fondo { background-color: transparent !important; }
+.contenedor-tipo-cambio-oculto,
+.spinner-oculto { display: none; }
+
+
+/* Desplegable de configuración de Comisión SGR */
+.panel-comision-sgr {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1300;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  min-width: 270px;
+  padding: 14px 16px;
+  border: 1px solid var(--line, #d9dfdc);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.16);
+}
+.panel-comision-sgr[hidden] { display: none !important; }
+.panel-comision-sgr .modif-comis-container {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+}
+.panel-comision-sgr .opciones-comision-sgr {
+  display: flex; align-items: center; gap: 7px; color: #252525; font-weight: 600; white-space: nowrap;
+}
+.panel-comision-sgr .opciones-comision-sgr input { margin: 0; accent-color: var(--brand-800, #245044); }
+.panel-comision-sgr .input-comision-sgr { display: flex; align-items: center; gap: 6px; }
+.panel-comision-sgr .input-comision-sgr input {
+  width: 72px; height: 30px; margin: 0; padding: 4px 7px;
+  border: 1px solid #bfc8c3; border-radius: 5px; background: #fff; color: #242424;
+}
+.panel-comision-sgr .input-comision-sgr span { color: #333; }
+.panel-comision-sgr #btnAplicarComisionSGR {
+  align-self: flex-end; width: auto; min-width: 82px; height: 30px; margin: 0; padding: 0 14px;
+  border: 0; border-radius: 6px; color: #fff; background: var(--brand-900, #1f4037);
+}
+.panel-comision-sgr .error-comision-sgr { color: #bd0000; font-size: 12px; }
+#alertas { margin-top: 20px; }
+@media (max-width: 600px) {
+  .panel-comision-sgr { right: auto; left: 0; min-width: min(270px, calc(100vw - 28px)); }
+}
+
+/* =========================================================
+   MOBILE: PRIORIDAD A LEGIBILIDAD DE LA TABLA (hasta 425 px)
+   ========================================================= */
+@media screen and (max-width: 425px) {
+  #detalle {
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  #tablaInstrumentos {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: auto !important;
+    margin: 8px 0 18px !important;
+    font-family: "Arial Narrow", "Liberation Sans Narrow", "Roboto Condensed", sans-serif !important;
+    font-size: 13px !important;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 3px 2px !important;
+    font-family: "Arial Narrow", "Liberation Sans Narrow", "Roboto Condensed", sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.15px;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  #tablaInstrumentos th {
+    font-size: 12px !important;
+    font-weight: 700;
+  }
+
+  #tablaInstrumentos td button {
+    min-width: 22px !important;
+    width: 22px !important;
+    min-height: 22px !important;
+    height: 22px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #tablaInstrumentos th,
+  #tablaInstrumentos td { font-size: 12px !important; }
+  #tablaInstrumentos th { font-size: 11px !important; }
+}
+
+
+/* =========================================================
+   AJUSTES MOBILE SOLICITADOS
+   ========================================================= */
+@media screen and (max-width: 690px) {
+
+  /* 1. Panel de tasas: todo el contenido a 12 px */
+  #panelTasasMAV,
+  #panelTasasMAV *,
+  .panel-tasas,
+  .panel-tasas * {
+    font-size: 12px !important;
+  }
+
+  /* 2. Tipo de cambio: sin caja visual, alineado a la izquierda */
+  #dolar-section {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    text-align: center !important;
+  }
+
+  #dolar-section #tipoDeCambio {
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 6px 0 10px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center !important;
+    font-size: 13px !important;
+  }
+
+  /* 3. Accesos de Tasas y Comisión: área táctil más cómoda */
+  .tasas .btn-ver-tasas {
+    min-height: 20px !important;
+    padding: 10px 10px !important;
+    border: 1px solid rgba(31, 64, 55, .18) !important;
+    border-radius: 7px !important;
+    background: rgba(255, 255, 255, .92) !important;
+    color: #000 !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .08);
+   
+  }
+
+  #texto-ver-tasas,
+  #textoComisionSGR {
+    color: #000 !important;
+    font-size: 12px !important;
+  }
+
+  /* 4. Panel/modal de Comisión SGR centrado en pantalla */
+  .panel-comision-sgr {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(320px, calc(100vw - 28px)) !important;
+    min-width: 0 !important;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    transform: translate(-50%, -50%) !important;
+    z-index: 2000 !important;
+  }
+
+  .modal-comision-sgr {
+    position: fixed !important;
+    inset: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 16px !important;
+    z-index: 2100 !important;
+  }
+
+  .modal-comision-sgr-contenido {
+    width: min(100%, 360px) !important;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    margin: auto !important;
+  }
+}
+
+/* Comisión SGR: el desplegable debe quedar por encima del header y de toda la interfaz.
+   .tasas es el contenedor padre del panel; elevar sólo el z-index del panel no alcanza
+   porque quedaría limitado por el contexto de apilamiento de su padre. */
+.tasas {
+  position: relative;
+  z-index: 99998 !important;
+}
+
+.panel-comision-sgr {
+  z-index: 99999 !important;
+}
+
+@media (max-width: 690px) {
+  .tasas {
+    position: relative !important;
+    z-index: 99998 !important;
+    justify-content: center;
+  }
+
+  .panel-comision-sgr {
+    z-index: 99999 !important;
+  }
+}
+
+
+/* =========================================================
+   TIPO DE CAMBIO: CENTRADO EN DESKTOP Y MOBILE
+   ========================================================= */
+#dolar-section {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: center !important;
+}
+
+#dolar-section #tipoDeCambio {
+  display: block;
+  width: fit-content !important;
+  max-width: calc(100% - 24px) !important;
+  margin: 6px auto 10px !important;
+  text-align: center !important;
+}
+
+#dolar-section #tipoDeCambioManual-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media screen and (max-width: 690px) {
+  #dolar-section {
+    text-align: center !important;
+  }
+
+  #dolar-section #tipoDeCambio {
+    margin: 6px auto 10px !important;
+    text-align: center !important;
+  }
+}
+
+
+/* Ajustes solicitados: encabezados, iconos y paneles flotantes */
+#tablaInstrumentos thead th.th-captura {
+  background: transparent !important;
+}
+body.simulador-cheques #tablaInstrumentos .btn-captura-tabla {
+  color: #454b91 !important;
+}
+body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
+  color: #2d725f !important;
+}
+.panel-tasas .panel-tasas-header,
+.panel-tasas .panel-tasas-header-relativo {
+  background: #fff !important;
+}
+.panel-tasas {
+  touch-action: auto;
+  user-select: none;
+}
+.panel-tasas-header {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  background: #fff !important;
+}
+.panel-tasas-header:active { cursor: grabbing; }
+.panel-comision-sgr {
+  touch-action: auto;
+  user-select: none;
+}
+.panel-comision-sgr::before {
+  content: "";
+  display: block;
+  height: 5px;
+  margin: -7px 0 5px;
+  border-radius: 5px;
+  background: #e8eeeb;
+  cursor: grab;
+}
+.panel-comision-sgr:active { cursor: grabbing; }

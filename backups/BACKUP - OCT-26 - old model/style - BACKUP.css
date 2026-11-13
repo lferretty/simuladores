@@ -1,0 +1,1205 @@
+/* =========================================================
+   FUENTES
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+  --fondo: rgb(251, 252, 255);
+  --btn-fondo: rgb(255, 255, 255);
+  --btn-borde: 1px solid rgb(130, 130, 130);
+  --texto: rgb(67, 68, 80);
+
+  --verde: #1f4037;
+  --verde-claro: rgb(191, 237, 179);
+}
+
+
+/* =========================================================
+   RESET / GENERAL
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--texto);
+}
+
+html {
+  background-color: rgb(190, 190, 190);
+}
+
+::selection {
+  background: #5e97bc;
+  color: white;
+}
+
+.oculto {
+  display: none;
+}
+
+
+/* =========================================================
+   ESTRUCTURA GENERAL
+   ========================================================= */
+
+#dolar-section {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.big-container {
+  position: relative;
+  width: 99vw;
+  max-width: 1108px;
+  margin: auto;
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+
+  transition: 0.3s;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  padding: 10px 0;
+
+  background-color: rgb(34, 55, 49);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+
+  box-shadow: rgba(0, 0, 0, 0.524) 0 10px 20px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#logoAVFE {
+  display: block;
+  width: 15em;
+}
+
+h1,
+h2,
+h3 {
+  max-width: 300px;
+  font-size: clamp(18px, 3vw, 24px);
+  text-align: center;
+}
+
+h1,
+h3 {
+  color: var(--verde-claro);
+}
+
+h2 {
+  color: #c1c0c0;
+}
+
+h1 span,
+h4 {
+  display: block;
+  color: white;
+}
+
+
+/* =========================================================
+   CARGA DE DATOS
+   ========================================================= */
+
+#carga {
+  display: flex;
+  justify-content: center;
+}
+
+#inputsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 10px;
+  padding: 0 10px;
+
+  border: var(--btn-borde);
+  background-color: transparent;
+}
+
+label,
+input {
+  margin-left: 7px;
+  font-weight: 600;
+  color: aliceblue;
+}
+
+input {
+  max-width: 110px;
+  height: 30px;
+  margin: 10px 0;
+  padding: 0 5px;
+
+  background-color: var(--fondo);
+  border: var(--btn-borde);
+
+  text-align: center;
+  color: rgb(46, 46, 58);
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.botones {
+  width: 104px;
+  height: 32px;
+  padding: 0 10px;
+
+  background-color: var(--btn-fondo);
+  border: 1px solid rgb(101, 101, 101);
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.botones:hover {
+  scale: 1.02;
+  transition: 0.2s;
+}
+
+.botones:active {
+  scale: 0.97;
+  transition: 0.1s;
+  background-color: rgb(225, 222, 222);
+}
+
+#btnBorrar::after {
+  content: "❌ Quitar";
+}
+
+#btnLimpiar::after {
+  content: "🗑️ Limpiar";
+}
+
+#btnSimAuto {
+  width: auto;
+  padding: 0 14px;
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+}
+
+
+/* =========================================================
+   ALERTAS
+   ========================================================= */
+
+#alertas {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1100px;
+  padding: 10px;
+
+  transform: translateX(-50%);
+
+  color: rgb(255, 9, 9);
+  font-weight: 600;
+  text-align: center;
+
+  background-color: rgb(251, 255, 0);
+  box-shadow: 0 5px 5px rgba(138, 137, 137, 0.329);
+
+  visibility: hidden;
+  transition: 0.2s;
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.txt-azul {
+  color: rgb(10, 85, 46);
+}
+
+.txt-rojo {
+  color: rgb(211, 7, 7);
+}
+
+.txt-small {
+  font-size: smaller;
+}
+
+.blacky {
+  font-weight: 600;
+}
+
+.cursiva {
+  font-style: italic;
+}
+
+
+/* =========================================================
+   TABLA DE INSTRUMENTOS
+   ========================================================= */
+
+#detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#tablaInstrumentos {
+  width: 70%;
+  margin: 10px 0 30px;
+
+  border-collapse: collapse;
+
+  text-align: center;
+  z-index: 1;
+
+  transition: 0.1s;
+}
+
+#tablaInstrumentos th,
+#tablaInstrumentos td {
+  padding: 4px 20px;
+  border-bottom: 1px solid rgb(209, 206, 206);
+}
+
+#tablaInstrumentos th {
+  padding: 10px;
+
+  background-color: rgb(49, 101, 97);
+  color: rgb(228, 236, 239);
+}
+
+#tablaInstrumentos td {
+  background-color: white;
+}
+
+#tablaInstrumentos tfoot td {
+  padding: 3px 5px;
+}
+
+.transparente {
+  background-color: transparent;
+}
+
+
+/* =========================================================
+   RESUMEN
+   ========================================================= */
+
+.resumenTabla {
+  min-width: 300px;
+  margin: auto;
+
+  border-collapse: collapse;
+}
+
+.resumenTabla td {
+  padding: 8px 30px;
+
+  background-color: white;
+  border-bottom: 1px solid rgb(217, 216, 216);
+}
+
+.resumenTabla td:first-child {
+  text-align: right;
+}
+
+.resumenTabla td:last-child {
+  text-align: center;
+}
+
+.resParrafo {
+  margin: 7px 0;
+}
+
+.borderTop {
+  border-top: 1px dotted black;
+}
+
+.nota {
+  padding-bottom: 20px;
+
+  font-size: smaller;
+  text-align: center;
+
+  opacity: 0;
+  transition: 0.1s;
+}
+
+.nota p {
+  margin: 10px 20px;
+  padding: 10px 20px;
+
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================================
+   BOTONES DE IMPRESIÓN / EXCEL
+   ========================================================= */
+
+.printerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 200px;
+  padding: 20px;
+
+  justify-self: center;
+}
+
+#btnImprimir,
+#btnExportarExcel {
+  width: 140px;
+  height: 50px;
+  margin: auto;
+  padding: 0 10px;
+
+  font-size: 22px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   BOTÓN PAGARÉS
+   ========================================================= */
+
+/* .volver-container {
+  position: fixed;
+  bottom: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100svw;
+}
+ */
+.volver {
+  position: fixed;
+  padding: 3px;
+  right: 2%;
+  bottom: 2%;
+  /* padding-top: 5px; */
+  text-align: center;
+  /*   font-weight: 600;
+ */
+  text-decoration: none;
+}
+
+.volver::after {
+  content: "";
+}
+
+
+/* =========================================================
+   TIPO DE CAMBIO
+   ========================================================= */
+
+#tipoDeCambio {
+  width: 80%;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 3px;
+
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#tipoDeCambioManual-container {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  width: 90vw;
+  max-width: 350px;
+  margin: auto;
+
+  background-color: rgb(40, 107, 151);
+  border-radius: 8px;
+}
+
+#dolar-section-alternativo {
+  max-width: 1108px;
+  margin: auto;
+}
+
+#dolar-section-alternativo #noFuePosible {
+  display: block;
+
+  line-height: 50px;
+  font-size: small;
+  font-weight: 600;
+  text-align: center;
+
+  color: rgb(206, 250, 31);
+  background-color: rgba(0, 0, 0, 0.724);
+
+  visibility: hidden;
+}
+
+
+/* =========================================================
+   TASAS MAV
+   ========================================================= */
+
+#texto-ver-tasas,
+#textoComisionSGR {
+  color: rgb(167, 209, 167);
+}
+
+.tasas {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  z-index: 1000;
+  width: 95vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-ver-tasas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 10px;
+
+  border: none;
+  background: transparent;
+
+  color: white;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.btn-ver-tasas:hover {
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   MODAL COMISIÓN SGR
+   ========================================================= */
+
+
+
+.modal-comision-sgr {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: grid;
+  place-items: center;
+
+  
+  padding: 20px;
+  background: rgba(27, 27, 27, 0.747);
+}
+
+.modal-comision-sgr[hidden] {
+  display: none;
+}
+
+.modal-comision-sgr-contenido {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  justify-content: center;
+  width: min(100%, 360px);
+  padding: 20px;
+
+  color: #222;
+  background: white;
+  border: 2px solid var(--verde);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.459);
+}
+
+.modal-comision-sgr-contenido h2 {
+  margin: 0;
+  color: var(--verde);
+  font-size: 22px;
+}
+
+.modal-comision-sgr-contenido>.btn-cerrar-tasas {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+
+.modif-comis-container{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#btnAplicarComisionSGR {
+  background-color: var(--verde);
+  width: 100px;
+  color: white;
+  margin-top: 20px;
+}
+
+.opciones-comision-sgr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.opciones-comision-sgr label,
+.modal-comision-sgr-contenido>label {
+  color: #222;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-comision-sgr {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  gap: 8px;
+}
+
+.input-comision-sgr input {
+  width: 60px;
+  padding: 7px;
+}
+
+.error-comision-sgr {
+  margin: 0;
+  color: #bd0000;
+  font-weight: 700;
+}
+
+.modal-comision-sgr-contenido .botones {
+  align-self: flex-end;
+  width: auto;
+  padding: 0 16px;
+}
+
+.icono-ojo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 2px solid white;
+
+  background: white;
+  color: var(--verde);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   PANEL TASAS MAV
+   ========================================================= */
+
+.panel-tasas {
+  position: absolute;
+  top: 52px;
+  left: 0;
+
+  width: 280px;
+
+  background: white;
+  border: 2px solid #1f1f1f;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateX(-20px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.panel-tasas.abierto {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.panel-tasas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 15px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.panel-tasas-header>div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panel-tasas-header strong {
+  font-size: 16px;
+  color: var(--verde);
+}
+
+.panel-tasas-header span {
+  font-size: 12px;
+  color: #777;
+}
+
+#panel-tasas-subtitulo {
+  color: rgb(90, 90, 90);
+  font-style: italic;
+}
+
+#fechaTasasMAV {
+  color: rgb(170, 12, 12);
+}
+
+.btn-cerrar-tasas {
+  border: none;
+  background: transparent;
+
+  color: #666;
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.btn-cerrar-tasas:hover {
+  color: #000;
+}
+
+
+/* =========================================================
+   TABLA TASAS MAV
+   ========================================================= */
+
+.contenido-tasas-mav {
+  padding: 12px 15px 15px;
+}
+
+.titulo-instrumento-mav {
+  margin-bottom: 8px;
+
+  color: var(--verde);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tabla-tasas-mav {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 13px;
+}
+
+.tabla-tasas-mav th {
+  padding: 7px 9px;
+
+  background: var(--verde);
+  color: white;
+
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabla-tasas-mav th:last-child,
+.tabla-tasas-mav td:last-child {
+  text-align: right;
+}
+
+.tabla-tasas-mav td {
+  padding: 7px 9px;
+
+  border-bottom: 1px solid #e4e4e4;
+
+  color: #333;
+}
+
+.tabla-tasas-mav tbody tr:hover {
+  background: #f3f6f4;
+}
+
+
+/* =========================================================
+   ESTADOS TASAS
+   ========================================================= */
+
+.tasas-loading,
+.tasas-error {
+  padding: 15px 5px;
+
+  font-size: 13px;
+}
+
+.tasas-loading {
+  text-align: center;
+  color: #777;
+}
+
+.tasas-error {
+  color: #a33;
+  line-height: 1.4;
+}
+
+.fuente-tasas {
+  padding: 8px 15px;
+
+  border-top: 1px solid #e5e5e5;
+
+  color: #777;
+  font-size: 12px;
+  text-align: right;
+}
+
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+#spinner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1em;
+
+  text-align: center;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+
+  border: 5px dotted #05080660;
+  border-left: 5px solid #f3f3f300;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+}
+
+.loader+span {
+  padding: 2px 20px;
+
+  color: white;
+  text-shadow: 2px 2px 1px black;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   AJUSTE PAGARÉS = CHEQUES
+   ========================================================= */
+
+#inputsContainer.inputs-como-cheques {
+  width: fit-content;
+  max-width: calc(100% - 20px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media screen and (max-width: 992px) {
+
+  label {
+    color: white;
+  }
+
+  input {
+    color: black;
+    border: 1px solid gray;
+  }
+
+  #btnBorrar::after {
+    content: "❌";
+  }
+
+  /*   #btnLimpiar {
+    width: 60px;
+  } */
+
+  #btnLimpiar::after {
+    content: "🗑️";
+  }
+
+  #inputsContainer {
+    background-color: rgba(5, 15, 21, 0.604);
+    border: 1px dotted gray;
+  }
+
+  #btnImprimir {
+    top: 15px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 690px) {
+
+  #logoAVFE {
+    min-width: 20px;
+  }
+
+  #tipoCambio {
+    width: 80px;
+    font-size: 14px;
+  }
+
+  .ocultoEnCelu {
+    display: none;
+  }
+
+  .detalle {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+/* =========================================================
+   CELULARES
+   ========================================================= */
+
+@media screen and (max-width: 450px) {
+
+  * {
+    font-family:
+      "Archivo Narrow",
+      "Arial Narrow",
+      Tahoma,
+      Geneva,
+      Verdana,
+      sans-serif;
+  }
+
+  .modif-comis-container{
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0;
+}
+
+#modificarComisionSGR, .input-comision-sgr{
+  scale: 1.5;
+}
+
+  header {
+    position: static;
+  }
+
+  #dolar-section-alternativo #noFuePosible {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 5px;
+
+    color: rgb(179, 255, 0);
+    background-color: rgba(0, 0, 0, 0.719);
+
+    font-size: large;
+    line-height: 15px;
+  }
+
+  #logoAVFE {
+    width: 200px;
+  }
+
+
+  #inputsContainer {
+    flex-direction: column;
+
+    margin-bottom: 10px;
+    padding: 10px;
+
+    background-color: transparent;
+  }
+
+  label {
+    margin-top: 5px;
+    margin-left: -2px;
+
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #monto,
+  #fecha {
+    display: block;
+
+    min-width: 200px;
+    height: 30px;
+    margin: 0;
+
+    font-size: 20px;
+    text-align: center;
+  }
+
+  #detalle {
+    position: relative;
+  }
+
+  #btnAgregar {
+    width: 200px;
+    margin-top: 15px;
+
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  #btnAgregar::after {
+    content: "SIMULAR";
+  }
+
+
+  #btnBorrar,
+  #btnLimpiar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .resumenTabla td {
+    padding: 5px 2px;
+    background-color: white;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  #tablaInstrumentos {
+    width: 90vw;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 0 10px;
+  }
+
+  #tablaInstrumentos th {
+    padding: 10px 0;
+  }
+
+  .nota {
+    width: 90vw;
+  }
+
+  .nota p {
+    margin-bottom: 20px;
+    padding: 10px;
+
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .volver,
+  #btnSimAuto {
+    box-shadow: 1px 1px 5px grey;
+  }
+
+  /* TASAS MAV */
+
+  .tasas {
+    top: 12px;
+    left: 10px;
+  }
+
+  .btn-ver-tasas {
+    display: flex;
+    flex-flow: column-reverse;
+    gap: 1px;
+
+    border: 1px solid rgb(193, 208, 193);
+
+    font-size: 15px;
+
+  }
+
+  .icono-ojo {
+    display: none;
+  }
+
+  .panel-tasas {
+    top: 48px;
+    left: 0;
+
+    width: calc(100vw - 20px);
+    max-width: 100%;
+    max-height: 100vh;
+
+    overflow-y: auto;
+  }
+
+  .panel-tasas * {
+    font-size: 20px;
+  }
+
+  .panel-tasas-header strong {
+    font-size: 22px;
+  }
+
+  .tabla-tasas-mav {
+    font-size: 12px;
+  }
+
+  .tabla-tasas-mav th,
+  .tabla-tasas-mav td {
+    padding: 6px;
+  }
+
+  .fuente-tasas {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #fechaTasasMAV {
+    font-size: 18px;
+  }
+
+  #inputsContainer.inputs-como-cheques {
+    width: fit-content;
+    max-width: calc(100% - 20px);
+  }
+}
+
+
+/* =========================================================
+   CELULARES MUY CHICOS
+   ========================================================= */
+
+@media screen and (max-width: 320px) {
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 0 3px;
+    font-size: 16px;
+  }
+
+  .resumenTabla {
+    scale: 0.9;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  #btnBorrar,
+  #btnLimpiar {
+    margin: 3px 0;
+  }
+
+  #btnLimpiar {
+    width: 37px;
+  }
+}
+
+
+/* =========================================================
+   IMPRESIÓN
+   ========================================================= */
+
+@media print {
+
+  #logoAVFE {
+    display: none;
+  }
+
+  #carga,
+  .botones,
+  .tasas {
+    display: none;
+  }
+
+  header {
+    padding-top: 100px;
+    position: relative;
+  }
+
+  h1 {
+    color: black;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  #btnImprimir {
+    display: none !important;
+  }
+}
