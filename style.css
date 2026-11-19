@@ -2938,7 +2938,7 @@ header {
 
   transition:
 
-    *background* 0.18s ease,
+    background 0.18s ease,
 
     box-shadow 0.18s ease,
 
@@ -5491,4 +5491,41 @@ body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
     width: 23px;
     height: 23px;
   }
+}
+
+
+/* Ordenamiento de columnas de la tabla de instrumentos */
+#tablaInstrumentos th.th-ordenable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+#tablaInstrumentos th.th-ordenable:hover,
+#tablaInstrumentos th.th-ordenable:focus-visible {
+  /* Teal intermedio: armoniza con el verde de pagarés y el azul de cheques. */
+/*  background-color: #2b3d42;  */
+  outline:none;
+  color: rgb(199, 246, 253);
+  
+}
+
+#tablaInstrumentos th.th-ordenable::after {
+  content: "↕";
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.8em;
+  opacity: 0.55;
+}
+
+#tablaInstrumentos th.th-ordenable.orden-asc::after,
+#tablaInstrumentos th.th-ordenable.orden-desc::after {
+  content: none;
+}
+
+#tablaInstrumentos .indicador-orden {
+  color: inherit;
+  font-size: 0.8em;
+  white-space: nowrap;
 }

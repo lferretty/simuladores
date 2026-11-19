@@ -2622,6 +2622,92 @@
 })();
 </script>
 
+<script>
+// Ordenamiento de la tabla de instrumentos (estilo Excel).
+(() => {
+  const tabla = document.getElementById("tablaInstrumentos");
+  const cuerpo = document.getElementById("grilla");
+  if (!tabla || !cuerpo) return;
+
+  let columnaOrdenada = -1;
+  let direccion = 1; // 1 = ascendente, -1 = descendente
+
+  function valorCelda(texto) {
+    const limpio = texto.trim();
+    // Fechas dd/mm/aa o dd/mm/aaaa: ordenar cronológicamente.
+    const fecha = limpio.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+    if (fecha) {
+      let anio = Number(fecha[3]);
+      if (anio < 100) anio += anio >= 70 ? 1900 : 2000;
+      return { tipo: "numero", valor: new Date(anio, Number(fecha[2]) - 1, Number(fecha[1])).getTime() };
+    }
+
+    // Importes, tasas y porcentajes con formato argentino.
+    const numero = limpio.replace(/\s/g, "").replace(/[^\d,.-]/g, "");
+    if (numero && /\d/.test(numero)) {
+      const normalizado = numero.includes(",")
+        ? numero.replace(/\./g, "").replace(",", ".")
+        : numero.replace(/\./g, "");
+      const valor = Number(normalizado);
+      if (Number.isFinite(valor)) return { tipo: "numero", valor };
+    }
+    return { tipo: "texto", valor: limpio.toLocaleLowerCase("es-AR") };
+  }
+
+  const encabezados = tabla.querySelectorAll("thead th");
+  encabezados.forEach((th, indice) => {
+    // La última columna contiene acciones (copiar/borrar), no es ordenable.
+    if (indice === encabezados.length - 1 || th.classList.contains("th-captura")) return;
+
+    th.classList.add("th-ordenable");
+    th.tabIndex = 0;
+    th.setAttribute("role", "button");
+    th.setAttribute("aria-label", `${th.textContent.trim()}. Ordenar columna`);
+    th.title = "Clic para ordenar de menor a mayor o viceversa";
+
+    const ordenar = () => {
+      if (columnaOrdenada === indice) direccion *= -1;
+      else { columnaOrdenada = indice; direccion = 1; }
+
+      const filas = Array.from(cuerpo.querySelectorAll("tr"));
+      filas.sort((filaA, filaB) => {
+        const a = valorCelda(filaA.cells[indice]?.textContent || "");
+        const b = valorCelda(filaB.cells[indice]?.textContent || "");
+        let comparacion;
+        if (a.tipo === "numero" && b.tipo === "numero") comparacion = a.valor - b.valor;
+        else comparacion = String(a.valor).localeCompare(String(b.valor), "es", { numeric: true });
+        return comparacion * direccion;
+      });
+      filas.forEach(fila => cuerpo.appendChild(fila));
+
+      encabezados.forEach((otro, i) => {
+        otro.classList.remove("orden-asc", "orden-desc");
+        otro.removeAttribute("aria-sort");
+        const indicador = otro.querySelector(".indicador-orden");
+        if (indicador) indicador.remove();
+        if (i === indice) {
+          otro.classList.add(direccion === 1 ? "orden-asc" : "orden-desc");
+          otro.setAttribute("aria-sort", direccion === 1 ? "ascending" : "descending");
+          const icono = document.createElement("span");
+          icono.className = "indicador-orden";
+          icono.setAttribute("aria-hidden", "true");
+          icono.textContent = direccion === 1 ? " ▲" : " ▼";
+          otro.appendChild(icono);
+        }
+      });
+    };
+
+    th.addEventListener("click", ordenar);
+    th.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        ordenar();
+      }
+    });
+  });
+})();
+</script>
+
 </body>
 
 </html>
