@@ -2064,7 +2064,7 @@ thead {
 
 
 
-    font-size: 20px;
+    font-size: 30px;
 
     text-align: center;
 
@@ -4938,6 +4938,122 @@ body.simulador-pagares #tipoDeCambioManual-container {
 
   }
 
+}
+
+/* En celulares, la tabla completa usa el ancho disponible. */
+@media screen and (max-width: 690px) {
+  body {
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+  }
+
+  body button,
+  body input,
+  body select,
+  body textarea {
+    font-family: inherit;
+  }
+
+  #tablaInstrumentos {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif !important;
+    font-size: 11px !important;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    box-sizing: border-box;
+    padding: 4px 2px !important;
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif !important;
+    font-size: 11px !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    overflow: hidden !important;
+  }
+
+  /* Al ocultar las columnas auxiliares quedan visibles Monto, Fecha,
+     Tasa, CFTa, Neto y la acción de captura. */
+  #tablaInstrumentos th:nth-child(2),
+  #tablaInstrumentos td:nth-child(2) { width: 22%; }
+  #tablaInstrumentos th:nth-child(3),
+  #tablaInstrumentos td:nth-child(3) { width: 17%; }
+  #tablaInstrumentos th:nth-child(5),
+  #tablaInstrumentos td:nth-child(5) { width: 15%; }
+  #tablaInstrumentos th:nth-child(6),
+  #tablaInstrumentos td:nth-child(6) { width: 15%; }
+  #tablaInstrumentos th:nth-child(10),
+  #tablaInstrumentos td:nth-child(10) { width: 21%; }
+  #tablaInstrumentos th.th-captura,
+  #tablaInstrumentos td:last-child { width: 10%; }
+
+  #tablaInstrumentos td button,
+  #tablaInstrumentos th button {
+    box-sizing: border-box;
+    min-width: 20px !important;
+    width: 20px !important;
+    min-height: 20px !important;
+    height: 20px !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #tablaInstrumentos th,
+  #tablaInstrumentos td { font-size: 10px !important; }
+  #tablaInstrumentos th button { min-width: 18px !important; width: 18px !important; }
+  #resumenOperacion .resumenTabla,
+  #resumenOperacion .resumenTabla td { font-size: 10px !important; }
+}
+
+/* Jerarquía tipográfica solicitada para mobile y desktop. */
+@media screen and (max-width: 690px) {
+  .title-container h4 {
+    font-size: 17px !important;
+  }
+
+  #resumenOperacion .resumenTabla,
+  #resumenOperacion .resumenTabla td {
+    font-size: 11px !important;
+  }
+}
+
+@media screen and (min-width: 691px) {
+  #tablaInstrumentos {
+    font-size: 15.6px !important;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    font-size: 15.6px !important;
+  }
+
+  #tablaInstrumentos th {
+    font-size: 13.2px !important;
+  }
+
+  #resumenOperacion .resumenTabla,
+  #resumenOperacion .resumenTabla td {
+    font-size: 15.6px !important;
+  }
+
+  .title-container h4 {
+    font-size: 15.6px !important;
+  }
+
+  #inputsContainer label {
+    font-size: 14.4px !important;
+  }
+}
+
+@media print {
+  .nota-credito {
+    display: none !important;
+  }
 }
 
 

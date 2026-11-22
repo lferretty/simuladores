@@ -169,6 +169,7 @@
               <th class="ocultoEnCelu">ALYC y otros ($)</th>
               <th class="ocultoEnCelu">Comisión SGR ($)</th>
               <th>Neto ($)</th>
+              <th class="ocultoEnCelu">Neto (~ USD)</th>
               <!--  <th class="celda-sin-borde celda-sin-fondo"></th> -->
 
 
@@ -233,7 +234,7 @@
           <br />
           Simulador con fines comerciales, no implica obligación contractual.
         </p>
-        <P>Desarrollado por <a href="mailto:lucasferretty@outlook.com">lucasferretty@outlook.com</a> <br>Noviembre 2026</P>
+        <P class="nota-credito">Desarrollado por <a href="mailto:lucasferretty@outlook.com">lucasferretty@outlook.com</a> <br>Noviembre 2026</P>
       </div>
     </div>
 
@@ -682,7 +683,7 @@
 
 
     // =========================================================
-    // COPIAR TABLA DE INSTRUMENTOS COMO IMAGEN
+    // COPIAR EL CONTENIDO DEL SIMULADOR COMO IMAGEN
     // =========================================================
 
     const btnCapturaTabla =
@@ -701,7 +702,7 @@
         btnCapturaTabla.style.display = "none";
         estadoCopiaTabla.classList.remove("visible");
 
-        const canvas = await html2canvas(tablaInstrumentos, {
+        const canvas = await html2canvas(bigContainer, {
           backgroundColor: "#ffffff",
           scale: 2,
           useCORS: true,
@@ -709,6 +710,14 @@
           // En el clon que se captura (la página real no se toca) se quitan
           // los botones de Eliminar / Limpiar y la columna del botón de copia.
           onclone: (docClonado) => {
+            // Los controles de impresión y exportación quedan fuera de la captura.
+            docClonado
+              .querySelectorAll(".big-container .printerContainer")
+              .forEach((contenedor) => contenedor.remove());
+            docClonado
+              .querySelectorAll(".nota-credito")
+              .forEach((parrafo) => parrafo.remove());
+
             const tablaClon = docClonado.getElementById("tablaInstrumentos");
             if (!tablaClon) return;
 
@@ -763,6 +772,7 @@
                 [fmt(suma("gastosCVyAlyc")), "ocultoEnCelu"],
                 [fmt(suma("descuentoSGR")), "ocultoEnCelu"],
                 [fmt(suma("neto")), ""],
+                [tipoCambio > 0 ? fmt(Math.round(suma("neto") / tipoCambio)) : "—", "ocultoEnCelu"],
               ];
 
               const filaTotales = docClonado.createElement("tr");
@@ -1788,6 +1798,12 @@
             )}
                 </td>
 
+                <td class="ocultoEnCelu">
+                  ${tipoCambio > 0
+                    ? Math.round(pagare.neto / tipoCambio).toLocaleString("es-AR")
+                    : "—"}
+                </td>
+
                 <td
                   class="celda-sin-borde celda-sin-fondo"
                 >
@@ -2663,7 +2679,7 @@
     th.tabIndex = 0;
     th.setAttribute("role", "button");
     th.setAttribute("aria-label", `${th.textContent.trim()}. Ordenar columna`);
-    th.title = "Clic para ordenar de menor a mayor o viceversa";
+    th.title = "Ordenar columna";
 
     const ordenar = () => {
       if (columnaOrdenada === indice) direccion *= -1;
