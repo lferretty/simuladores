@@ -75,8 +75,14 @@
 
           <label for="tnaManual" title="Si se deja vacío, se utiliza la TNA automática de MAV.">
             TNA (%):
-            <input type="number" id="tnaManual" min="0" step="0.5"
-              placeholder="Automática" />
+            <input type="number" id="tnaManual" step="0.1"
+              placeholder="Auto" />
+          </label>
+
+          <label for="tipoDeCambioManual" title="Si se deja vacío, se utiliza el tipo de cambio automático de las APIs.">
+            Tipo de Cambio:
+            <input type="number" id="tipoDeCambioManual" min="0" step="0.01"
+              placeholder="Auto" />
           </label>
 
           <button id="btnAgregar" class="botones">
@@ -200,17 +206,9 @@
     </div>
   </section>
 
-  <!-- TC manual si no es posible acceder a las APIs -->
+  <!-- Mensaje de estado del tipo de cambio -->
   <section id="dolar-section-alternativo">
-    <span id="noFuePosible">
-      No fue posible obtener el tipo de cambio en forma automática
-      (ingréselo a continuación):
-    </span>
-
-    <div id="tipoDeCambioManual-container">
-      <label for="tipoDeCambioManual">Tipo de cambio:</label>
-      <input type="number" id="tipoDeCambioManual" />
-    </div>
+    <span id="noFuePosible"></span>
   </section>
   </div>
 
@@ -277,10 +275,6 @@
     const contenedorTipoCambio = document.querySelector("#contenedorTipoCambio");
     const dolarSection = document.querySelector("#dolar-section");
     const divTipoDeCambio = document.querySelector("#tipoDeCambio");
-
-    const divtipoDeCambioManual = document.querySelector(
-      "#tipoDeCambioManual-container",
-    );
 
     const tipoDeCambioManual = document.querySelector(
       "#tipoDeCambioManual",
@@ -443,6 +437,8 @@
     let tipoCambio = null;
 
     spinner.style.display = "block";
+    tipoDeCambioManual.disabled = false;
+    tipoDeCambioManual.placeholder = "Auto";
     bigContainer.style.opacity = "0";
     bigContainer.style.visibility = "hidden";
 
@@ -454,23 +450,75 @@
       return fecha.toISOString().split("T")[0];
     }
 
+    let tipoCambioAutomatico = null;
+    let tcApiRespondio = false;
+    let tcTimeoutCumplido = false;
+    let tipoCambioManualActivo = false;
+
+    const timeoutTipoCambio = setTimeout(() => {
+      if (tipoCambioAutomatico === null) {
+        tcTimeoutCumplido = true;
+        tipoDeCambioManual.disabled = false;
+        spanNoFuePosible.textContent = "Ingrese el TC";
+        spanNoFuePosible.style.visibility = "visible";
+        alertas.textContent = "Ingrese el TC";
+        alertas.style.visibility = "visible";
+      }
+    }, 5000);
+
+    function actualizarTipoCambioEfectivo() {
+      const valorManual = tipoDeCambioManual.value.trim();
+      const manualValido = valorManual !== "" &&
+        Number.isFinite(Number(valorManual)) &&
+        Number(valorManual) > 0;
+
+      tipoCambio = manualValido
+        ? Number(valorManual)
+        : tipoCambioAutomatico;
+
+      if (tipoCambio !== null && Number.isFinite(tipoCambio)) {
+        const tcFormateado = tipoCambio.toLocaleString("es-AR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+        divTipoDeCambio.textContent = `Tipo de cambio: $${tcFormateado}`;
+      } else {
+        divTipoDeCambio.textContent = "Tipo de cambio pendiente";
+      }
+
+      return tipoCambio;
+    }
+
     function mostrarTipoCambio(valor, fuente) {
-      const tipoCambioParaMostrar = valor.toLocaleString("es-AR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      const valorNumerico = Number(valor);
+      if (!Number.isFinite(valorNumerico) || valorNumerico <= 0) return;
 
-      tipoCambio = valor;
+      tipoCambioAutomatico = valorNumerico;
+      tcApiRespondio = true;
 
-      document.getElementById("tipoDeCambio").textContent =
-        `Tipo de cambio: $${tipoCambioParaMostrar}`;
+      // Mostrar la cotización de la API en el input, salvo que el usuario
+      // ya haya ingresado un valor manual.
+      if (!tipoCambioManualActivo) {
+        tipoDeCambioManual.value = valorNumerico.toFixed(2);
+      }
 
+      clearTimeout(timeoutTipoCambio);
       spinner.style.display = "none";
+      dolarSection.style.display = "";
+
+      // Si el usuario ya ingresó un TC propio, se conserva como prioridad.
+      actualizarTipoCambioEfectivo();
+
+      spanNoFuePosible.textContent = "";
+      spanNoFuePosible.style.visibility = "hidden";
+      if (alertas.textContent === "Cargando Tipo de Cambio" ||
+          alertas.textContent === "Ingrese el TC") {
+        alertas.style.visibility = "hidden";
+      }
     }
 
     function mostrarError(mensaje) {
       document.getElementById("tipoDeCambio").textContent = mensaje;
-
       spinner.style.display = "none";
     }
 
@@ -490,106 +538,95 @@
         const data = await respuesta.json();
 
         const lista = data?.results?.detalle || [];
-
         const dolar = lista.find(
           (item) => item.codigoMoneda === "REF",
         );
 
-        if (
-          dolar &&
-          typeof dolar.tipoCotizacion === "number"
-        ) {
+        if (dolar && typeof dolar.tipoCotizacion === "number") {
           mostrarTipoCambio(dolar.tipoCotizacion, "BCRA");
         } else {
           await fallbackTipoCambio(yaIntentamosConAyer);
         }
       } catch (error) {
-        console.error(
-          "Error al consultar la API BCRA",
-          error,
-        );
-
+        console.error("Error al consultar la API BCRA", error);
         await fallbackTipoCambio(yaIntentamosConAyer);
       }
     }
 
-    async function fallbackTipoCambio(
-      yaIntentamosConAyer,
-    ) {
+    async function fallbackTipoCambio(yaIntentamosConAyer) {
       if (!yaIntentamosConAyer) {
         const ayer = new Date();
-
         ayer.setDate(ayer.getDate() - 1);
-
-        const fechaAyer = formatoFecha(ayer);
-
-        obtenerTipoCambioDesdeBCRA(
-          fechaAyer,
-          true,
-        );
+        obtenerTipoCambioDesdeBCRA(formatoFecha(ayer), true);
       } else {
-        console.log(
-          "No funcionó la API BCRA, se tomará el TC desde dolarapi.com",
-        );
-
         await obtenerTipoCambioDesdeDolarApi();
       }
     }
 
     async function obtenerTipoCambioDesdeDolarApi() {
-      const url =
-        "https://dolarapi.com/v1/dolares/mayorista";
+      const url = "https://dolarapi.com/v1/dolares/mayorista";
 
       try {
         const respuesta = await fetch(url);
-
         const datos = await respuesta.json();
-
         const valor = datos?.venta;
 
         if (typeof valor === "number") {
-          mostrarTipoCambio(
-            valor,
-            "dolarapi.com",
-          );
-
-          spanNoFuePosible.style.visibility =
-            "hidden";
+          mostrarTipoCambio(valor, "dolarapi.com");
         } else {
           pedirTCmanual();
         }
       } catch (error) {
-        console.error(
-          "Error al obtener el tipo de cambio desde dolarapi; pediremos el TC manual",
-          error,
-        );
-
+        console.error("Error al obtener el tipo de cambio desde dolarapi", error);
         pedirTCmanual();
       }
     }
 
     function pedirTCmanual() {
-      dolarSection.style.display = "none";
-
-      divtipoDeCambioManual.style.display =
-        "flex";
-
-      spanNoFuePosible.style.visibility =
-        "visible";
-
-      tipoDeCambioManual.addEventListener(
-        "change",
-        () => {
-          tipoCambio =
-            tipoDeCambioManual.value;
-
-          mostrarTipoCambio(
-            tipoCambio,
-            "ingreso manual",
-          );
-        },
-      );
+      tcApiRespondio = false;
+      clearTimeout(timeoutTipoCambio);
+      spinner.style.display = "none";
+      tipoDeCambioManual.disabled = false;
+      spanNoFuePosible.textContent = "Ingrese el TC";
+      spanNoFuePosible.style.visibility = "visible";
+      alertas.textContent = "Ingrese el TC";
+      alertas.style.visibility = "visible";
+      actualizarTipoCambioEfectivo();
     }
+
+    // El campo manual puede editarse antes o después de la respuesta de las APIs.
+    tipoDeCambioManual.addEventListener("input", () => {
+      const valorIngresado = tipoDeCambioManual.value.trim();
+
+      // Un campo vacío vuelve a usar la cotización automática.
+      tipoCambioManualActivo = valorIngresado !== "";
+      actualizarTipoCambioEfectivo();
+
+      if (valorIngresado !== "") {
+        spanNoFuePosible.style.visibility = "hidden";
+        if (alertas.textContent === "Cargando Tipo de Cambio" ||
+            alertas.textContent === "Ingrese el TC") {
+          alertas.style.visibility = "hidden";
+        }
+      } else if (tipoCambioAutomatico === null && tcTimeoutCumplido) {
+        spanNoFuePosible.textContent = "Ingrese el TC";
+        spanNoFuePosible.style.visibility = "visible";
+      }
+    });
+
+    // Al terminar de borrar el valor manual, volver a mostrar el de la API.
+    tipoDeCambioManual.addEventListener("blur", () => {
+      const valorCampo = tipoDeCambioManual.value.trim();
+
+      if (valorCampo === "" && tipoCambioAutomatico !== null) {
+        tipoDeCambioManual.value = tipoCambioAutomatico.toFixed(2);
+        tipoCambioManualActivo = false;
+        actualizarTipoCambioEfectivo();
+      } else if (valorCampo !== "" && Number.isFinite(Number(valorCampo))) {
+        tipoDeCambioManual.value = Number(valorCampo).toFixed(2);
+        actualizarTipoCambioEfectivo();
+      }
+    });
 
     // =========================================================
     // FIN TIPO DE CAMBIO
@@ -1454,6 +1491,7 @@
           inputMonto.value,
         ),
     ) {
+      actualizarTipoCambioEfectivo();
       const monto =
         montoSeleccionado;
 
@@ -1526,7 +1564,7 @@
           "visible";
 
         alertas.textContent =
-          "Aguarde... obteniendo tipo de cambio";
+          tcTimeoutCumplido ? "Ingrese el TC" : "Cargando Tipo de Cambio";
 
         return;
       }
@@ -1543,9 +1581,9 @@
       if (tnaManualIngresada) {
         tasa = Number(inputTNA.value);
 
-        if (!Number.isFinite(tasa) || tasa <= 0) {
+        if (!Number.isFinite(tasa)) {
           alertas.textContent =
-            "Ingrese una TNA válida mayor a 0, o deje el campo vacío para utilizar la tasa MAV.";
+            "Ingrese una TNA válida, o deje el campo vacío para utilizar la tasa MAV.";
 
           return;
         }
@@ -2044,12 +2082,14 @@
         const fechaActual =
           new Date();
 
+        actualizarTipoCambioEfectivo();
+
         if (
           !tipoCambio ||
           tipoCambio < 1
         ) {
           alertas.textContent =
-            "Debe ingresar un TC mayor a 0";
+            tcTimeoutCumplido ? "Ingrese el TC" : "Cargando Tipo de Cambio";
 
           alertas.style.visibility =
             "visible";
@@ -2076,9 +2116,9 @@
         if (tnaManualIngresada) {
           const tasaManual = Number(inputTNA.value);
 
-          if (!Number.isFinite(tasaManual) || tasaManual <= 0) {
+          if (!Number.isFinite(tasaManual)) {
             alertas.textContent =
-              "Ingrese una TNA válida mayor a 0, o deje el campo vacío para utilizar la tasa MAV.";
+              "Ingrese una TNA válida, o deje el campo vacío para utilizar la tasa MAV.";
 
             alertas.style.visibility =
               "visible";
@@ -2152,6 +2192,16 @@
 
     function limpiar() {
       pagares.length = 0;
+
+      // Restablecer los valores automáticos para la próxima simulación.
+      inputTNA.value = "";
+      tipoCambioManualActivo = false;
+      tipoDeCambioManual.value =
+        tipoCambioAutomatico !== null
+          ? tipoCambioAutomatico.toFixed(2)
+          : "";
+      actualizarTipoCambioEfectivo();
+
       if (contenedorTipoCambio) contenedorTipoCambio.style.display = "none";
       const botonLimpiar = document.querySelector("#btnLimpiar");
       if (botonLimpiar) botonLimpiar.hidden = true;
