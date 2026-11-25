@@ -2597,3 +2597,296 @@ body.simulador-pagares #tablaInstrumentos .btn-captura-tabla {
     gap: 5px;
   }
 }
+
+/* Desktop: el TC por pagaré se informa en la tabla.
+   El div de cotización general se mantiene sólo en mobile. */
+@media screen and (min-width: 691px) {
+  #tipoDeCambio {
+    display: none !important;
+  }
+}
+
+
+/* Desktop: encabezados en dos líneas cuando corresponde; filas siempre en una. */
+@media screen and (min-width: 691px) {
+  .big-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1108px;
+    padding: 12px 4px;
+    overflow-x: hidden;
+  }
+
+  #detalle {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  #tablaInstrumentos {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    box-sizing: border-box;
+    padding: 5px 2px;
+    font-size: clamp(8px, 0.72vw, 10px);
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+
+  #tablaInstrumentos th {
+    padding: 7px 2px;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    font-size: clamp(8px, 0.75vw, 10px);
+  }
+
+  /* Anchos porcentuales para que entren todas las columnas en desktop. */
+  #tablaInstrumentos th:nth-child(1),
+  #tablaInstrumentos td:nth-child(1) { width: 3%; }
+
+  #tablaInstrumentos th:nth-child(2),
+  #tablaInstrumentos td:nth-child(2) { width: 10%; }
+
+  #tablaInstrumentos th:nth-child(3),
+  #tablaInstrumentos td:nth-child(3) { width: 8%; }
+
+  #tablaInstrumentos th:nth-child(4),
+  #tablaInstrumentos td:nth-child(4) { width: 5%; }
+
+  #tablaInstrumentos th:nth-child(5),
+  #tablaInstrumentos td:nth-child(5) { width: 5%; }
+
+  #tablaInstrumentos th:nth-child(6),
+  #tablaInstrumentos td:nth-child(6) { width: 5%; }
+
+  #tablaInstrumentos th:nth-child(7),
+  #tablaInstrumentos td:nth-child(7) { width: 11%; }
+
+  #tablaInstrumentos th:nth-child(8),
+  #tablaInstrumentos td:nth-child(8) { width: 11%; }
+
+  #tablaInstrumentos th:nth-child(9),
+  #tablaInstrumentos td:nth-child(9) { width: 11%; }
+
+  #tablaInstrumentos th:nth-child(10),
+  #tablaInstrumentos td:nth-child(10) { width: 12%; }
+
+  #tablaInstrumentos th:nth-child(11),
+  #tablaInstrumentos td:nth-child(11) { width: 8%; }
+
+  #tablaInstrumentos th:nth-child(12),
+  #tablaInstrumentos td:nth-child(12) { width: 8%; }
+
+  #tablaInstrumentos th:nth-child(13),
+  #tablaInstrumentos td:nth-child(13) { width: 3%; }
+
+  #tablaInstrumentos td:nth-child(13) button {
+    width: 16px;
+    min-width: 16px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Tablet: reducir un poco más la tabla para evitar solapamientos y cortes. */
+@media screen and (min-width: 691px) and (max-width: 900px) {
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 4px 1px;
+    font-size: clamp(6.8px, 0.9vw, 7.5px);
+    line-height: 1.1;
+  }
+
+  #tablaInstrumentos th {
+    padding: 5px 1px;
+    font-size: clamp(7px, 0.95vw, 7.8px);
+  }
+
+  #tablaInstrumentos th:nth-child(1),
+  #tablaInstrumentos td:nth-child(1) { width: 3%; }
+
+  #tablaInstrumentos th:nth-child(2),
+  #tablaInstrumentos td:nth-child(2) { width: 10%; }
+
+  #tablaInstrumentos th:nth-child(3),
+  #tablaInstrumentos td:nth-child(3) { width: 8%; }
+
+  #tablaInstrumentos th:nth-child(4),
+  #tablaInstrumentos td:nth-child(4) { width: 4%; }
+
+  #tablaInstrumentos th:nth-child(5),
+  #tablaInstrumentos td:nth-child(5) { width: 4%; }
+
+  #tablaInstrumentos th:nth-child(6),
+  #tablaInstrumentos td:nth-child(6) { width: 4%; }
+
+  #tablaInstrumentos th:nth-child(7),
+  #tablaInstrumentos td:nth-child(7) { width: 12%; }
+
+  #tablaInstrumentos th:nth-child(8),
+  #tablaInstrumentos td:nth-child(8) { width: 12%; }
+
+  #tablaInstrumentos th:nth-child(9),
+  #tablaInstrumentos td:nth-child(9) { width: 12%; }
+
+  #tablaInstrumentos th:nth-child(10),
+  #tablaInstrumentos td:nth-child(10) { width: 13%; }
+
+  #tablaInstrumentos th:nth-child(11),
+  #tablaInstrumentos td:nth-child(11) { width: 7%; }
+
+  #tablaInstrumentos th:nth-child(12),
+  #tablaInstrumentos td:nth-child(12) { width: 7%; }
+
+  #tablaInstrumentos th:nth-child(13),
+  #tablaInstrumentos td:nth-child(13) { width: 4%; }
+
+  #tablaInstrumentos td:nth-child(13) button {
+    width: 14px;
+    min-width: 14px;
+    font-size: 10px;
+  }
+}
+
+
+/* Tablet: mismo tamaño de fuente que desktop y scroll horizontal para la tabla. */
+@media screen and (min-width: 691px) and (max-width: 900px) {
+  #inputsContainer,
+  #inputsContainer label,
+  #inputsContainer input,
+  #inputsContainer button {
+    font-size: 90% !important;
+  }
+
+  h1 {
+    text-align: left !important;
+    align-self: flex-start;
+  }
+
+  .title-container {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .big-container,
+  #detalle {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  #tablaInstrumentos {
+    box-sizing: border-box !important;
+    width: max-content !important;
+    min-width: 1050px !important;
+    max-width: none !important;
+    table-layout: auto !important;
+    font-size: clamp(8px, 0.72vw, 10px) !important;
+    overflow: visible !important;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    box-sizing: border-box !important;
+    padding: 5px 4px !important;
+    font-size: clamp(8px, 0.72vw, 10px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  #tablaInstrumentos th {
+    font-size: clamp(8px, 0.75vw, 10px) !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+  }
+}
+
+/* Tablet final: legible table with horizontal scrolling (no miniature text). */
+@media screen and (min-width: 691px) and (max-width: 900px) {
+  .big-container {
+    overflow-x: hidden !important;
+  }
+
+  #detalle {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #tablaInstrumentos {
+    width: 1240px !important;
+    min-width: 1240px !important;
+    max-width: none !important;
+    table-layout: fixed !important;
+    font-size: 12px !important;
+    overflow: visible !important;
+  }
+
+  #tablaInstrumentos th,
+  #tablaInstrumentos td {
+    padding: 6px 4px !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  #tablaInstrumentos th {
+    font-size: 12px !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+  }
+}
+
+/* Desktop: mostrar el mismo tilde verde de confirmación que en mobile. */
+@media screen and (min-width: 691px) {
+  .estado-copia-tabla.visible {
+    display: inline-block !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
+    vertical-align: middle;
+  }
+
+  .estado-copia-tabla.visible::after {
+    content: "✓";
+    display: inline-block;
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1;
+    color: #23864b;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  }
+
+  .simulador-cheques .estado-copia-tabla.visible::after {
+    color: #454b91;
+  }
+
+  .simulador-pagares .estado-copia-tabla.visible::after {
+    color: #23864b;
+  }
+}

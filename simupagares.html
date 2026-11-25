@@ -166,16 +166,17 @@
           <thead>
             <tr>
               <th class="ocultoEnCelu ocultarNroItem">#</th>
-              <th>Monto (USD)</th>
+              <th>Monto<br>(USD)</th>
               <th>Fecha</th>
               <th class="ocultoEnCelu">Plazo</th>
               <th>Tasa</th>
               <th>CFTa</th>
               <th class="ocultoEnCelu">Interés ($)</th>
-              <th class="ocultoEnCelu">ALYC y otros ($)</th>
-              <th class="ocultoEnCelu">Comisión SGR ($)</th>
+              <th class="ocultoEnCelu">Alyc<br>y otros</th>
+              <th class="ocultoEnCelu">Comisión SGR</th>
               <th>Neto ($)</th>
-              <th class="ocultoEnCelu">Neto (~ USD)</th>
+              <th class="ocultoEnCelu">Neto<br>(~ USD)</th>
+              <th class="ocultoEnCelu">Tipo de<br>cambio</th>
               <!--  <th class="celda-sin-borde celda-sin-fondo"></th> -->
 
 
@@ -466,6 +467,43 @@
       }
     }, 5000);
 
+    function actualizarTipoCambioMobile() {
+      if (!pagares.length) return;
+
+      const montoTotalUSD = pagares.reduce(
+        (total, pagare) => total + Number(pagare.monto || 0),
+        0,
+      );
+
+      if (!montoTotalUSD) return;
+
+      const tiposCambio = pagares.map(
+        (pagare) => Number(pagare.tipoCambio || 0),
+      );
+
+      const tcPrimero = Math.round(tiposCambio[0] * 100) / 100;
+      const todosIguales = tiposCambio.every(
+        (tc) => Math.round(tc * 100) / 100 === tcPrimero,
+      );
+
+      const tcMostrado = todosIguales
+        ? tcPrimero
+        : pagares.reduce(
+            (total, pagare) =>
+              total + Number(pagare.monto || 0) * Number(pagare.tipoCambio || 0),
+            0,
+          ) / montoTotalUSD;
+
+      const tcFormateado = tcMostrado.toLocaleString("es-AR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+      divTipoDeCambio.textContent = todosIguales
+        ? `Tipo de cambio: $${tcFormateado}`
+        : `TC Promedio Ponderado: $${tcFormateado}`;
+    }
+
     function actualizarTipoCambioEfectivo() {
       const valorManual = tipoDeCambioManual.value.trim();
       const manualValido = valorManual !== "" &&
@@ -485,6 +523,8 @@
       } else {
         divTipoDeCambio.textContent = "Tipo de cambio pendiente";
       }
+
+      actualizarTipoCambioMobile();
 
       return tipoCambio;
     }
@@ -1691,6 +1731,7 @@
         gastosCVyAlyc,
         descuentoSGR,
         neto,
+        tipoCambio,
       });
     }
 
@@ -1837,9 +1878,16 @@
                 </td>
 
                 <td class="ocultoEnCelu">
-                  ${tipoCambio > 0
-                    ? Math.round(pagare.neto / tipoCambio).toLocaleString("es-AR")
+                  ${pagare.tipoCambio > 0
+                    ? Math.round(pagare.neto / pagare.tipoCambio).toLocaleString("es-AR")
                     : "—"}
+                </td>
+
+                <td class="ocultoEnCelu">
+                  ${Number(pagare.tipoCambio).toLocaleString("es-AR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
 
                 <td
@@ -1897,11 +1945,26 @@
             );
           };
 
+        actualizarTipoCambioMobile();
+
         let sumaNetosEquivUSD =
           Math.round(
-            sumaNetos /
-            tipoCambio,
+            pagares.reduce(
+              (acumulado, pagare) =>
+                acumulado +
+                (pagare.tipoCambio > 0
+                  ? pagare.neto / pagare.tipoCambio
+                  : 0),
+              0,
+            ),
           );
+
+        const tnaPromedioPonderada =
+          pagares.reduce(
+            (suma, pagare) =>
+              suma + Number(pagare.monto) * Number(pagare.tasa),
+            0,
+          ) / sumaMontos;
 
         resumenOperacion.innerHTML = `
             <table class="resumenTabla centrar">
@@ -1936,6 +1999,19 @@
                   ${Math.round(
           plazoPromedio(),
         )} días
+                </td>
+              </tr>
+
+              <tr>
+                <td class="resParrafo">
+                  TNA promedio ponderada:
+                </td>
+
+                <td class="resParrafo">
+                  ${tnaPromedioPonderada.toLocaleString("es-AR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}%
                 </td>
               </tr>
 

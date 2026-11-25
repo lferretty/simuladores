@@ -707,6 +707,13 @@
           return sumaPlazos / cheques.length;
         };
 
+        const tnaPromedioPonderada =
+          cheques.reduce(
+            (suma, cheque) =>
+              suma + Number(cheque.monto) * Number(cheque.tasa),
+            0,
+          ) / sumaMontos;
+
         resumenOperacion.innerHTML = `
             <table class="resumenTabla centrar">
               <tr>
@@ -736,6 +743,19 @@
 
                 <td class="resParrafo">
                   ${Math.round(plazoPromedio())} días
+                </td>
+              </tr>
+
+              <tr>
+                <td class="resParrafo">
+                  TNA promedio ponderada:
+                </td>
+
+                <td class="resParrafo">
+                  ${tnaPromedioPonderada.toLocaleString("es-AR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}%
                 </td>
               </tr>
 
